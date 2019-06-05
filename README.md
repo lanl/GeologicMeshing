@@ -2,7 +2,7 @@
 
 ## Meshing for Geologic Applications
 
- [See our Meshing Web Page at ](https://meshing.lanl.gov/)
+ [See our Meshing Web Page at meshing.lanl.gov ](https://meshing.lanl.gov/)
 
 
  Our meshing projects represent a wide variety of geological applications where accurate representation of complex engineering systems and geologic structure and stratigraphy is critical to producing accurate numerical models of fluid flow and mass transport. Oil and gas reservoir production, groundwater resource development and waste disposal in a geologic repository are examples of the areas where modeling is used to predict the long term behavior of a system. In all the systems, mesh generation is a key link between the geoscientific information systems and numerical models. The mesh must capture complex geometry and insure the computationals are optimized to produce accurate and stable solutions.
