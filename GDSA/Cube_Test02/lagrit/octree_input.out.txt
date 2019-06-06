@@ -1,0 +1,1424 @@
+ 
+ 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+*               *                                             *                 
+*               *    Program:  LaGriT V3.320   Linux          *                 
+*               *    date_compile: 2019/04/15 Static          *                 
+*               *    Run Time: 2019/Jun  4  11:44:03          *                 
+*               *    Manual:   http://lagrit.lanl.gov         *                 
+*               *                                             *                 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+ 
+                               -----oOo-----                                    
+             LaGriT V3 LA-CC-15-069  https://github.com/lanl/LaGriT             
+  Copyright 2016. Triad National Security, LLC.  All rights reserved. This      
+  program was produced under U.S. Government contract 89233218CNA000001         
+  for Los Alamos National Laboratory (LANL), which is operated by Triad         
+  National Security, LLC for the U.S. Department of Energy/National Nuclear     
+  Security Administration.  All rights in the program are reserved by Triad     
+  National Security, LLC, and the U.S. Department of Energy/National Nuclear    
+  Security Administration. The Government is granted for itself and others      
+  acting on its behalf a nonexclusive, paid-up, irrevocable worldwide license   
+  in this material to reproduce, prepare derivative works, distribute copies    
+  to the public, perform publicly and display publicly, and to permit others to 
+  do so. This software is open source and available under the BSD-3 License.    
+                               -----oOo-----                                    
+ 
+ 
+Output log file: lagrit.out                                                     
+Command log file: lagrit.log                                                    
+ 
+*--* Create a hex mesh                                                          
+*--* Octree refine hex mesh where it is intersected by the surface meshes       
+*--* Connect/noadd octree nodes into a tet mesh                                 
+*--* Color nodes of tet mesh based on geometry of defined by surfaces           
+*--* Connect octree nodes into a tet mesh                                       
+*--*----------------------------------------------------                        
+**                                                                              
+*  USER DEFINED are places where USER needs to modify for current mesh          
+**                                                                              
+*  input.lgi                                                                    
+*      octree_hex_mesh.mlgi define extents and resolution of mesh               
+*      octree_surf_interfaces.mlgi                                              
+*      octree_ref_object.mlgi                                                   
+*                                                                               
+*========================================================================       
+*                                                                               
+* Create background hex mesh and set extents                                    
+define CMO_HEX cmo_1                                                            
+* USER DEFINE the mesh extents (may differ from GFM)                            
+define XMIN 0.                                                                  
+define YMIN 0.                                                                  
+define XMAX 20.                                                                 
+define YMAX 20.                                                                 
+# add extents equal to 13 same as Test 1                                        
+# put feature in middle away from top and bot                                   
+define ZMAX 1.                                                                  
+define ZMIN -11.                                                                
+define NX 21                                                                    
+define NY 21                                                                    
+define NZ 13                                                                    
+infile octree_hex_mesh.mlgi                                                     
+cmo/create/CMO_HEX///hex                                                        
+createpts/brick/xyz/NX NY NZ/XMIN YMIN ZMIN XMAX YMAX ZMAX/1 1 1                
+          Number of nodes:        5733                                          
+          Number of elements:        4800                                       
+          Number of negative volume elements:           0                       
+          Total volume:     0.480000000000E+04                                  
+cmo/setatt/CMO_HEX/itetclr 1                                                    
+      4800 values reset for attribute itetclr                                   
+ 
+cmo/setatt/CMO_HEX/imt 1                                                        
+      5733 values reset for attribute imt1                                      
+ 
+resetpts/itp                                                                    
+geniee                                                                          
+finish                                                                          
+cmo/printatt/CMO_HEX/-xyz- minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01      5733  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01      5733  
+ zic               -1.100000000E+01  1.000000000E+00 1.200000000E+01      5733  
+ 
+finish                                                                          
+dump/gmv/hex_L0.gmv/CMO_HEX                                                     
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+*                                                                               
+* extract inside surfaces for hex refinement                                    
+*                                                                               
+define CMO_OBJ/cmo_2                                                            
+* USER DEFINE the GFM mesh                                                      
+define GFM_MESH tet_gfm.inp                                                     
+* USER DEFINE the GFM parameters                                                
+define GFM_TOP 0.                                                               
+define GFM_BOT -10.                                                             
+define GFM_MAXMAT 3                                                             
+infile octree_surf_interfaces.mlgi                                              
+# extract internal interfaces                                                   
+read GFM_MESH tmp_tet                                                           
+read/avs/tet_gfm.inp/tmp_tet                                                    
+geniee                                                                          
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: tmp_tet                                        
+ 
+  1 Mesh Object name: cmo_1                                                     
+    number of nodes =          5733        number of elements =         4800    
+    dimensions geometry =         3        element type =                hex    
+    dimensions topology =         3        8 nodes      6 faces     12 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  2 Mesh Object name: tmp_tet                                                   
+    number of nodes =           917        number of elements =         4037    
+    dimensions geometry =         3        element type =                tet    
+    dimensions topology =         3        4 nodes      4 faces      6 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+finish                                                                          
+# ------------------------------                                                
+# Extract surface with internal boundaries                                      
+cmo select tmp_tet                                                              
+extract/surfmesh/1,0,0/motmp/tmp_tet                                            
+cmo/addatt/motmp/itetclr0/vint/scalar/nelements////0                            
+finish                                                                          
+cmo/addatt/motmp/itetclr1/vint/scalar/nelements////0                            
+finish                                                                          
+cmo/addatt/motmp/idnode0/vint/scalar/nnodes////0                                
+finish                                                                          
+cmo/addatt/motmp/idelem0/vint/scalar/nelements////0                             
+finish                                                                          
+cmo/addatt/motmp/idelem1/vint/scalar/nelements////0                             
+finish                                                                          
+cmo/addatt/motmp/facecol/vint/scalar/nelements////0                             
+finish                                                                          
+cmo/addatt/motmp/idface0/vint/scalar/nelements////0                             
+finish                                                                          
+cmo/addatt/motmp/idface1/vint/scalar/nelements////0                             
+finish                                                                          
+cmo/addatt/motmp/ncon50/int/scalar/scalar/constant/permanent/x/0                
+finish                                                                          
+cmo/addatt/motmp/nconbnd/int/scalar/scalar/constant/permanent/x/0               
+finish                                                                          
+cmo/addatt/motmp/icontab/vint/scalar/ncon50/constant/permanent/x/0              
+finish                                                                          
+resetpts/itp                                                                    
+geniee                                                                          
+ geniee: mesh has                    73  jtet loops, max cycle length=          
+                                                                               3
+finish                                                                          
+finish                                                                          
+cmo/delete/tmp_tet                                                              
+     Released Mesh Object: tmp_tet                                              
+cmo/copyatt/motmp motmp/itetclr/itetclr1                                        
+      1231 copied from motmp itetclr1 to -> motmp itetclr                       
+ 
+# remove duplicate nodes                                                        
+filter 1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:           0                                    
+rmpoint compress                                                                
+         0 points removed and          0 elements removed.                      
+RMPOINT: new point count is         5733                                        
+RMPOINT: new element count is       4800                                        
+cmo setatt motmp itetclr 1                                                      
+      1231 values reset for attribute itetclr                                   
+ 
+cmo setatt motmp imt 1                                                          
+       583 values reset for attribute imt1                                      
+ 
+resetpts itp                                                                    
+geniee                                                                          
+finish                                                                          
+# full surfmesh with internal layers                                            
+dump stl surfmesh_all.stl motmp                                                 
+ topo dimensions:                    2                                          
+ geom dimensions:                    3                                          
+ nodes per element:                    3                                        
+dump surfmesh_all.gmv motmp                                                     
+dump/gmv/surfmesh_all.gmv/motmp                                                 
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+dump surfmesh_all.inp motmp                                                     
+dump/avs/surfmesh_all.inp/motmp                                                 
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+# remove sides and leave inside                                                 
+cmo/select/motmp                                                                
+settets/normal                                                                  
+assign_color_normal epsilon for zero:   1.0000000E-15                           
+      1015 out of       1231 element colors changed.                            
+ 
+eltset/edel/itetclr gt 2                                                        
+ 
+ THE ELTSET edel                             HAS        444 ELEMENTS            
+rmpoint element eltset,get,edel                                                 
+ Dudded        120 points plus parents, and         444 elements removed.       
+rmpoint compress                                                                
+       120 points removed and          0 elements removed.                      
+RMPOINT: new point count is          463                                        
+RMPOINT: new element count is        787                                        
+pset/pz1/attribute zic/1,0,0/le GFM_BOT                                         
+ 
+ THE PSET  pz1  HAS        129 POINTS                                           
+pset/pz2/attribute zic/1,0,0/ge GFM_TOP                                         
+ 
+ THE PSET  pz2  HAS        129 POINTS                                           
+pset/pdel/union/pz1 pz2                                                         
+ 
+ THE PSET  pdel  HAS        258 POINTS                                          
+rmpoint pset,get,pdel                                                           
+ Dudded        258 points plus parents, plus         432 elements removed.      
+rmpoint compress                                                                
+       258 points removed and          0 elements removed.                      
+RMPOINT: new point count is          205                                        
+RMPOINT: new element count is        355                                        
+dump surfmesh_intrf.gmv motmp                                                   
+dump/gmv/surfmesh_intrf.gmv/motmp                                               
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+dump surfmesh_intrf.inp motmp                                                   
+dump/avs/surfmesh_intrf.inp/motmp                                               
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+cmo copy CMO_OBJ motmp                                                          
+cmo/delete/motmp                                                                
+     Released Mesh Object: motmp                                                
+cmo/printatt/CMO_OBJ/-xyz- minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ zic               -7.439300000E+00 -1.641000000E+00 5.798300000E+00       205  
+ 
+finish                                                                          
+cmo/setatt//ipolydat/no                                                         
+         1 values reset for attribute ipolydat                                  
+ 
+*                                                                               
+*========================================================================       
+*                                                                               
+* Refine the hex mesh using octree refinement. In this example                  
+* the elements that are refined are determined by intersecting the              
+* intrface surfaces with the hex mesh.                                          
+*                                                                               
+* If you enter LEVEL = N, refine (itetlev) will go to N+1                       
+*                                                                               
+* L0 - Level 0, base mesh                                                       
+* L1 - Level 1, refine base mesh once                                           
+* L2 - Level 2, refine base mesh twice                                          
+* etc.                                                                          
+*                                                                               
+*========================================================================       
+*                                                                               
+* Three new integer element attributes will be created as part of the           
+* book keeping for the octree mesh data structure.                              
+*                                                                               
+* When elements are refined                                                     
+* the original element (parent) is not removed when eight child elements        
+* are created. For example, if you have a single hex and refine it, you         
+* will then have 9 elements, 1 itetlev=N element and 8 children of the          
+* original perent element refined to itetlev = N+1.                             
+*                                                                               
+* itetlev = level of refinement                                                 
+*         = 0 not refined                                                       
+*         = 1 refined once                                                      
+*         = 2 refined twice                                                     
+*           etc.                                                                
+*                                                                               
+* itetpar = pointer to parent element                                           
+*           Each refined element contains an integer pointer to the             
+*           element number of the element that was refined to create it.        
+*                                                                               
+* itetkid = pointer to first of 8 child (kid) elements created by refinement    
+*           of parent element.                                                  
+*                                                                               
+*========================================================================       
+*                                                                               
+* USER DEFINE the level of refinement                                           
+define/CMO_OBJ/cmo_2                                                            
+define/LEVEL/2                                                                  
+define/LOOP_MAX/3                                                               
+define/ATT_NAME_E/in_obj                                                        
+*                                                                               
+* Refine to octree itetlev= 2 elements that are intersected by cmo_2            
+*                                                                               
+loop/do/LOOP_VAR 1 LOOP_MAX 1/loop_end infile octree_ref_object.mlgi            
+LOOP: loop nesting level =     1                                                
+define/LOOP_VAR/1                                                               
+finish                                                                          
+infile octree_ref_object.mlgi                                                   
+****************************************                                        
+*                                                                               
+* Refine based on intersection with object                                      
+*                                                                               
+****************************************                                        
+* External definitions                                                          
+*                                                                               
+* CMO_HEX - Mesh object to be intersected                                       
+* CMO_OBJ - Mesh object that intersects CMO_HEX                                 
+* LEVEL - refine level 0, 1, 2, 3, ...                                          
+*                                                                               
+****************************************                                        
+*                                                                               
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+ERROR: MO DOES NOT EXIST: CMO_SINK                                              
+ ERROR CMO: printatt  CMO_SINK      1                                           
+ 
+error in command : cmo/printatt/CMO_SINK/-xyz-/minmax                           
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ zic               -7.439300000E+00 -1.641000000E+00 5.798300000E+00       205  
+ 
+*                                                                               
+*                                                                               
+* Refine elements that are intersected by CMO_OBJ                               
+*                                                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+ cannot attribute in_obj in cmo_1                                               
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/build                                                                    
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+cmo/addatt/cmo_1/in_obj/VINT/scalar/nelements/linear/permanent//0/              
+finish                                                                          
+ 
+         Element    Elems Searched  Elements Found  Percent Done                
+             90             2110            380       25 %                      
+            179             4059            191       50 %                      
+            268             6144             97       75 %                      
+            355             8193            700    Total Done                   
+ 
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/release                                                                  
+cmo/DELATT/cmo_1/sbox                                                           
+finish                                                                          
+cmo/DELATT/cmo_1/v12                                                            
+finish                                                                          
+cmo/DELATT/cmo_1/linkt                                                          
+finish                                                                          
+cmo/DELATT/cmo_1/v2                                                             
+finish                                                                          
+finish                                                                          
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+ 
+ THE ELTSET e_obj                            HAS        700 ELEMENTS            
+*                                                                               
+* Add this just in case. If it already exists, nothing                          
+* will happen. If it does not exist, it gets added and set                      
+* to zero.                                                                      
+*                                                                               
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+*                                                                               
+eltset/elev/itetlev/le/LEVEL                                                    
+ 
+ THE ELTSET elev                             HAS       4800 ELEMENTS            
+eltset/e_refine/inter/elev e_obj                                                
+ 
+ THE ELTSET e_refine                         HAS        700 ELEMENTS            
+*                                                                               
+refine/eltset/eltset,get,e_refine                                               
+pset/refine_eltset_pset_tmp_abc_xyz/eltset/e_refine/                            
+ 
+ THE PSET  refine_eltset_pset_tmp_abc_xyz  HAS       1491 POINTS                
+finish                                                                          
+refine/constant/imt1/linear/element/pset,get,refine_eltset_pset_tmp_abc_xyz/-1.,
+0.,0./exclusive/                                                                
+refine elements:                                                                
+refine hex     :        760                                                     
+cmo/addatt/cmo_1/itetpar/VINT/scalar/nelements/linear/permanent//0.0            
+finish                                                                          
+cmo/addatt/cmo_1/itetkid/VINT/scalar/nelements/linear/permanent//0.0            
+finish                                                                          
+Element iteration:          1       760                                         
+Octree refined elems: old=      4800 new=     10880                             
+FILTER_SUBSET:Dudding duplicate points:        7034                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:           0                                    
+geniee                                                                          
+finish                                                                          
+finish                                                                          
+pset/refine_eltset_pset_tmp_abc_xyz/delete/                                     
+ 
+ PSET refine_e DELETED                                                          
+ 
+finish                                                                          
+rmpoint/compress                                                                
+      7034 points removed and          0 elements removed.                      
+RMPOINT: new point count is        13139                                        
+RMPOINT: new element count is      10880                                        
+quality/volume/10                                                               
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1250E+00 and  0.1539E+00:      6080                      
+element volumes b/w  0.1539E+00 and  0.1895E+00:         0                      
+element volumes b/w  0.1895E+00 and  0.2333E+00:         0                      
+element volumes b/w  0.2333E+00 and  0.2872E+00:         0                      
+element volumes b/w  0.2872E+00 and  0.3536E+00:         0                      
+element volumes b/w  0.3536E+00 and  0.4353E+00:         0                      
+element volumes b/w  0.4353E+00 and  0.5359E+00:         0                      
+element volumes b/w  0.5359E+00 and  0.6598E+00:         0                      
+element volumes b/w  0.6598E+00 and  0.8123E+00:         0                      
+element volumes b/w  0.8123E+00 and  0.1000E+01:      4800                      
+min volume =   1.2500000E-01  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+     10880 total elements evaluated.                                            
+ 
+eltset/e_obj/delete                                                             
+ 
+ ELTSET e_obj                            DELETED                                
+ 
+eltset/e_refine/delete                                                          
+ 
+ ELTSET e_refine                         DELETED                                
+ 
+****************************************                                        
+cmo/select/CMO_HEX                                                              
+*                                                                               
+finish                                                                          
+finish                                                                          
+define/LOOP_VAR/2                                                               
+finish                                                                          
+infile octree_ref_object.mlgi                                                   
+****************************************                                        
+*                                                                               
+* Refine based on intersection with object                                      
+*                                                                               
+****************************************                                        
+* External definitions                                                          
+*                                                                               
+* CMO_HEX - Mesh object to be intersected                                       
+* CMO_OBJ - Mesh object that intersects CMO_HEX                                 
+* LEVEL - refine level 0, 1, 2, 3, ...                                          
+*                                                                               
+****************************************                                        
+*                                                                               
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+ERROR: MO DOES NOT EXIST: CMO_SINK                                              
+ ERROR CMO: printatt  CMO_SINK      1                                           
+ 
+error in command : cmo/printatt/CMO_SINK/-xyz-/minmax                           
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ zic               -7.439300000E+00 -1.641000000E+00 5.798300000E+00       205  
+ 
+*                                                                               
+*                                                                               
+* Refine elements that are intersected by CMO_OBJ                               
+*                                                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+     10880 values reset for attribute in_obj                                    
+ 
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/build                                                                    
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+intersect_elements using previously defined attribute: in_obj                   
+ 
+         Element    Elems Searched  Elements Found  Percent Done                
+             19             1310            295        5 %                      
+             37             2589            253       10 %                      
+             55             3706            211       15 %                      
+             73             5349            212       20 %                      
+             91             6962            195       25 %                      
+            109             8443            182       30 %                      
+            127             9748            170       35 %                      
+            145            10970            150       40 %                      
+            163            12099            127       45 %                      
+            181            13572            151       50 %                      
+            199            15153            113       55 %                      
+            217            16521            141       60 %                      
+            235            18090            147       65 %                      
+            253            19511            133       70 %                      
+            271            20753             83       75 %                      
+            289            22219             94       80 %                      
+            307            23730             80       85 %                      
+            325            25194             74       90 %                      
+            343            26658             43       95 %                      
+            355            27412           2880    Total Done                   
+ 
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/release                                                                  
+cmo/DELATT/cmo_1/sbox                                                           
+finish                                                                          
+cmo/DELATT/cmo_1/v12                                                            
+finish                                                                          
+cmo/DELATT/cmo_1/linkt                                                          
+finish                                                                          
+cmo/DELATT/cmo_1/v2                                                             
+finish                                                                          
+finish                                                                          
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+ 
+ THE ELTSET e_obj                            HAS       2880 ELEMENTS            
+*                                                                               
+* Add this just in case. If it already exists, nothing                          
+* will happen. If it does not exist, it gets added and set                      
+* to zero.                                                                      
+*                                                                               
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+CMO_ADDATT warning: attribute already exist: cmo_1  itetlev                     
+*                                                                               
+eltset/elev/itetlev/le/LEVEL                                                    
+ 
+ THE ELTSET elev                             HAS      10880 ELEMENTS            
+eltset/e_refine/inter/elev e_obj                                                
+ 
+ THE ELTSET e_refine                         HAS       2880 ELEMENTS            
+*                                                                               
+refine/eltset/eltset,get,e_refine                                               
+pset/refine_eltset_pset_tmp_abc_xyz/eltset/e_refine/                            
+ 
+ THE PSET  refine_eltset_pset_tmp_abc_xyz  HAS       5863 POINTS                
+finish                                                                          
+refine/constant/imt1/linear/element/pset,get,refine_eltset_pset_tmp_abc_xyz/-1.,
+0.,0./exclusive/                                                                
+refine elements:                                                                
+refine hex     :       3000                                                     
+Element iteration:          1      2920                                         
+Octree refined elems: old=     10880 new=     34240                             
+FILTER_SUBSET:Dudding duplicate points:       26432                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:           0                                    
+geniee                                                                          
+finish                                                                          
+Element iteration:          1       500                                         
+Octree refined elems: old=     34240 new=     38240                             
+FILTER_SUBSET:Dudding duplicate points:        5825                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:         100                                    
+geniee                                                                          
+finish                                                                          
+finish                                                                          
+pset/refine_eltset_pset_tmp_abc_xyz/delete/                                     
+ 
+ PSET refine_e DELETED                                                          
+ 
+finish                                                                          
+rmpoint/compress                                                                
+     32357 points removed and          0 elements removed.                      
+RMPOINT: new point count is        45762                                        
+RMPOINT: new element count is      38240                                        
+quality/volume/10                                                               
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1562E-01 and  0.2368E-01:     23360                      
+element volumes b/w  0.2368E-01 and  0.3590E-01:         0                      
+element volumes b/w  0.3590E-01 and  0.5441E-01:         0                      
+element volumes b/w  0.5441E-01 and  0.8247E-01:         0                      
+element volumes b/w  0.8247E-01 and  0.1250E+00:         0                      
+element volumes b/w  0.1250E+00 and  0.1895E+00:     10080                      
+element volumes b/w  0.1895E+00 and  0.2872E+00:         0                      
+element volumes b/w  0.2872E+00 and  0.4353E+00:         0                      
+element volumes b/w  0.4353E+00 and  0.6598E+00:         0                      
+element volumes b/w  0.6598E+00 and  0.1000E+01:      4800                      
+min volume =   1.5625000E-02  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+     38240 total elements evaluated.                                            
+ 
+eltset/e_obj/delete                                                             
+ 
+ ELTSET e_obj                            DELETED                                
+ 
+eltset/e_refine/delete                                                          
+ 
+ ELTSET e_refine                         DELETED                                
+ 
+****************************************                                        
+cmo/select/CMO_HEX                                                              
+*                                                                               
+finish                                                                          
+finish                                                                          
+define/LOOP_VAR/3                                                               
+finish                                                                          
+infile octree_ref_object.mlgi                                                   
+****************************************                                        
+*                                                                               
+* Refine based on intersection with object                                      
+*                                                                               
+****************************************                                        
+* External definitions                                                          
+*                                                                               
+* CMO_HEX - Mesh object to be intersected                                       
+* CMO_OBJ - Mesh object that intersects CMO_HEX                                 
+* LEVEL - refine level 0, 1, 2, 3, ...                                          
+*                                                                               
+****************************************                                        
+*                                                                               
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+ERROR: MO DOES NOT EXIST: CMO_SINK                                              
+ ERROR CMO: printatt  CMO_SINK      1                                           
+ 
+error in command : cmo/printatt/CMO_SINK/-xyz-/minmax                           
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01       205  
+ zic               -7.439300000E+00 -1.641000000E+00 5.798300000E+00       205  
+ 
+*                                                                               
+*                                                                               
+* Refine elements that are intersected by CMO_OBJ                               
+*                                                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+     38240 values reset for attribute in_obj                                    
+ 
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/build                                                                    
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+intersect_elements using previously defined attribute: in_obj                   
+ 
+         Element    Elems Searched  Elements Found  Percent Done                
+             19             4133            906        5 %                      
+             37             8620            793       10 %                      
+             55            11974            703       15 %                      
+             73            16644            720       20 %                      
+             91            21019            696       25 %                      
+            109            25488            688       30 %                      
+            127            29666            660       35 %                      
+            145            33014            576       40 %                      
+            163            36644            556       45 %                      
+            181            41147            582       50 %                      
+            199            46324            577       55 %                      
+            217            50936            592       60 %                      
+            235            56428            620       65 %                      
+            253            61547            605       70 %                      
+            271            65439            468       75 %                      
+            289            69974            488       80 %                      
+            307            75169            480       85 %                      
+            325            79973            428       90 %                      
+            343            84732            333       95 %                      
+            355            86701          11680    Total Done                   
+ 
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/release                                                                  
+cmo/DELATT/cmo_1/sbox                                                           
+finish                                                                          
+cmo/DELATT/cmo_1/v12                                                            
+finish                                                                          
+cmo/DELATT/cmo_1/linkt                                                          
+finish                                                                          
+cmo/DELATT/cmo_1/v2                                                             
+finish                                                                          
+finish                                                                          
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+ 
+ THE ELTSET e_obj                            HAS      11680 ELEMENTS            
+*                                                                               
+* Add this just in case. If it already exists, nothing                          
+* will happen. If it does not exist, it gets added and set                      
+* to zero.                                                                      
+*                                                                               
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+CMO_ADDATT warning: attribute already exist: cmo_1  itetlev                     
+*                                                                               
+eltset/elev/itetlev/le/LEVEL                                                    
+ 
+ THE ELTSET elev                             HAS      38240 ELEMENTS            
+eltset/e_refine/inter/elev e_obj                                                
+ 
+ THE ELTSET e_refine                         HAS      11680 ELEMENTS            
+*                                                                               
+refine/eltset/eltset,get,e_refine                                               
+pset/refine_eltset_pset_tmp_abc_xyz/eltset/e_refine/                            
+ 
+ THE PSET  refine_eltset_pset_tmp_abc_xyz  HAS      23571 POINTS                
+finish                                                                          
+refine/constant/imt1/linear/element/pset,get,refine_eltset_pset_tmp_abc_xyz/-1.,
+0.,0./exclusive/                                                                
+refine elements:                                                                
+refine hex     :      11800                                                     
+Element iteration:          1     11760                                         
+Octree refined elems: old=     38240 new=    132320                             
+FILTER_SUBSET:Dudding duplicate points:      106136                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:           0                                    
+geniee                                                                          
+finish                                                                          
+Element iteration:          1      2320                                         
+Octree refined elems: old=    132320 new=    150880                             
+FILTER_SUBSET:Dudding duplicate points:       27185                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:         360                                    
+geniee                                                                          
+finish                                                                          
+Element iteration:          1       340                                         
+Octree refined elems: old=    150880 new=    153600                             
+FILTER_SUBSET:Dudding duplicate points:        3887                             
+ 
+filter/1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:          20                                    
+geniee                                                                          
+finish                                                                          
+finish                                                                          
+pset/refine_eltset_pset_tmp_abc_xyz/delete/                                     
+ 
+ PSET refine_e DELETED                                                          
+ 
+finish                                                                          
+rmpoint/compress                                                                
+    137588 points removed and          0 elements removed.                      
+RMPOINT: new point count is       182154                                        
+RMPOINT: new element count is     153600                                        
+quality/volume/10                                                               
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1953E-02 and  0.3645E-02:     94080                      
+element volumes b/w  0.3645E-02 and  0.6801E-02:         0                      
+element volumes b/w  0.6801E-02 and  0.1269E-01:         0                      
+element volumes b/w  0.1269E-01 and  0.2368E-01:     41920                      
+element volumes b/w  0.2368E-01 and  0.4419E-01:         0                      
+element volumes b/w  0.4419E-01 and  0.8247E-01:         0                      
+element volumes b/w  0.8247E-01 and  0.1539E+00:     12800                      
+element volumes b/w  0.1539E+00 and  0.2872E+00:         0                      
+element volumes b/w  0.2872E+00 and  0.5359E+00:         0                      
+element volumes b/w  0.5359E+00 and  0.1000E+01:      4800                      
+min volume =   1.9531250E-03  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+    153600 total elements evaluated.                                            
+ 
+eltset/e_obj/delete                                                             
+ 
+ ELTSET e_obj                            DELETED                                
+ 
+eltset/e_refine/delete                                                          
+ 
+ ELTSET e_refine                         DELETED                                
+ 
+****************************************                                        
+cmo/select/CMO_HEX                                                              
+*                                                                               
+finish                                                                          
+finish                                                                          
+define/LOOP_VAR/remove                                                          
+finish                                                                          
+intersect_elements/CMO_HEX/CMO_OBJ/in_obj                                       
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/build                                                                    
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+intersect_elements using previously defined attribute: in_obj                   
+ 
+         Element    Elems Searched  Elements Found  Percent Done                
+             19            16010           3100        5 %                      
+             37            32226           2785       10 %                      
+             55            44801           2527       15 %                      
+             73            60525           2635       20 %                      
+             91            75376           2587       25 %                      
+            109            90817           2551       30 %                      
+            127           106619           2531       35 %                      
+            145           118576           2234       40 %                      
+            163           132493           2289       45 %                      
+            181           148864           2373       50 %                      
+            199           167023           2492       55 %                      
+            217           183928           2395       60 %                      
+            235           203163           2475       65 %                      
+            253           221840           2447       70 %                      
+            271           236261           2112       75 %                      
+            289           253182           2200       80 %                      
+            307           271629           2278       85 %                      
+            325           287919           1980       90 %                      
+            343           304221           1796       95 %                      
+            355           311170          46888    Total Done                   
+ 
+cmo/select/cmo_1                                                                
+finish                                                                          
+kdtree/release                                                                  
+cmo/DELATT/cmo_1/sbox                                                           
+finish                                                                          
+cmo/DELATT/cmo_1/v12                                                            
+finish                                                                          
+cmo/DELATT/cmo_1/linkt                                                          
+finish                                                                          
+cmo/DELATT/cmo_1/v2                                                             
+finish                                                                          
+finish                                                                          
+cmo/setatt//ipolydat/no                                                         
+         1 values reset for attribute ipolydat                                  
+ 
+dump/gmv/hex_L3_obj1.gmv/CMO_HEX                                                
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+quality                                                                         
+ 
+epsilonl, epsilonaspect:   6.8222279E-12  3.1752554E-34                         
+--------------------------------------------                                    
+elements with aspect ratio < .01:                    0                          
+elements with aspect ratio b/w .01 and .02:          0                          
+elements with aspect ratio b/w .02 and .05:          0                          
+elements with aspect ratio b/w .05 and .1 :          0                          
+elements with aspect ratio b/w .1  and .2 :          0                          
+elements with aspect ratio b/w .2  and .5 :          0                          
+elements with aspect ratio b/w .5  and 1. :     153600                          
+min aspect ratio =  0.1000E+01  max aspect ratio =  0.1000E+01                  
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1953E-02 and  0.6801E-02:     94080                      
+element volumes b/w  0.6801E-02 and  0.2368E-01:     41920                      
+element volumes b/w  0.2368E-01 and  0.8247E-01:         0                      
+element volumes b/w  0.8247E-01 and  0.2872E+00:     12800                      
+element volumes b/w  0.2872E+00 and  0.1000E+01:      4800                      
+min volume =   1.9531250E-03  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+    153600 total elements evaluated.                                            
+ 
+*                                                                               
+* Now convert the hex mesh from an octree data structrue to                     
+* a hex mesh without overlapping elements.                                      
+*                                                                               
+* In effect this removes all parent elements. After this step, one              
+* cannot continue to treat this as an octree mesh within LaGriT however,        
+* graphics packages (other than GMV) will allow you to view the mesh            
+* without the appearance of overlapping elements.                               
+*                                                                               
+define CMO_HEX2 mo_hex                                                          
+grid2grid/tree_to_fe/CMO_HEX2/CMO_HEX                                           
+cmo/copy/mo_hex/cmo_1                                                           
+finish                                                                          
+eltset/-parentset-/itetkid/gt/0                                                 
+ 
+ THE ELTSET -parentset-                      HAS      18600 ELEMENTS            
+finish                                                                          
+rmpoint/element/eltset,get,-parentset-                                          
+ Dudded          0 points plus parents, and       18600 elements removed.       
+finish                                                                          
+rmpoint/compress                                                                
+         0 points removed and          0 elements removed.                      
+RMPOINT: new point count is       182154                                        
+RMPOINT: new element count is     135000                                        
+finish                                                                          
+resetpts/itp                                                                    
+geniee                                                                          
+finish                                                                          
+finish                                                                          
+eltset/-parentset-/delete                                                       
+ 
+ ELTSET -parentset-                      DELETED                                
+ 
+finish                                                                          
+quality                                                                         
+ 
+epsilonl, epsilonaspect:   6.8222279E-12  3.1752554E-34                         
+--------------------------------------------                                    
+elements with aspect ratio < .01:                    0                          
+elements with aspect ratio b/w .01 and .02:          0                          
+elements with aspect ratio b/w .02 and .05:          0                          
+elements with aspect ratio b/w .05 and .1 :          0                          
+elements with aspect ratio b/w .1  and .2 :          0                          
+elements with aspect ratio b/w .2  and .5 :          0                          
+elements with aspect ratio b/w .5  and 1. :     135000                          
+min aspect ratio =  0.1000E+01  max aspect ratio =  0.1000E+01                  
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1953E-02 and  0.6801E-02:     94080                      
+element volumes b/w  0.6801E-02 and  0.2368E-01:     30160                      
+element volumes b/w  0.2368E-01 and  0.8247E-01:         0                      
+element volumes b/w  0.8247E-01 and  0.2872E+00:      7560                      
+element volumes b/w  0.2872E+00 and  0.1000E+01:      3200                      
+min volume =   1.9531250E-03  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+    135000 total elements evaluated.                                            
+ 
+finish                                                                          
+filter 1,0,0                                                                    
+FILTER:Use internal epsilonl value =   0.682222789183E-11                       
+FILTER:Dudding duplicate points:           0                                    
+rmpoint compress                                                                
+         0 points removed and          0 elements removed.                      
+RMPOINT: new point count is       182154                                        
+RMPOINT: new element count is     135000                                        
+* color by the input GFM                                                        
+read tet_gfm.inp mo_src                                                         
+read/avs/tet_gfm.inp/mo_src                                                     
+geniee                                                                          
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: mo_src                                         
+ 
+  1 Mesh Object name: cmo_1                                                     
+    number of nodes =        182154        number of elements =       153600    
+    dimensions geometry =         3        element type =                hex    
+    dimensions topology =         3        8 nodes      6 faces     12 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  2 Mesh Object name: cmo_2                                                     
+    number of nodes =           205        number of elements =          355    
+    dimensions geometry =         3        element type =                tri    
+    dimensions topology =         2        3 nodes      3 faces      3 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  3 Mesh Object name: mo_hex                                                    
+    number of nodes =        182154        number of elements =       135000    
+    dimensions geometry =         3        element type =                hex    
+    dimensions topology =         3        8 nodes      6 faces     12 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  4 Mesh Object name: mo_src                                                    
+    number of nodes =           917        number of elements =         4037    
+    dimensions geometry =         3        element type =                tet    
+    dimensions topology =         3        4 nodes      4 faces      6 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+finish                                                                          
+cmo/printatt/mo_src/itetclr minmax                                              
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ itetclr                          1                3               2      4037  
+ 
+interpolate/map/CMO_HEX2 itetclr/1,0,0/mo_src itetclr                           
+elements in indexed set  =     135000                                           
+ 
+INTRP METHOD:        map   FUNCTION:       user                                 
+      TIEBREAKER:     maxtie   FLAG:      plus1  0.400000000000E+01             
+ 
+cmo select mo_src                                                               
+finish                                                                          
+cmo kdtree build                                                                
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+cmo setatt mo_src idebug/0                                                      
+         1 values reset for attribute idebug                                    
+ 
+finish                                                                          
+ 
+Build kdtree done - assign the enclosing element for each.                      
+ 
+ 
+     Sink point   Elems Searched  Elements Found  Percent Done                  
+ 
+           6751             5951           5951        5 %                      
+          13501            12701          12701       10 %                      
+          20251            19451          19451       15 %                      
+          27001            26201          26201       20 %                      
+          33751            32951          32951       25 %                      
+          40501            39701          39701       30 %                      
+          47251            46451          46451       35 %                      
+          54001            53201          53201       40 %                      
+          60751            59951          59951       45 %                      
+          67501            66701          66701       50 %                      
+          74251            73451          73451       55 %                      
+          81001            80201          80201       60 %                      
+          87751            86951          86951       65 %                      
+          94501            93701          93701       70 %                      
+         101251           100451         100451       75 %                      
+         108001           107201         107201       80 %                      
+         114751           113952         113951       85 %                      
+         121501           120702         120701       90 %                      
+         128251           127455         127451       95 %                      
+         135000           134208         134200       100%                      
+ 
+Total Source Elements:                    4037                                  
+Total Sink   Centroids:                 135000                                  
+ 
+WARNING: Sink points not inside source grid:                      800           
+Outside sink points flagged with value:                          4.00           
+ 
+interpolate/map done.                                                           
+ 
+cmo select mo_hex                                                               
+finish                                                                          
+cmo kdtree release                                                              
+cmo/DELATT/mo_src/sbox                                                          
+finish                                                                          
+cmo/DELATT/mo_src/v12                                                           
+finish                                                                          
+cmo/DELATT/mo_src/linkt                                                         
+finish                                                                          
+cmo/DELATT/mo_src/v2                                                            
+finish                                                                          
+finish                                                                          
+* color the extensions outside the GFM extents                                  
+eltset/eout/itetclr gt GFM_MAXMAT                                               
+ 
+ THE ELTSET eout                             HAS        800 ELEMENTS            
+pset/phigh/attribute zic/1,0,0/ge GFM_TOP                                       
+ 
+ THE PSET  phigh  HAS        963 POINTS                                         
+eltset/ehigh/inclusive pset,get,phigh                                           
+ 
+ THE ELTSET ehigh                            HAS        860 ELEMENTS            
+pset/plow/attribute zic/1,0,0/le GFM_BOT                                        
+ 
+ THE PSET  plow  HAS        882 POINTS                                          
+eltset/elow/inclusive pset,get,plow                                             
+ 
+ THE ELTSET elow                             HAS        800 ELEMENTS            
+eltset/etop/inter eout ehigh                                                    
+ 
+ THE ELTSET etop                             HAS        400 ELEMENTS            
+eltset/ebot/inter eout elow                                                     
+ 
+ THE ELTSET ebot                             HAS        400 ELEMENTS            
+cmo/setatt/CMO_HEX2/itetclr eltset,get,ehigh GFM_MAXMAT                         
+       860 values reset for attribute itetclr                                   
+ 
+cmo/setatt/CMO_HEX2/itetclr eltset,get,elow 1                                   
+       800 values reset for attribute itetclr                                   
+ 
+* USER DEFINE so materials are assigned as intended                             
+* assign node colors by element set and let mat 2 win                           
+eltset/e1/itetclr eq 1                                                          
+ 
+ THE ELTSET e1                               HAS      54336 ELEMENTS            
+eltset/e2/itetclr eq 2                                                          
+ 
+ THE ELTSET e2                               HAS      46460 ELEMENTS            
+eltset/e3/itetclr eq 3                                                          
+ 
+ THE ELTSET e3                               HAS      34204 ELEMENTS            
+pset/p1/eltset/e1                                                               
+ 
+ THE PSET  p1  HAS      84610 POINTS                                            
+pset/p2/eltset/e2                                                               
+ 
+ THE PSET  p2  HAS      79317 POINTS                                            
+pset/p3/eltset/e3                                                               
+ 
+ THE PSET  p3  HAS      55818 POINTS                                            
+cmo/setatt/CMO_HEX2/imt pset,get,p1 1                                           
+     84610 values reset for attribute imt1                                      
+ 
+cmo/setatt/CMO_HEX2/imt pset,get,p3 3                                           
+     55818 values reset for attribute imt1                                      
+ 
+cmo/setatt/CMO_HEX2/imt pset,get,p2 2                                           
+     79317 values reset for attribute imt1                                      
+ 
+resetpts itp                                                                    
+geniee                                                                          
+finish                                                                          
+dump/gmv/hex_materials.gmv/CMO_HEX2                                             
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+dump/avs/hex_materials.inp/CMO_HEX2                                             
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+cmo/printatt/CMO_HEX2/-all- minmax                                              
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ -def-              0.000000000E+00  0.000000000E+00 0.000000000E+00    182154  
+ scalar                           1                1               0         1  
+ vector                           3                3               0         1  
+ nnodes                      182154           182154               0         1  
+ nedges                           0                0               0         1  
+ nfaces                           0                0               0         1  
+ nelements                   135000           135000               0         1  
+ mbndry                    16000000         16000000               0         1  
+ ndimensions_topo                 3                3               0         1  
+ ndimensions_geom                 3                3               0         1  
+ nodes_per_element                8                8               0         1  
+ edges_per_element               12               12               0         1  
+ faces_per_element                6                6               0         1  
+ isetwd                           4               28              24    182154  
+ ialias                           0           319742          319742    182154  
+ imt1                             1                3               2    182154  
+ itp1                             0               12              12    182154  
+ icr1                             0                0               0    182154  
+ isn1                             0                0               0    182154  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01    182154  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01    182154  
+ zic               -1.100000000E+01  1.000000000E+00 1.200000000E+01    182154  
+ xtetwd                          64              279             215    135000  
+ itetclr                          1                3               2    135000  
+ itettyp                          8                8               0    135000  
+ itetoff                          0          1079992         1079992    135000  
+ jtetoff                          0           809994          809994    135000  
+ itet                             1           182154          182153    135000x8
+ jtet                             2         16682315        16682313    135000x6
+ epsilon            1.000000004E-15  1.000000004E-15 0.000000000E+00         1  
+ epsilonl           6.822227892E-12  6.822227892E-12 0.000000000E+00         1  
+ epsilona           2.096101070E-10  2.096101070E-10 0.000000000E+00         1  
+ epsilonv           1.065814104E-09  1.065814104E-09 0.000000000E+00         1  
+ ipointi                          1                1               0         1  
+ ipointj                     182154           182154               0         1  
+ idebug                           0                0               0         1  
+ itypconv_sm                      1                1               0         1  
+ maxiter_sm                      25               25               0         1  
+ tolconv_sm         1.000000000E+00  1.000000000E+00 0.000000000E+00         1  
+ nnfreq                           1                1               0         1  
+ ivoronoi                         1                1               0         1  
+ iopt2to2                         2                2               0         1  
+ xmin               0.000000000E+00  0.000000000E+00 0.000000000E+00         1  
+ ymin               0.000000000E+00  0.000000000E+00 0.000000000E+00         1  
+ zmin              -1.100000000E+01 -1.100000000E+01 0.000000000E+00         1  
+ xmax               2.000000000E+01  2.000000000E+01 0.000000000E+00         1  
+ ymax               2.000000000E+01  2.000000000E+01 0.000000000E+00         1  
+ zmax               1.000000000E+00  1.000000000E+00 0.000000000E+00         1  
+ kdtree_level                     0                0               0         1  
+ max_number_sets                 64               64               0         1  
+ number_of_psets                  5                5               0         1  
+ number_of_eltsets                0                0               0         1  
+ number_of_fsets                  0                0               0         1  
+ in_obj                           0               12              12    135000  
+ itetlev                          0                3               3    135000  
+ itetpar                          0            38236           38236    135000  
+ itetkid                          0                0               0    135000  
+ 
+quality                                                                         
+ 
+epsilonl, epsilonaspect:   6.8222279E-12  3.1752554E-34                         
+--------------------------------------------                                    
+elements with aspect ratio < .01:                    0                          
+elements with aspect ratio b/w .01 and .02:          0                          
+elements with aspect ratio b/w .02 and .05:          0                          
+elements with aspect ratio b/w .05 and .1 :          0                          
+elements with aspect ratio b/w .1  and .2 :          0                          
+elements with aspect ratio b/w .2  and .5 :          0                          
+elements with aspect ratio b/w .5  and 1. :     135000                          
+min aspect ratio =  0.1000E+01  max aspect ratio =  0.1000E+01                  
+ 
+epsilonvol:   1.0658141E-09                                                     
+---------------------------------------                                         
+element volumes b/w  0.1953E-02 and  0.6801E-02:     94080                      
+element volumes b/w  0.6801E-02 and  0.2368E-01:     30160                      
+element volumes b/w  0.2368E-01 and  0.8247E-01:         0                      
+element volumes b/w  0.8247E-01 and  0.2872E+00:      7560                      
+element volumes b/w  0.2872E+00 and  0.1000E+01:      3200                      
+min volume =   1.9531250E-03  max volume =   1.0000000E+00                      
+-----------------------------------------------------------                     
+    135000 total elements evaluated.                                            
+ 
+*                                                                               
+*========================================================================       
+*                                                                               
+* Now create a tet mesh using the points to create the tets                     
+*                                                                               
+cmo/create/cmo_tet///tet                                                        
+copypts/cmo_tet/CMO_HEX2                                                        
+copypts added nodes          1 to     182154                                    
+cmo/setatt//ipolydat/no                                                         
+Warning: nelements = 0                                                          
+         1 values reset for attribute ipolydat                                  
+ 
+cmo/setatt/cmo_tet/imt 1                                                        
+Warning: nelements = 0                                                          
+    182154 values reset for attribute imt1                                      
+ 
+cmo/setatt/cmo_tet/itp 0                                                        
+Warning: nelements = 0                                                          
+    182154 values reset for attribute itp1                                      
+ 
+cmo/select/cmo_tet                                                              
+*                                                                               
+connect/noadd                                                                   
+ Coordinates of enclosing tetrahedron are:                                      
+          -0.15000D+02   -0.15000D+02   -0.35000D+02                            
+          -0.15000D+02    0.85000D+02   -0.50000D+01                            
+          -0.15000D+02   -0.15000D+02    0.25000D+02                            
+           0.85000D+02    0.10000D+02   -0.50000D+01                            
+ ntets=     31765     node index=     5000     nlstfail=       0 %done=   2.91  
+ ntets=     63871     node index=    10000     nlstfail=       0 %done=   5.84  
+ ntets=     96863     node index=    15000     nlstfail=       0 %done=   8.86  
+ ntets=    129537     node index=    20000     nlstfail=       0 %done=  11.85  
+ ntets=    163193     node index=    25000     nlstfail=       0 %done=  14.93  
+ ntets=    195215     node index=    30000     nlstfail=       0 %done=  17.86  
+ ntets=    228130     node index=    35000     nlstfail=       0 %done=  20.87  
+ ntets=    259744     node index=    40000     nlstfail=       0 %done=  23.77  
+ ntets=    291724     node index=    45000     nlstfail=       0 %done=  26.69  
+ ntets=    321956     node index=    50000     nlstfail=       0 %done=  29.46  
+ ntets=    352678     node index=    55000     nlstfail=       0 %done=  32.27  
+ ntets=    382297     node index=    60000     nlstfail=       0 %done=  34.98  
+ ntets=    412774     node index=    65000     nlstfail=       0 %done=  37.77  
+ ntets=    442044     node index=    70000     nlstfail=       0 %done=  40.45  
+ ntets=    471813     node index=    75000     nlstfail=       0 %done=  43.17  
+ ntets=    500963     node index=    80000     nlstfail=       0 %done=  45.84  
+ ntets=    530104     node index=    85000     nlstfail=       0 %done=  48.50  
+ ntets=    559208     node index=    90000     nlstfail=       0 %done=  51.17  
+ ntets=    587645     node index=    95000     nlstfail=       0 %done=  53.77  
+ ntets=    617245     node index=   100000     nlstfail=       0 %done=  56.48  
+ ntets=    646187     node index=   105000     nlstfail=       0 %done=  59.12  
+ ntets=    674961     node index=   110000     nlstfail=       0 %done=  61.76  
+ ntets=    703485     node index=   115000     nlstfail=       0 %done=  64.37  
+ ntets=    732141     node index=   120000     nlstfail=       0 %done=  66.99  
+ ntets=    760096     node index=   125000     nlstfail=       0 %done=  69.55  
+ ntets=    788426     node index=   130000     nlstfail=       0 %done=  72.14  
+ ntets=    815903     node index=   135000     nlstfail=       0 %done=  74.65  
+ ntets=    843232     node index=   140000     nlstfail=       0 %done=  77.15  
+ ntets=    870546     node index=   145000     nlstfail=       0 %done=  79.65  
+ ntets=    897789     node index=   150000     nlstfail=       0 %done=  82.14  
+ ntets=    923954     node index=   155000     nlstfail=       0 %done=  84.54  
+ ntets=    949601     node index=   160000     nlstfail=       0 %done=  86.88  
+ ntets=    973791     node index=   165000     nlstfail=       0 %done=  89.10  
+ ntets=    996891     node index=   170000     nlstfail=       0 %done=  91.21  
+ ntets=   1019167     node index=   175000     nlstfail=       0 %done=  93.25  
+ ntets=   1040764     node index=   180000     nlstfail=       0 %done=  95.23  
+ 
+ The mesh is now complete!                                                      
+ 
+LaGriT FINISH: connect                                                          
+ 
+cmo/setatt/cmo_tet/itetclr 1                                                    
+   1036237 values reset for attribute itetclr                                   
+ 
+cmo/setatt/cmo_tet/imt 1                                                        
+    182154 values reset for attribute imt1                                      
+ 
+* color by the colored hex                                                      
+cmo/printatt/CMO_HEX2/itetclr minmax                                            
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ itetclr                          1                3               2    135000  
+ 
+interpolate/map/cmo_tet itetclr/1,0,0/CMO_HEX2 itetclr                          
+elements in indexed set  =    1036237                                           
+ 
+INTRP METHOD:        map   FUNCTION:       user                                 
+      TIEBREAKER:     maxtie   FLAG:      plus1  0.400000000000E+01             
+ 
+cmo select mo_hex                                                               
+finish                                                                          
+cmo kdtree build                                                                
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+cmo setatt mo_hex idebug/0                                                      
+         1 values reset for attribute idebug                                    
+ 
+finish                                                                          
+ 
+Build kdtree done - assign the enclosing element for each.                      
+ 
+ 
+     Sink point   Elems Searched  Elements Found  Percent Done                  
+ 
+          20726            20726          20726        2 %                      
+          41451            41451          41451        4 %                      
+          62176            62176          62176        6 %                      
+          82901            82901          82901        8 %                      
+         103626           103626         103626       10 %                      
+         124351           124351         124351       12 %                      
+         145076           145076         145076       14 %                      
+         165801           165801         165801       16 %                      
+         186526           186526         186526       18 %                      
+         207251           207251         207251       20 %                      
+         227976           227976         227976       22 %                      
+         248701           248701         248701       24 %                      
+         269426           269426         269426       26 %                      
+         290151           290151         290151       28 %                      
+         310876           310876         310876       30 %                      
+         331601           331601         331601       32 %                      
+         352326           352326         352326       34 %                      
+         373051           373051         373051       36 %                      
+         393776           393776         393776       38 %                      
+         414501           414501         414501       40 %                      
+         435226           435226         435226       42 %                      
+         455951           455951         455951       44 %                      
+         476676           476676         476676       46 %                      
+         497401           497401         497401       48 %                      
+         518126           518126         518126       50 %                      
+         538851           538851         538851       52 %                      
+         559576           559576         559576       54 %                      
+         580301           580301         580301       56 %                      
+         601026           601026         601026       58 %                      
+         621751           621751         621751       60 %                      
+         642476           642476         642476       62 %                      
+         663201           663201         663201       64 %                      
+         683926           683926         683926       66 %                      
+         704651           704651         704651       68 %                      
+         725376           725376         725376       70 %                      
+         746101           746101         746101       72 %                      
+         766826           766826         766826       74 %                      
+         787551           787551         787551       76 %                      
+         808276           808276         808276       78 %                      
+         829001           829001         829001       80 %                      
+         849726           849726         849726       82 %                      
+         870451           870451         870451       84 %                      
+         891176           891176         891176       86 %                      
+         911901           911901         911901       88 %                      
+         932626           932626         932626       90 %                      
+         953351           953351         953351       92 %                      
+         974076           974076         974076       94 %                      
+         994801           994801         994801       96 %                      
+        1015526          1015526        1015526       98 %                      
+        1036237          1036237        1036237       100%                      
+ 
+Total Source Elements:                  135000                                  
+Total Sink   Centroids:                1036237                                  
+ 
+ 
+interpolate/map done.                                                           
+ 
+cmo select cmo_tet                                                              
+finish                                                                          
+cmo kdtree release                                                              
+cmo/DELATT/mo_hex/sbox                                                          
+finish                                                                          
+cmo/DELATT/mo_hex/v12                                                           
+finish                                                                          
+cmo/DELATT/mo_hex/linkt                                                         
+finish                                                                          
+cmo/DELATT/mo_hex/v2                                                            
+finish                                                                          
+finish                                                                          
+interpolate/voronoi/cmo_tet imt/1,0,0/CMO_HEX2 imt                              
+nodes in indexed point set  =     182154                                        
+ 
+INTRP METHOD:    voronoi   FUNCTION:        max                                 
+      TIEBREAKER:     maxtie   FLAG:      plus1  0.400000000000E+01             
+ 
+ 
+Build kdtree0 done - assign nearest node for each.                              
+ 
+ 
+     Sink point   Points Searched   Points Found  Percent Done                  
+ 
+           9109             9109           9109        5 %                      
+          18217            18217          18217       10 %                      
+          27325            27325          27325       15 %                      
+          36433            36433          36433       20 %                      
+          45541            45541          45541       25 %                      
+          54649            54649          54649       30 %                      
+          63757            63757          63757       35 %                      
+          72865            72865          72865       40 %                      
+          81973            81973          81973       45 %                      
+          91081            91081          91081       50 %                      
+         100189           100189         100189       55 %                      
+         109297           109297         109297       60 %                      
+         118405           118405         118405       65 %                      
+         127513           127513         127513       70 %                      
+         136621           136621         136621       75 %                      
+         145729           145729         145729       80 %                      
+         154837           154837         154837       85 %                      
+         163945           163945         163945       90 %                      
+         173053           173053         173053       95 %                      
+         182154           182154         182154       100%                      
+ 
+Total Source Nodes:                  182154                                     
+Total Sink   Nodes:                  182154                                     
+ 
+ 
+interpolate/voronoi done.                                                       
+ 
+cmo select cmo_tet                                                              
+finish                                                                          
+cmo kdtree release                                                              
+finish                                                                          
+dump/gmv/tet_delaunay.gmv/cmo_tet                                               
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+dump/avs/tet_delaunay.inp/cmo_tet                                               
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+LaGriT successfully completed                                                   

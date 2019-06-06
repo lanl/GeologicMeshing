@@ -1,0 +1,14 @@
+read avs tet.inp motet                                                          
+resetpts itp                                                                    
+cmo/printatt/motet -all- minmax                                                 
+cmo/printatt/motet -xyz- minmax                                                 
+cmo/setatt/motet itetclr 1                                                      
+cmo/select/motet                                                                
+resetpts/parent                                                                 
+rmpoint compress                                                                
+filter/1,0,0                                                                    
+dump/fehm/tet/motet ascii                                                       
+dump gmv tet_fehm.gmv motet                                                     
+cmo printatt motet -all- minmax                                                 
+quality                                                                         
+finish                                                                          
