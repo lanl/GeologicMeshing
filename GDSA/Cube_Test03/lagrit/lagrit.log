@@ -1,0 +1,168 @@
+define CMO_HEX cmo_1                                                            
+define XMIN 0.                                                                  
+define YMIN 0.                                                                  
+define XMAX 20.                                                                 
+define YMAX 20.                                                                 
+define ZMAX 0.                                                                  
+define ZMIN -10.                                                                
+define NX 21                                                                    
+define NY 21                                                                    
+define NZ 11                                                                    
+infile octree_hex_mesh.mlgi                                                     
+cmo/create/CMO_HEX///hex                                                        
+createpts/brick/xyz/NX NY NZ/XMIN YMIN ZMIN XMAX YMAX ZMAX/1 1 1                
+cmo/setatt/CMO_HEX/itetclr 1                                                    
+cmo/setatt/CMO_HEX/imt 1                                                        
+resetpts/itp                                                                    
+cmo/printatt/CMO_HEX/-xyz- minmax                                               
+finish                                                                          
+dump/gmv/hex_L0.gmv/CMO_HEX                                                     
+define CMO_OBJ/cmo_2                                                            
+define GFM_MESH tet_gfm.inp                                                     
+define GFM_TOP 0.                                                               
+define GFM_BOT -10.                                                             
+define GFM_MAXMAT 3                                                             
+infile octree_surf_interfaces.mlgi                                              
+read GFM_MESH tmp_tet                                                           
+eltset/e1/itetclr eq 1                                                          
+eltset/e2/itetclr eq 2                                                          
+eltset/e3/itetclr eq 3                                                          
+cmo/setatt/tmp_tet/itetclr eltset,get,e2 1                                      
+resetpts itp                                                                    
+cmo select tmp_tet                                                              
+extract/surfmesh/1,0,0/motmp/tmp_tet                                            
+cmo/delete/tmp_tet                                                              
+cmo/copyatt/motmp motmp/itetclr/itetclr1                                        
+filter 1,0,0                                                                    
+rmpoint compress                                                                
+cmo setatt motmp itetclr 1                                                      
+cmo setatt motmp imt 1                                                          
+resetpts itp                                                                    
+dump stl surfmesh_all.stl motmp                                                 
+dump surfmesh_all.gmv motmp                                                     
+dump surfmesh_all.inp motmp                                                     
+cmo/select/motmp                                                                
+settets/normal                                                                  
+dump gmv tmp_surf_normals.gmv motmp                                             
+pset/p1/attribute zic/1,0,0/ge -1.                                              
+pset/p2/attribute zic/1,0,0/le -9.                                              
+pset/p3/attribute xic/1,0,0/le 1.                                               
+pset/p4/attribute xic/1,0,0/ge 19.                                              
+pset/p5/attribute yic/1,0,0/le 1.                                               
+pset/p6/attribute yic/1,0,0/ge 19.                                              
+pset/pdel/union/p1 p2 p3 p4 p5 p6                                               
+rmpoint pset,get,pdel                                                           
+rmpoint compress                                                                
+cmo/setatt/motmp/itetclr 3                                                      
+cmo/setatt/motmp/imt 3                                                          
+resetpts itp                                                                    
+dump surfmesh_intrf.gmv motmp                                                   
+dump surfmesh_intrf.inp motmp                                                   
+cmo copy CMO_OBJ motmp                                                          
+cmo/delete/motmp                                                                
+cmo/printatt/CMO_OBJ/-xyz- minmax                                               
+finish                                                                          
+cmo/setatt//ipolydat/no                                                         
+define/CMO_OBJ/cmo_2                                                            
+define/LEVEL/2                                                                  
+define/LOOP_MAX/3                                                               
+define/ATT_NAME_E/in_obj                                                        
+loop/do/LOOP_VAR 1 LOOP_MAX 1/loop_end infile octree_ref_object.mlgi            
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+pset/pobj/eltset/e_obj                                                          
+eltset/e_obj2/inclusive pset,get,pobj                                           
+eltset/e_obj3/exclusive pset,get,pobj                                           
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+eltset/elev/itetlev/le/LEVEL                                                    
+eltset/e_refine/inter/elev e_obj2                                               
+refine/eltset/eltset,get,e_refine                                               
+rmpoint/compress                                                                
+quality/volume/10                                                               
+eltset/e_obj/delete                                                             
+eltset/e_refine/delete                                                          
+cmo/select/CMO_HEX                                                              
+finish                                                                          
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+pset/pobj/eltset/e_obj                                                          
+eltset/e_obj2/inclusive pset,get,pobj                                           
+eltset/e_obj3/exclusive pset,get,pobj                                           
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+eltset/elev/itetlev/le/LEVEL                                                    
+eltset/e_refine/inter/elev e_obj2                                               
+refine/eltset/eltset,get,e_refine                                               
+rmpoint/compress                                                                
+quality/volume/10                                                               
+eltset/e_obj/delete                                                             
+eltset/e_refine/delete                                                          
+cmo/select/CMO_HEX                                                              
+finish                                                                          
+cmo/printatt/CMO_SINK/-xyz-/minmax                                              
+cmo/printatt/CMO_OBJ/-xyz-/minmax                                               
+cmo/setatt/CMO_HEX/ATT_NAME_E/1 0 0/0                                           
+intersect_elements/CMO_HEX/CMO_OBJ/ATT_NAME_E                                   
+cmo/select/CMO_HEX                                                              
+eltset/e_obj/ATT_NAME_E/gt/0                                                    
+pset/pobj/eltset/e_obj                                                          
+eltset/e_obj2/inclusive pset,get,pobj                                           
+eltset/e_obj3/exclusive pset,get,pobj                                           
+cmo/addatt/CMO_HEX/itetlev/vint/scalar/nelements                                
+eltset/elev/itetlev/le/LEVEL                                                    
+eltset/e_refine/inter/elev e_obj2                                               
+refine/eltset/eltset,get,e_refine                                               
+rmpoint/compress                                                                
+quality/volume/10                                                               
+eltset/e_obj/delete                                                             
+eltset/e_refine/delete                                                          
+cmo/select/CMO_HEX                                                              
+finish                                                                          
+intersect_elements/CMO_HEX/CMO_OBJ/in_obj                                       
+cmo/setatt//ipolydat/no                                                         
+dump/gmv/hex_L3_obj1.gmv/CMO_HEX                                                
+quality                                                                         
+define CMO_HEX2 mo_hex                                                          
+grid2grid/tree_to_fe/CMO_HEX2/CMO_HEX                                           
+filter 1,0,0                                                                    
+rmpoint compress                                                                
+read tet_gfm.inp mo_src                                                         
+cmo/printatt/mo_src/itetclr minmax                                              
+interpolate/map/CMO_HEX2 itetclr/1,0,0/mo_src itetclr                           
+cmo/printatt/CMO_HEX2/itetclr minmax                                            
+eltset/e1/itetclr eq 1                                                          
+eltset/e2/itetclr eq 2                                                          
+eltset/e3/itetclr eq 3                                                          
+pset/p1/eltset/e1                                                               
+pset/p2/eltset/e2                                                               
+pset/p3/eltset/e3                                                               
+cmo/setatt/CMO_HEX2/imt pset,get,p1 1                                           
+cmo/setatt/CMO_HEX2/imt pset,get,p2 2                                           
+cmo/setatt/CMO_HEX2/imt pset,get,p3 3                                           
+resetpts itp                                                                    
+dump/gmv/hex_materials.gmv/CMO_HEX2                                             
+dump/avs/hex_materials.inp/CMO_HEX2                                             
+cmo/printatt/CMO_HEX2/-all- minmax                                              
+quality                                                                         
+cmo/create/cmo_tet///tet                                                        
+copypts/cmo_tet/CMO_HEX2                                                        
+cmo/setatt//ipolydat/no                                                         
+cmo/setatt/cmo_tet/imt 1                                                        
+cmo/setatt/cmo_tet/itp 0                                                        
+cmo/select/cmo_tet                                                              
+connect/noadd                                                                   
+cmo/setatt/cmo_tet/itetclr 1                                                    
+cmo/setatt/cmo_tet/imt 1                                                        
+cmo/printatt/CMO_HEX2/itetclr minmax                                            
+interpolate/map/cmo_tet itetclr/1,0,0/CMO_HEX2 itetclr                          
+interpolate/voronoi/cmo_tet imt/1,0,0/CMO_HEX2 imt                              
+dump/gmv/tet_delaunay.gmv/cmo_tet                                               
+dump/avs/tet_delaunay.inp/cmo_tet                                               
+finish                                                                          

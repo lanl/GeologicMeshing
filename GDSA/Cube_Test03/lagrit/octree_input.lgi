@@ -1,0 +1,178 @@
+*--* Create a hex mesh
+*--* Octree refine hex mesh where it is intersected by the surface meshes
+*--* Connect/noadd octree nodes into a tet mesh
+*--* Color nodes of tet mesh based on geometry of defined by surfaces
+*--* Connect octree nodes into a tet mesh
+*--*----------------------------------------------------
+**
+*  USER DEFINED are places where USER needs to modify for current mesh
+**
+*  input.lgi
+*      octree_hex_mesh.mlgi define extents and resolution of mesh
+*      octree_surf_interfaces.mlgi
+*      octree_ref_object.mlgi
+*
+*========================================================================
+*
+* Create background hex mesh and set extents
+define CMO_HEX  cmo_1
+
+* USER DEFINE the mesh extents (may differ from GFM)
+define XMIN 0.
+define YMIN 0.
+define XMAX 20.
+define YMAX 20.
+define ZMAX 0.
+define ZMIN -10.
+define NX 21
+define NY 21
+define NZ 11
+
+infile octree_hex_mesh.mlgi
+dump / gmv / hex_L0.gmv / CMO_HEX
+
+*
+* extract inside surfaces for hex refinement
+*
+define  CMO_OBJ / cmo_2
+
+* USER DEFINE the GFM mesh 
+define GFM_MESH tet_gfm.inp
+
+* USER DEFINE the GFM parameters
+define GFM_TOP 0.
+define GFM_BOT -10.
+define GFM_MAXMAT 3
+
+infile octree_surf_interfaces.mlgi
+cmo/setatt//ipolydat/no
+
+*
+*========================================================================
+*
+* Refine the hex mesh using octree refinement. In this example
+* the elements that are refined are determined by intersecting the
+* intrface surfaces with the hex mesh. 
+*
+* If you enter LEVEL = N, refine (itetlev) will go to N+1
+*
+* L0 - Level 0, base mesh
+* L1 - Level 1, refine base mesh once
+* L2 - Level 2, refine base mesh twice
+* etc.
+*
+*========================================================================
+*
+* Three new integer element attributes will be created as part of the
+* book keeping for the octree mesh data structure.
+*
+* When elements are refined
+* the original element (parent) is not removed when eight child elements
+* are created. For example, if you have a single hex and refine it, you
+* will then have 9 elements, 1 itetlev=N element and 8 children of the
+* original perent element refined to itetlev = N+1.
+*
+* itetlev = level of refinement
+*         = 0 not refined
+*         = 1 refined once
+*         = 2 refined twice
+*           etc.
+*
+* itetpar = pointer to parent element
+*           Each refined element contains an integer pointer to the
+*           element number of the element that was refined to create it.
+*
+* itetkid = pointer to first of 8 child (kid) elements created by refinement
+*           of parent element.
+* 
+*========================================================================
+*
+* USER DEFINE the level of refinement
+
+define / CMO_OBJ / cmo_2
+define / LEVEL / 2
+define / LOOP_MAX / 3
+define / ATT_NAME_E / in_obj
+*
+* Refine to octree itetlev= 2 elements that are intersected by cmo_2
+*
+loop/do/LOOP_VAR 1 LOOP_MAX 1/loop_end infile octree_ref_object.mlgi
+intersect_elements / CMO_HEX / CMO_OBJ / in_obj
+cmo/setatt//ipolydat/no
+dump / gmv / hex_L3_obj1.gmv / CMO_HEX
+quality
+
+*
+* Now convert the hex mesh from an octree data structrue to
+* a hex mesh without overlapping elements.
+*
+* In effect this removes all parent elements. After this step, one
+* cannot continue to treat this as an octree mesh within LaGriT however,
+* graphics packages (other than GMV) will allow you to view the mesh
+* without the appearance of overlapping elements.
+*
+define CMO_HEX2 mo_hex
+grid2grid / tree_to_fe / CMO_HEX2 / CMO_HEX
+filter 1,0,0
+rmpoint compress
+
+* color by the input GFM
+read tet_gfm.inp mo_src
+cmo/printatt/mo_src/ itetclr minmax
+interpolate/map/CMO_HEX2 itetclr/1,0,0/ mo_src itetclr
+cmo/printatt/CMO_HEX2/ itetclr minmax
+
+
+* USER DEFINE so materials are assigned as intended
+
+# for embedded body combine mat 1 and 2 so only body is extracted
+
+* assign node colors by element set and let mat 3 win
+eltset/e1/ itetclr eq 1
+eltset/e2/ itetclr eq 2
+eltset/e3/ itetclr eq 3
+pset/p1/ eltset / e1
+pset/p2/ eltset / e2
+pset/p3/ eltset / e3
+cmo/setatt/ CMO_HEX2/ imt pset,get,p1 1
+cmo/setatt/ CMO_HEX2/ imt pset,get,p2 2
+cmo/setatt/ CMO_HEX2/ imt pset,get,p3 3
+resetpts itp
+
+dump / gmv / hex_materials.gmv / CMO_HEX2
+dump / avs / hex_materials.inp / CMO_HEX2
+
+cmo/printatt/CMO_HEX2/ -all- minmax
+quality
+
+*
+*========================================================================
+*
+* Now create a tet mesh using the points to create the tets 
+*
+
+cmo / create / cmo_tet / / / tet
+copypts / cmo_tet / CMO_HEX2
+cmo/setatt//ipolydat/no
+cmo / setatt / cmo_tet / imt 1
+cmo / setatt / cmo_tet / itp 0
+cmo / select / cmo_tet
+*
+connect / noadd
+cmo/setatt/ cmo_tet / itetclr 1
+cmo/setatt/ cmo_tet / imt 1
+
+* color by the colored hex 
+cmo/printatt/CMO_HEX2/ itetclr minmax
+interpolate/map/cmo_tet itetclr/1,0,0/ CMO_HEX2 itetclr
+interpolate/voronoi/cmo_tet imt/1,0,0/ CMO_HEX2 imt
+
+dump / gmv / tet_delaunay.gmv / cmo_tet
+dump / avs / tet_delaunay.inp / cmo_tet
+
+
+finish
+
+
+*
+finish

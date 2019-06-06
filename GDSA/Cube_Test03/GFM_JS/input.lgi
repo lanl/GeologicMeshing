@@ -1,0 +1,10 @@
+read avs tet_ZoneId.inp mo1                                                     
+quality                                                                         
+dump gmv tet_ZoneId.gmv mo1                                                     
+
+read avs tet_CompartmentId.inp mo2                                              
+quality                                                                         
+dump gmv tet_CompartmentId.gmv mo2                                              
+finish                
+
+

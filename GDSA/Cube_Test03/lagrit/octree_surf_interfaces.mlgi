@@ -1,0 +1,73 @@
+# extract internal interfaces
+
+read GFM_MESH tmp_tet
+
+# ------------------------------
+# Extract surface with internal boundaries
+
+# MODIFIED for EMBEDDED BODY
+# cannot use normals to select body
+# 3 is the internal flow body
+# top is 1
+# fake bottom is 2
+
+eltset/e1/ itetclr eq 1
+eltset/e2/ itetclr eq 2
+eltset/e3/ itetclr eq 3
+cmo/setatt/ tmp_tet/ itetclr eltset,get,e2 1
+resetpts itp
+
+# ----------------------
+cmo select tmp_tet
+extract/surfmesh/1,0,0/motmp/tmp_tet
+cmo/delete/tmp_tet
+cmo/copyatt/ motmp motmp/ itetclr / itetclr1
+
+# remove duplicate nodes
+filter 1,0,0
+rmpoint compress
+cmo setatt motmp itetclr 1
+cmo setatt motmp imt 1
+resetpts itp
+
+# full surfmesh with internal layers 
+dump stl surfmesh_all.stl motmp
+dump surfmesh_all.gmv motmp 
+dump surfmesh_all.inp motmp 
+
+# remove sides and leave inside
+cmo/select/motmp
+settets/normal
+dump gmv tmp_surf_normals.gmv motmp
+
+# MODIFIED for EMBEDDED BODY
+
+# eltset/edel/ itetclr gt 2 
+# rmpoint element eltset,get,edel 
+# rmpoint compress
+# pset/pz1/attribute zic/1,0,0/ le GFM_BOT
+# pset/pz2/attribute zic/1,0,0/ ge GFM_TOP
+# pset/pdel/union/ pz1 pz2 
+
+pset/p1/attribute zic/1,0,0/ ge -1.
+pset/p2/attribute zic/1,0,0/ le -9. 
+pset/p3/attribute xic/1,0,0/ le 1.
+pset/p4/attribute xic/1,0,0/ ge 19.
+pset/p5/attribute yic/1,0,0/ le 1.
+pset/p6/attribute yic/1,0,0/ ge 19.
+pset/pdel/union/p1 p2 p3 p4 p5 p6 
+
+rmpoint pset,get,pdel 
+rmpoint compress
+cmo/setatt/motmp/itetclr 3
+cmo/setatt/motmp/imt 3
+resetpts itp
+
+dump surfmesh_intrf.gmv motmp 
+dump surfmesh_intrf.inp motmp 
+cmo copy CMO_OBJ motmp
+cmo/delete/motmp
+
+cmo/printatt/CMO_OBJ/ -xyz- minmax
+
+finish
