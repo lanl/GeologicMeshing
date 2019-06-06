@@ -1,0 +1,72 @@
+Original work directory:
+/project/meshing/GEO_Integration/JewelSuite/liz_example_tests/
+
+cp  /project/meshing/GEO_Integration/JewelSuite/liz_example_tests/Test_Case_04/Full_volume_files/gocad/*.* .
+
+DO NOT FORGET to dos2unix the gocad mesh file!
+
+# get property names and minmax from gocad_header.txt
+head -50 input.so > gocad_header.txt
+
+
+####### Convert from Z Down to Z Elevation #################
+# mult Z by -1 (inverts tets)
+# re-order tet nodes for positive volumes (1234 to 1324
+#
+# write tet connectivity and color
+#
+# CHECK to see which field has the correct number of materials.
+# The header will give the max value for each field:
+
+TETRA_PROPERTY_CLASS_HEADER CompartmentId{
+low_clip:1
+high_clip:3
+}
+TETRA_PROPERTY_CLASS_HEADER ElementId{
+low_clip:1
+high_clip:32086
+}
+TETRA_PROPERTY_CLASS_HEADER ZoneId{
+low_clip:1
+high_clip:2
+
+# 1      2  3  4  5         6         7         8
+# TETRA n1 n2 n3 n4   CompartmentId ElementId  ZoneId
+# both CompartmentId and ZoneId have material numbers
+# Use CompartmentId for now
+
+awk '{if ($1 == "PVRTX") print $2,$3,$4, ($5*-1.)  }' input.so > nodes_minus.txt
+
+# use field 6 or 8 whichever has the correct materials values
+# assume field 7 is the cell number
+awk '{ if ($1 == "TETRA") print $7,$6," tet ",$2,$4,$3,$5 }' input.so > elems_1324.txt
+awk '{ if ($1 == "TETRA") print $7,$8," tet ",$2,$4,$3,$5 }' input.so > elems_1324.txt
+
+# make a header avsheader.txt
+1110 5031 0 0 0
+
+cat avsheader.txt nodes_minus.txt elems_1324.txt > tet_1324.inp
+
+# make final file with correct material ids
+  lagrit < tet_materials.lgi 
+  cp lagrit.out tet_materials.out.txt
+
+
+DONE
+
+############# INCORRECT COORD SYSTEM #################
+
+# write mesh nodes (ignore $6 NodeId)
+awk '{if ($1 == "PVRTX") print $2,$3,$4,$5 }' input.so > nodes.txt
+
+# write tet connectivity and color
+# The last property is most likely the Materials
+# 1      2  3  4  5         6         7         8
+# TETRA n1 n2 n3 n4   CompartmentId ElementId  ZoneId
+awk '{ if ($1 == "TETRA") print $7,$8," tet ",$2,$3,$4,$5 }' input.so > elems_ZoneId.txt
+awk '{ if ($1 == "TETRA") print $7,$6," tet ",$2,$3,$4,$5 }' input.so > elems_CompartmentId.txt
+
+cat nodes.txt elems_ZoneId.txt > tet_ZoneId.inp
+diff elems_CompartmentId.txt elems_ZoneId.txt
+
+

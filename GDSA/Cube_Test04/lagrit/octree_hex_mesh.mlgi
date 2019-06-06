@@ -1,0 +1,8 @@
+cmo / create / CMO_HEX / / / hex
+createpts/brick/xyz/NX NY NZ/XMIN YMIN ZMIN XMAX YMAX ZMAX/1 1 1
+cmo/setatt/ CMO_HEX/ itetclr 1
+cmo/setatt/ CMO_HEX/ imt 1
+resetpts / itp
+cmo/printatt/CMO_HEX/ -xyz- minmax
+finish
+

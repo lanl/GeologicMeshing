@@ -1,0 +1,108 @@
+ 
+ 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+*               *                                             *                 
+*               *    Program:  LaGriT V3.320   Linux          *                 
+*               *    date_compile: 2019/04/15 Static          *                 
+*               *    Run Time: 2019/May 10  12:32:03          *                 
+*               *    Manual:   http://lagrit.lanl.gov         *                 
+*               *                                             *                 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+ 
+                               -----oOo-----                                    
+             LaGriT V3 LA-CC-15-069  https://github.com/lanl/LaGriT             
+  Copyright 2016. Triad National Security, LLC.  All rights reserved. This      
+  program was produced under U.S. Government contract 89233218CNA000001         
+  for Los Alamos National Laboratory (LANL), which is operated by Triad         
+  National Security, LLC for the U.S. Department of Energy/National Nuclear     
+  Security Administration.  All rights in the program are reserved by Triad     
+  National Security, LLC, and the U.S. Department of Energy/National Nuclear    
+  Security Administration. The Government is granted for itself and others      
+  acting on its behalf a nonexclusive, paid-up, irrevocable worldwide license   
+  in this material to reproduce, prepare derivative works, distribute copies    
+  to the public, perform publicly and display publicly, and to permit others to 
+  do so. This software is open source and available under the BSD-3 License.    
+                               -----oOo-----                                    
+ 
+ 
+Output log file: lagrit.out                                                     
+Command log file: lagrit.log                                                    
+ 
+read avs tet_CompartmentId.inp mo                                               
+geniee                                                                          
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: mo                                             
+ 
+  1 Mesh Object name: mo                                                        
+    number of nodes =           957        number of elements =         4201    
+    dimensions geometry =         3        element type =                tet    
+    dimensions topology =         3        4 nodes      4 faces      6 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+cmo copy motmp mo                                                               
+math/mult/motmp zic 1,0,0 motmp zic/-1.                                         
+cmo printatt motmp -xyz- minmax                                                 
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  2.000000000E+01 2.000000000E+01       957  
+ yic                0.000000000E+00  2.000000000E+01 2.000000000E+01       957  
+ zic               -1.000000000E+01 -0.000000000E+00 1.000000000E+01       957  
+ 
+dump gmv tet_Zminus.gmv motmp                                                   
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+dump avs tet_Zminus.inp motmp                                                   
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+quality                                                                         
+ 
+epsilonl, epsilonaspect:   6.6613381E-12  2.9558639E-34                         
+--------------------------------------------                                    
+elements with aspect ratio < .01:                    0                          
+elements with aspect ratio b/w .01 and .02:          0                          
+elements with aspect ratio b/w .02 and .05:          0                          
+elements with aspect ratio b/w .05 and .1 :          0                          
+elements with aspect ratio b/w .1  and .2 :          0                          
+elements with aspect ratio b/w .2  and .5 :          0                          
+elements with aspect ratio b/w .5  and 1. :       4201                          
+min aspect ratio =  0.5072E+00  max aspect ratio =  0.9997E+00                  
+ 
+epsilonvol:   8.8817842E-10                                                     
+---------------------------------------                                         
+element volumes <= 0.0:      4201                                               
+element volumes <  0.0:      4201                                               
+element volumes <=  epsilonvol:      4201                                       
+element volumes <   epsilonvol:      4201                                       
+min volume =  -2.0119951E+00  max volume =  -2.8153484E-01                      
+-----------------------------------------------------------                     
+      4201 total elements evaluated.                                            
+ 
+geniee                                                                          
+quality                                                                         
+ 
+epsilonl, epsilonaspect:   6.6613381E-12  2.9558639E-34                         
+--------------------------------------------                                    
+elements with aspect ratio < .01:                    0                          
+elements with aspect ratio b/w .01 and .02:          0                          
+elements with aspect ratio b/w .02 and .05:          0                          
+elements with aspect ratio b/w .05 and .1 :          0                          
+elements with aspect ratio b/w .1  and .2 :          0                          
+elements with aspect ratio b/w .2  and .5 :          0                          
+elements with aspect ratio b/w .5  and 1. :       4201                          
+min aspect ratio =  0.5072E+00  max aspect ratio =  0.9997E+00                  
+ 
+epsilonvol:   8.8817842E-10                                                     
+---------------------------------------                                         
+element volumes <= 0.0:      4201                                               
+element volumes <  0.0:      4201                                               
+element volumes <=  epsilonvol:      4201                                       
+element volumes <   epsilonvol:      4201                                       
+min volume =  -2.0119951E+00  max volume =  -2.8153484E-01                      
+-----------------------------------------------------------                     
+      4201 total elements evaluated.                                            
+ 
+finish                                                                          
+LaGriT successfully completed                                                   

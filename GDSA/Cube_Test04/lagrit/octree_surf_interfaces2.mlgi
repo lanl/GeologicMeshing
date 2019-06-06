@@ -1,0 +1,79 @@
+# extract internal interfaces
+# version 2 remove by box minmax
+
+read GFM_MESH tmp_tet
+resetpts itp
+
+# ------------------------------
+# Extract surface with internal boundaries
+
+# ----------------------
+cmo select tmp_tet
+extract/surfmesh/1,0,0/motmp/tmp_tet
+cmo/delete/tmp_tet
+cmo/copyatt/ motmp motmp/ itetclr / itetclr1
+
+# remove duplicate nodes
+filter 1,0,0
+rmpoint compress
+cmo setatt motmp itetclr 1
+cmo setatt motmp imt 1
+resetpts itp
+
+# full surfmesh with internal layers 
+dump stl surfmesh_all.stl motmp
+dump surfmesh_all.gmv motmp 
+dump surfmesh_all.inp motmp 
+
+# remove sides and leave inside
+cmo/select/motmp
+settets/normal
+dump gmv tmp_surf_normals.gmv motmp
+
+# MODIFIED to remove by minmax extents 
+
+# eltset/edel/ itetclr gt 2 
+# rmpoint element eltset,get,edel 
+# rmpoint compress
+# pset/pz1/attribute zic/1,0,0/ le GFM_BOT
+# pset/pz2/attribute zic/1,0,0/ ge GFM_TOP
+# pset/pdel/union/ pz1 pz2 
+
+pset/p1/attribute zic/1,0,0/ ge ZMAX 
+pset/p2/attribute zic/1,0,0/ le ZMIN 
+pset/p3/attribute xic/1,0,0/ le XMIN 
+pset/p4/attribute xic/1,0,0/ ge XMAX 
+pset/p5/attribute yic/1,0,0/ le YMIN 
+pset/p6/attribute yic/1,0,0/ ge XMAX 
+
+cmo setatt motmp itetclr 7
+eltset/e1/ exclusive/ pset,get,p1
+eltset/e2/ exclusive/ pset,get,p2
+eltset/e3/ exclusive/ pset,get,p3
+eltset/e4/ exclusive/ pset,get,p4
+eltset/e5/ exclusive/ pset,get,p5
+eltset/e6/ exclusive/ pset,get,p6
+
+cmo setatt motmp itetclr eltset,get,e1 1
+cmo setatt motmp itetclr eltset,get,e2 2
+cmo setatt motmp itetclr eltset,get,e3 3
+cmo setatt motmp itetclr eltset,get,e4 4
+cmo setatt motmp itetclr eltset,get,e5 5
+cmo setatt motmp itetclr eltset,get,e6 6
+
+dump gmv tmp_surf_sets.gmv motmp
+
+eltset/edel/union e1 e2 e3 e4 e5 e6
+rmpoint element eltset,get,edel 
+rmpoint compress
+cmo/setatt/motmp/itetclr 1
+resetpts itp
+
+dump surfmesh_intrf.gmv motmp 
+dump surfmesh_intrf.inp motmp 
+cmo copy CMO_OBJ motmp
+cmo/delete/motmp
+
+cmo/printatt/CMO_OBJ/ -xyz- minmax
+
+finish

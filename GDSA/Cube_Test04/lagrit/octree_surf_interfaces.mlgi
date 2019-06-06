@@ -1,0 +1,46 @@
+# extract internal interfaces
+
+read GFM_MESH tmp_tet
+
+# ------------------------------
+# Extract surface with internal boundaries
+cmo select tmp_tet
+extract/surfmesh/1,0,0/motmp/tmp_tet
+cmo/delete/tmp_tet
+cmo/copyatt/ motmp motmp/ itetclr / itetclr1
+
+# remove duplicate nodes
+filter 1,0,0
+rmpoint compress
+cmo setatt motmp itetclr 1
+cmo setatt motmp imt 1
+resetpts itp
+
+# full surfmesh with internal layers 
+dump stl surfmesh_all.stl motmp
+dump surfmesh_all.gmv motmp 
+dump surfmesh_all.inp motmp 
+
+# remove sides and leave inside
+cmo/select/motmp
+settets/normal
+
+# eltset/edel/ itetclr gt 2 
+# rmpoint element eltset,get,edel 
+# rmpoint compress
+
+pset/pz1/attribute zic/1,0,0/ le GFM_BOT
+pset/pz2/attribute zic/1,0,0/ ge GFM_TOP
+pset/pdel/union/ pz1 pz2 
+
+rmpoint pset,get,pdel 
+rmpoint compress
+
+dump surfmesh_intrf.gmv motmp 
+dump surfmesh_intrf.inp motmp 
+cmo copy CMO_OBJ motmp
+cmo/delete/motmp
+
+cmo/printatt/CMO_OBJ/ -xyz- minmax
+
+finish

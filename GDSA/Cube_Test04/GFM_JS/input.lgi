@@ -1,0 +1,5 @@
+read avs tet_JS.inp mo1                                                     
+quality                                                                         
+dump gmv tet_JS.gmv mo1                                                     
+
+finish                                                                          
