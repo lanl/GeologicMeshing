@@ -7,6 +7,16 @@ The Spent Fuel and Waste Science and Technology (SFWST) Campaign of the U.S. Dep
 Two high priority topics for SFWST R&D are to create design concepts and numerical modeling approaches for disposal systems. 
 A major piece of the R&D work will be a Geologic Disposal Safety Analysis (GDSA) reference case for each of the studied rock types (salt, crystalline, argillite) (Mariner et al., 2018). 
 
+PROCESS:
+
+The workflow we use for modeling geologic applications is as follows:
+
+- Collect and process data for the model area.
+- Create a Geologic Framework Model (GFM) to represent the model area.
+- Create an appropriate computational mesh based on the GFM and data.
+- Write model mesh and setup files for the modeling application.
+- Run simulations and adjust previous work as necessary.
+
 PROJECT FILES:
 
 Each Test directory represents an example workflow:
