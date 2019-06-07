@@ -1,0 +1,72 @@
+VoroCrust::Input Data:
+           * Input Mesh = ../surfmesh_gfm.obj
+           * Number of Loop Refinements = 0
+           * Refinement Smooth Angle Threshold = 180
+           * Maximum Sphere Radius = 2
+           * Lipschitz Const = 0.25
+           * VC Smooth Angle Threshold = 80
+           * Input model is NOT watertight or NON manifold!
+VoroCrust::Reading obj file:
+           * Number of Input mesh points = 761
+           * Number of Input mesh faces = 1632
+VoroCrust::Generating Surface Seeds:
+           * Number of Sharp Corners = 20
+           * Number of Sharp Edges = 460
+           * Number of Spheres = (20, 240, 1000)
+           * Number of Spheres = (20, 240, 1878)
+           * 188 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 241, 1998)
+           * Number of Spheres = (20, 241, 2129)
+           * 81 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 241, 2208)
+           * 13 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 241, 2215)
+           * No sliver spheres were detected!
+           * VoroCrust surface is not watertight, 192 spheres have shrunk!
+           * Number of Spheres = (20, 302, 2987)
+           * Number of Spheres = (20, 302, 3000)
+           * 16 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 307, 3080)
+           * 3 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 309, 3105)
+           * 1 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 309, 3110)
+           * No sliver spheres were detected!
+           * VoroCrust surface is not watertight, 67 spheres have shrunk!
+           * Number of Spheres = (20, 334, 3590)
+           * 13 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 338, 3671)
+           * 3 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 341, 3690)
+           * 2 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 343, 3706)
+           * No sliver spheres were detected!
+           * VoroCrust surface is not watertight, 3 spheres have shrunk!
+           * Number of Spheres = (20, 343, 3709)
+           * No sliver spheres were detected!
+           * Correctness of VoroCrust surface has been verified!
+           * Surface Mesh is saved in surface_mesh.obj!
+           * executed in 20.1598 seconds!
+VoroCrust::Generating Volume Seeds:
+           * Number of interior Volume seeds = 32
+           * Number of exterior Volume seeds = 2340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 3340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 4340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 5340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 6340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 7340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 8340
+           * Number of interior Volume seeds = 972
+           * Number of exterior Volume seeds = 9246
+           * Number of ghost Volume seeds = 55476
+           * executed in 102.396 seconds!
+           * Saving Output in Interior_seeds.csv, Exterior_seeds.csv and Volume_seeds.csv
+
+*** VoroCrust::Mission Accomplished! ***.
+

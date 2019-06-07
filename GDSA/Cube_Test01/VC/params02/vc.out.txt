@@ -1,0 +1,94 @@
+VoroCrust::Input Data:
+           * Input Mesh = ../surfmesh_gfm.obj
+           * Number of Loop Refinements = 0
+           * Refinement Smooth Angle Threshold = 180
+           * Maximum Sphere Radius = 0.5
+           * Lipschitz Const = 0.25
+           * VC Smooth Angle Threshold = 80
+           * Input model is NOT watertight or NON manifold!
+VoroCrust::Reading obj file:
+           * Number of Input mesh points = 761
+           * Number of Input mesh faces = 1632
+VoroCrust::Generating Surface Seeds:
+           * Number of Sharp Corners = 20
+           * Number of Sharp Edges = 460
+           * Number of Spheres = (20, 749, 1000)
+           * Number of Spheres = (20, 749, 2000)
+           * Number of Spheres = (20, 749, 3000)
+           * Number of Spheres = (20, 749, 4000)
+           * Number of Spheres = (20, 749, 5000)
+           * Number of Spheres = (20, 749, 6000)
+           * Number of Spheres = (20, 749, 7000)
+           * Number of Spheres = (20, 749, 8000)
+           * Number of Spheres = (20, 749, 9000)
+           * Number of Spheres = (20, 749, 10000)
+           * Number of Spheres = (20, 749, 10154)
+           * 117 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 753, 10690)
+           * 32 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 753, 10806)
+           * No sliver spheres were detected!
+           * VoroCrust surface is not watertight, 71 spheres have shrunk!
+           * Number of Spheres = (20, 753, 10841)
+           * 1 sliver spheres were detected and shrunk!
+           * Number of Spheres = (20, 754, 10844)
+           * No sliver spheres were detected!
+           * VoroCrust surface is not watertight, 3 spheres have shrunk!
+           * Number of Spheres = (20, 754, 10847)
+           * No sliver spheres were detected!
+           * Correctness of VoroCrust surface has been verified!
+           * Surface Mesh is saved in surface_mesh.obj!
+           * executed in 16.7123 seconds!
+VoroCrust::Generating Volume Seeds:
+           * Number of interior Volume seeds = 118
+           * Number of exterior Volume seeds = 3341
+           * Number of interior Volume seeds = 1118
+           * Number of exterior Volume seeds = 3341
+           * Number of interior Volume seeds = 2118
+           * Number of exterior Volume seeds = 3341
+           * Number of interior Volume seeds = 3118
+           * Number of exterior Volume seeds = 3341
+           * Number of interior Volume seeds = 4118
+           * Number of exterior Volume seeds = 3341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 4341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 5341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 6341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 7341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 8341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 9341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 10341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 11341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 12341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 13341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 14341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 15341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 16341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 17341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 18341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 19341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 20341
+           * Number of interior Volume seeds = 4257
+           * Number of exterior Volume seeds = 20950
+           * Number of ghost Volume seeds = 125700
+           * executed in 187.159 seconds!
+           * Saving Output in Interior_seeds.csv, Exterior_seeds.csv and Volume_seeds.csv
+
+*** VoroCrust::Mission Accomplished! ***.
+

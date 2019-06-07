@@ -12,10 +12,10 @@ PROCESS:
 The workflow we use for modeling geologic applications is as follows:
 
 - Collect and process data for the model area.
-- Create a Geologic Framework Model (GFM) to represent the model area.
-- Create an appropriate computational mesh based on the GFM and data.
-- Write model mesh and setup files for the modeling application.
-- Run simulations and adjust previous work as necessary.
+- Create a Geologic Framework Model (GFM) to represent the model area (JewelSuite, RockWorks, etc.)
+- Create an appropriate computational mesh based on the GFM and data. (LaGriT, Cubit, VoroCrust, etc.)
+- Write model mesh and setup files for the modeling application. (LaGriT, pre-process scripts, etc.)
+- Run simulations and adjust previous work as necessary. (FEHM, PFLOTRAN, TOUGH, MODFLOW, etc.)
 
 PROJECT FILES:
 
@@ -23,14 +23,14 @@ Each Test directory represents an example workflow:
 - Cube_Test01 is a simple 4 layer model
 - Cube_Test02 is 3 layers with a pinchout
 - Cube_Test03 is an embedded body or lens feature
-- Cube_Test04 is a fault plane used to offset layers
+- Cube_Test04 is a fault plane with offset layers
 
 Each Test directory has the following:
 - GFM_JS has the JewelSuite GOCAD file and the converted AVS file (correct coordinate system)
 - lagrit is the work directory to create surfaces and a Delaunay tet mesh based on the GFM
 - fehm are the mesh and setup files for FEHM
 - pflotran are the fehm mesh and setup converted to pflotran files 
-- VC is a directory for VoroCrust work
+- VC is a directory for VoroCrust meshing (alternative to LaGriT meshing)
 - images includes png files and gallery.html for the Test version
 
 
