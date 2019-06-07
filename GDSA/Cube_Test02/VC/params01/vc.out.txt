@@ -5,81 +5,112 @@ VoroCrust::Input Data:
            * Maximum Sphere Radius = 0.8
            * Lipschitz Const = 0.25
            * VC Smooth Angle Threshold = 40
-           * Input model is a watertight manifold.
+           * Input model is NOT watertight or NON manifold!
 VoroCrust::Reading obj file:
-           * Min. dihedral angle between smooth neighbors = 177 degrees
            * Number of Input mesh points = 583
            * Number of Input mesh faces = 1231
-           * Number of Sharp Corners = 64
-           * Number of Sharp Edges = 206
 VoroCrust::Generating Surface Seeds:
-           * Number of Spheres = (64, 338, 1000)
-           * Number of Spheres = (64, 338, 2000)
-           * Number of Spheres = (64, 338, 3000)
-           * Number of Spheres = (64, 338, 3196)
+           * Number of Sharp Corners = 16
+           * Number of Sharp Edges = 319
+           * Number of Spheres = (16, 355, 1000)
+           * Number of Spheres = (16, 355, 2000)
+           * Number of Spheres = (16, 355, 3000)
+           * Number of Spheres = (16, 355, 4000)
+           * Number of Spheres = (16, 355, 4114)
+           * 224 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 358, 4819)
+           * 173 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 358, 4996)
+           * Number of Spheres = (16, 358, 5230)
+           * 87 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 360, 5501)
+           * 91 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 360, 5661)
+           * 42 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 360, 5754)
+           * 18 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 361, 5840)
+           * 25 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 5908)
+           * 26 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 5964)
+           * 21 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 5978)
+           * Number of Spheres = (16, 362, 6038)
+           * 26 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 6114)
+           * 46 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 6237)
+           * 68 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 6444)
+           * 102 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 6747)
+           * 199 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 6978)
+           * Number of Spheres = (16, 362, 7302)
+           * 308 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 7978)
+           * Number of Spheres = (16, 362, 8261)
+           * 530 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 8978)
+           * Number of Spheres = (16, 362, 9867)
+           * 864 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 362, 9978)
+           * Number of Spheres = (16, 362, 10978)
+           * Number of Spheres = (16, 362, 11978)
+           * Number of Spheres = (16, 362, 12338)
+           * 1481 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 363, 5881)
            * No sliver spheres were detected!
-           * Number of Spheres = (64, 338, 3787)
+           * VoroCrust surface is not watertight, 34 spheres have shrunk!
+           * Number of Spheres = (16, 364, 5945)
+           * 5 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 365, 5972)
            * No sliver spheres were detected!
-           * Number of Spheres = (64, 338, 4000)
-           * Number of Spheres = (64, 338, 4459)
-           * 1 sliver spheres were detected and shrunk!
-           * Number of Spheres = (64, 338, 5000)
-           * Number of Spheres = (64, 338, 6000)
-           * Number of Spheres = (64, 338, 7000)
-           * Number of Spheres = (64, 338, 7611)
-           * 2 sliver spheres were detected and shrunk!
-           * Number of Spheres = (64, 338, 7906)
+           * VoroCrust surface is not watertight, 14 spheres have shrunk!
+           * Number of Spheres = (16, 365, 6001)
+           * 4 sliver spheres were detected and shrunk!
+           * Number of Spheres = (16, 366, 6010)
            * No sliver spheres were detected!
-           * Number of Spheres = (64, 338, 7960)
+           * VoroCrust surface is not watertight, 4 spheres have shrunk!
+           * Number of Spheres = (16, 366, 6023)
            * No sliver spheres were detected!
-           * Number of Spheres = (64, 338, 7973)
-           * No sliver spheres were detected!
-           * Number of Spheres = (64, 338, 7974)
+           * VoroCrust surface is not watertight, 2 spheres have shrunk!
+           * Number of Spheres = (16, 366, 6032)
            * No sliver spheres were detected!
            * Correctness of VoroCrust surface has been verified!
            * Surface Mesh is saved in surface_mesh.obj!
-           * executed in 63.7676 seconds!
+           * executed in 79.4268 seconds!
 VoroCrust::Generating Volume Seeds:
-           * Number of interior Volume seeds = 207
-           * Number of exterior Volume seeds = 3137
-           * Number of interior Volume seeds = 1207
-           * Number of exterior Volume seeds = 3137
-           * Number of interior Volume seeds = 2207
-           * Number of exterior Volume seeds = 3137
-           * Number of interior Volume seeds = 3207
-           * Number of exterior Volume seeds = 3137
-           * Number of interior Volume seeds = 4207
-           * Number of exterior Volume seeds = 3137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 4137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 5137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 6137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 7137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 8137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 9137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 10137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 11137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 12137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 13137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 14137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 15137
-           * Number of interior Volume seeds = 4379
-           * Number of exterior Volume seeds = 15200
-           * Number of ghost Volume seeds = 91200
-           * executed in 123.243 seconds!
+           * Number of interior Volume seeds = 79
+           * Number of exterior Volume seeds = 2284
+           * Number of interior Volume seeds = 1079
+           * Number of exterior Volume seeds = 2284
+           * Number of interior Volume seeds = 2079
+           * Number of exterior Volume seeds = 2284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 3284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 4284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 5284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 6284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 7284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 8284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 9284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 10284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 11284
+           * Number of interior Volume seeds = 3068
+           * Number of exterior Volume seeds = 11776
+           * Number of ghost Volume seeds = 70656
+           * executed in 150.482 seconds!
            * Saving Output in Interior_seeds.csv, Exterior_seeds.csv and Volume_seeds.csv
 
 *** VoroCrust::Mission Accomplished! ***.
-
 
