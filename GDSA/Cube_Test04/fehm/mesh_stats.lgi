@@ -1,0 +1,64 @@
+# get mesh stats
+
+read tet.inp motet
+resetpts itp
+
+#
+cmo printatt motet -all- minmax
+cmo printatt motet -xyz- minmax
+
+# sizes
+quality
+quality edge_max y
+quality edge_min y
+quality edge_ratio y
+
+# voronoi ccoef and volumes
+cmo addatt motet vor_volume vorvol
+cmo addatt motet volume tetvol
+math/sum/motet/vor_tot/1,0,0/motet/vorvol    
+math/sum/motet/vol_tot/1,0,0/motet/tetvol    
+
+pset/p1/attribute imt/1,0,0/eq 1
+pset/p2/attribute imt/1,0,0/eq 2
+pset/p3/attribute imt/1,0,0/eq 3
+pset/p4/attribute imt/1,0,0/eq 4
+pset/p5/attribute imt/1,0,0/eq 5
+math/sum/motet/vorimt1_tot/pset,get,p1/motet/vorvol    
+math/sum/motet/vorimt2_tot/pset,get,p2/motet/vorvol    
+math/sum/motet/vorimt3_tot/pset,get,p3/motet/vorvol    
+math/sum/motet/vorimt4_tot/pset,get,p4/motet/vorvol    
+math/sum/motet/vorimt5_tot/pset,get,p5/motet/vorvol    
+
+cmo printatt motet -all- minmax
+
+#----------- Report Stats -------------#
+# tet material volumes
+quality volume itetclr
+
+# tet stats
+cmo printatt -def- nnodes minmax
+cmo printatt -def- edgemax minmax
+cmo printatt -def- edgemin minmax
+cmo printatt -def- eratio minmax
+cmo printatt motet tetvol minmax
+cmo printatt motet vol_tot minmax
+
+#  node stats
+# boundary nodes
+dump/ zone_outside/ tmp / motet / keepatt
+
+# zones for nodes
+dump zone_imt tmp motet
+
+cmo printatt motet vorvol minmax
+cmo printatt motet vor_tot minmax
+cmo printatt motet vorimt1_tot minmax
+cmo printatt motet vorimt2_tot minmax
+cmo printatt motet vorimt3_tot minmax
+cmo printatt motet vorimt4_tot minmax
+cmo printatt motet vorimt5_tot minmax
+
+dump gmv tet_volumes.gmv motet
+
+finish
