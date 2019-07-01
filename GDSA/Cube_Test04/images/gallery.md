@@ -44,9 +44,9 @@ Table 4
 
 Tables 5
 
-|Image Gallery | this is the date | |
+|Image Gallery | this is the date | click for full image |
 | :---: | :---: | :---: |
-| /project/meshing/GEO_Integration/repos/GeologicMeshing/GDSA/Cube_Test04/images |  |  |
+| |  |  |
 | surfmesh_gfm | surfmesh_gfm_clip | hex_octree |
 |  <img width="200" src="surfmesh_gfm.png"> |  <img width="200" src="surfmesh_gfm_clip.png"> |  <img width="200" src="hex_octree.png"> |
 | surfmesh_gfm | surfmesh_gfm_clip | hex_octree |
