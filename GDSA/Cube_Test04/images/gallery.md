@@ -17,19 +17,23 @@ Tables 6
 
 NEW
 
-Gallery written: Tue Jul  2 10:40:36 2019
+# Gallery of project images Tue Jul  2 11:19:48 2019
+# Image Gallery 
+
+Gallery written: Tue Jul  2 11:19:48 2019
+
 Image Directory: /project/meshing/GEO_Integration/repos/GeologicMeshing/GDSA/Cube_Test04/images
 
 
-|  |  |  |   | 
-| :---: | :---: | :---: | :---:  | 
-|  |  |  |   | 
-|  **hex_octree** |  **surfmesh_gfm_clip** |  **surfmesh_gfm** |  **tet_delaunay_nodes**  | 
-| <img width="300" src="hex_octree.png"> | <img width="300" src="surfmesh_gfm_clip.png"> | <img width="300" src="surfmesh_gfm.png"> | <img width="300" src="tet_delaunay_nodes.png">  | 
-|  **tet_delaunay** |  **tet_gfm_5mat_ex** |  **tet_gfm_5mat** |  **tet_gfm_intrf**  | 
-| <img width="300" src="tet_delaunay.png"> | <img width="300" src="tet_gfm_5mat_ex.png"> | <img width="300" src="tet_gfm_5mat.png"> | <img width="300" src="tet_gfm_intrf.png">  | 
-|  **vorocrust_surfmesh_R1_clip** |  **vorocrust_surfmesh_R1** |  **vorocrust_surfmesh_R2_clip** |  **vorocrust_surfmesh_R2**  | 
-| <img width="300" src="vorocrust_surfmesh_R1_clip.png"> | <img width="300" src="vorocrust_surfmesh_R1.png"> | <img width="300" src="vorocrust_surfmesh_R2_clip.png"> | <img width="300" src="vorocrust_surfmesh_R2.png">  | 
+|  |  |  |  |   | 
+| :---: | :---: | :---: | :---: | :---:  | 
+|  |  |  |  |   | 
+|  **hex_octree** |  **surfmesh_gfm_clip** |  **surfmesh_gfm** |  **tet_delaunay_nodes** |  **tet_delaunay**  | 
+| <img width="100" src="hex_octree.png"> | <img width="100" src="surfmesh_gfm_clip.png"> | <img width="100" src="surfmesh_gfm.png"> | <img width="100" src="tet_delaunay_nodes.png"> | <img width="100" src="tet_delaunay.png">  | 
+|  **tet_gfm_5mat_ex** |  **tet_gfm_5mat** |  **tet_gfm_intrf** |  **vorocrust_surfmesh_R1_clip** |  **vorocrust_surfmesh_R1**  | 
+| <img width="100" src="tet_gfm_5mat_ex.png"> | <img width="100" src="tet_gfm_5mat.png"> | <img width="100" src="tet_gfm_intrf.png"> | <img width="100" src="vorocrust_surfmesh_R1_clip.png"> | <img width="100" src="vorocrust_surfmesh_R1.png">  | 
+|  **vorocrust_surfmesh_R2_clip** |  **vorocrust_surfmesh_R2**  | 
+| <img width="100" src="vorocrust_surfmesh_R2_clip.png"> | <img width="100" src="vorocrust_surfmesh_R2.png">  | 
 
 
  End Gallery 
