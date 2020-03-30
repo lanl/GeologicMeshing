@@ -1,0 +1,275 @@
+
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_FLOW flow
+      MODE TH
+    /
+    #SUBSURFACE_TRANSPORT transport
+    #  MODE GIRT
+    #/
+  /
+END
+
+SUBSURFACE
+
+skip
+CHEMISTRY
+  PRIMARY_SPECIES
+    tracer
+  /
+  OUTPUT
+    TOTAL
+    ALL
+  /
+END
+noskip
+################################################
+GRID
+  TYPE unstructured_explicit grid/out_mesh_edited.uge 
+  #TYPE unstructured_explicit grid/out_mesh.uge 
+END
+
+################################################
+FLUID_PROPERTY
+  PHASE LIQUID
+  DIFFUSION_COEFFICIENT 1.d-9
+/
+
+##################################################
+skip
+LINEAR_SOLVER TRANSPORT
+   SOLVER DIRECT
+END
+noskip
+
+skip
+LINEAR_SOLVER FLOW
+  #MAXIT 1000
+  #SOLVER FGMRES
+  #PRECONDITIONER CPR
+  SOLVER DIRECT
+END
+
+NEWTON_SOLVER FLOW
+  PRECONDITIONER_MATRIX_TYPE BAIJ
+  NO_INFINITY_NORM
+END
+noskip
+##################################################
+
+MATERIAL_PROPERTY soil
+  ID 1
+  POROSITY 0.1d0
+  TORTUOSITY 0.d0
+  ROCK_DENSITY 2.8E3
+  SPECIFIC_HEAT 1.d-3
+  THERMAL_CONDUCTIVITY_DRY 1 W/m-C
+  THERMAL_CONDUCTIVITY_WET 1.5 W/m-C
+  CHARACTERISTIC_CURVES default
+  LONGITUDINAL_DISPERSIVITY 1.0
+  PERMEABILITY
+    PERM_X 1.d-10
+    PERM_Y 1.d-10
+    PERM_Z 1.d-10
+  /
+END
+
+CHARACTERISTIC_CURVES default
+  SATURATION_FUNCTION VAN_GENUCHTEN
+    LIQUID_RESIDUAL_SATURATION 0.1d0
+    M 0.3
+    ALPHA 1.d-3
+  /
+  PERMEABILITY_FUNCTION MUALEM_VG_LIQ
+    M 0.3
+    LIQUID_RESIDUAL_SATURATION 0.1d0
+  /
+END
+
+#################################################
+
+TIME
+  FINAL_TIME 0.02 yr
+  INITIAL_TIMESTEP_SIZE 1.d-4 day
+  MAXIMUM_TIMESTEP_SIZE 5.d2 s
+END
+
+#################################################
+
+REGION all
+  COORDINATES
+    0.d0 0.d0 0.0d0
+    100.d0 100.d0 50.0d0
+  /
+END
+  
+
+#right now this is just the small x side ofthe first grid cell.  I
+#would like it to be a genuine source/sink if possible
+REGION inner
+  FILE grid/bdry_smX.ex
+  #FILE grid/LL_corner.ex
+END
+
+#you need to enforce the pressure at both large x and large y
+REGION outerX
+  FILE grid/bdry_lgX.ex
+END
+
+REGION outerY
+  FILE grid/bdry_lgY.ex
+END
+
+##################################################
+#these will be meaningless until we have a larger mesh.
+#Should we have actual regions instead of trying to find a grid cell center?
+skip
+REGION obs_pt5_bigy
+  COORDINATE -49.6 -45.43 0.0
+END
+
+REGION obs_pt5_mid
+  COORDINATE 46.757 46.757 0.0
+END
+
+REGION obs_pt5_bigx
+  COORDINATE -45.43 -49.6 0.0
+END
+
+OBSERVATION
+  REGION obs_pt5_bigy
+END
+
+OBSERVATION
+  REGION obs_pt5_mid
+END
+
+OBSERVATION
+  REGION obs_pt5_bigx
+END
+noskip
+
+##################################################
+FLOW_CONDITION initial
+  TYPE
+    PRESSURE DIRICHLET
+    TEMPERATURE DIRICHLET
+  /
+  PRESSURE 101325 Pa
+  TEMPERATURE 25.d0
+END
+
+FLOW_CONDITION inner
+TYPE
+    RATE SCALED_MASS_RATE VOLUME
+    ENERGY_RATE SCALED_ENERGY_RATE VOLUME
+  /
+  RATE 1.d-2 
+  ENERGY_RATE 1.d-8 MW
+END
+
+################################################
+skip
+TRANSPORT_CONDITION initial
+  TYPE DIRICHLET
+  CONSTRAINT_LIST
+    0.d0 initial
+  /
+END
+
+TRANSPORT_CONDITION outer
+  TYPE DIRICHLET_ZERO_GRADIENT
+  CONSTRAINT_LIST  # this is a dummy because right_end has outflow
+    0.d0 initial
+  /
+END
+
+TRANSPORT_CONDITION inner
+  TYPE DIRICHLET_ZERO_GRADIENT
+  CONSTRAINT_LIST  
+    0.d0 inj_conc
+  /
+END
+
+CONSTRAINT inj_conc
+  CONCENTRATIONS 
+    tracer 1.d0      T
+  /
+END
+
+CONSTRAINT initial
+  CONCENTRATIONS
+    tracer 1.d-20     T
+  /
+END
+noskip
+
+#####################################
+
+INITIAL_CONDITION
+  #TRANSPORT_CONDITION initial
+  FLOW_CONDITION initial
+  REGION all
+END
+
+skip
+SOURCE_SINK inner
+  #TRANSPORT_CONDITION inner
+  FLOW_CONDITION inner
+  REGION inner
+END
+
+BOUNDARY_CONDITION outerX
+  #TRANSPORT_CONDITION initial
+  FLOW_CONDITION initial
+  REGION outerX
+END
+
+BOUNDARY_CONDITION outerY
+  #TRANSPORT_CONDITION initial
+  FLOW_CONDITION initial
+  REGION outerY
+END
+noskip
+
+#################################################
+
+STRATA
+  MATERIAL soil
+  REGION all
+END
+
+OUTPUT
+  SNAPSHOT_FILE
+    TIMES y 0.d0
+    PERIODIC TIME 1.d-5 y between 0. y and 1.d-4 y
+    PERIODIC TIME 0.001 y between 0. y and 0.01 y
+    PERIODIC TIME 0.01 y between 0. y and 0.1 y
+    PERIODIC TIME 0.1 y between 0. y and 1.0 y
+    TIMES yr 1    
+    #NO_PRINT_INITIAL
+    FORMAT HDF5
+    FORMAT TECPLOT POINT
+    VARIABLES
+      LIQUID_PRESSURE
+      LIQUID_SATURATION
+      TEMPERATURE
+      LIQUID_DENSITY
+    /
+  /
+  OBSERVATION_FILE
+    TIMES y 0.d0
+    PERIODIC TIME 1000. s
+    TIMES yr 1    
+    #NO_PRINT_INITIAL
+    VARIABLES
+      LIQUID_PRESSURE
+      LIQUID_SATURATION
+      TEMPERATURE
+      LIQUID_DENSITY
+    /
+  /
+END
+
+END_SUBSURFACE
