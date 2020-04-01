@@ -1,0 +1,94 @@
+# read vc interior and surface seeds and connect
+# pre-process
+# awk -f csv2avsucd.awk interior_seed_spheres.csv > seeds_inside.inp 
+# awk -f csv2avsucd.awk Surface_seed_spheres.csv > seeds_surface.inp 
+
+### connnect inside seeds ####
+
+# read avs seeds_inside.inp  cmo_sin
+read avs Voronoi_Seeds_ucd.inp cmo_sin
+cmo/copy/ cmo_inout /cmo_sin
+cmo/select/cmo_sin
+
+cmo/printatt/cmo_sin/ -all- minmax
+pset/poutside/attribute imt/1,0,0/ eq 1
+rmpoint pset,get,poutside
+rmpoint/compress
+
+read avs corner_spheres_pts.inp mo1
+read avs edges_spheres_pts.inp mo2  
+read avs surface_spheres_pts.inp mo3
+addmesh/merge/cmo_sph/mo1 mo2
+addmesh/merge/cmo_sph/cmo_sph / mo3
+cmo/printatt/ cmo_sph/ imt minmax
+
+# surface and interior points
+addmesh/merge/cmo_all/cmo_sph / cmo_sin
+cmo/printatt/cmo_all/ imt minmax
+
+# interior and exterior points
+cmo/printatt/cmo_inout/ imt minmax
+
+
+### connect surface and interior points
+cmo setatt cmo_all imt 1
+
+cmo / create / cmotet1 / / / tet
+copypts / cmotet1 / cmo_all
+cmo / select cmotet1
+cmo / setatt / cmotet1 / imt / 1 0 0 / 1
+cmo / setatt / cmotet1 / itp / 1 0 0 / 0
+filter / 1 0 0
+rmpoint / compress
+cmo / printatt / cmotet1 / -xyz- / minmax
+
+connect noadd
+cmo setatt cmotet1 itetclr 1
+resetpts / itp
+
+cmo addatt cmotet1 vor_volume vorvol
+cmo addatt cmotet1 volume tetvol
+cmo printatt cmotet1 volvor minmax
+cmo printatt cmotet1 voltet minmax
+
+dump / gmv / tet_all_seeds.gmv / cmotet1
+dump / avs2 / tet_all_seeds.inp / cmotet1
+
+
+### connnect all seeds, no surface points ####
+
+cmo select cmo_inout
+cmo setatt cmo_inout imt 2
+
+cmo / create / cmotet / / / tet
+copypts / cmotet / cmo_inout
+cmo / delete / cmotmp
+cmo / select cmotet
+cmo / setatt / cmotet / imt / 1 0 0 / 1
+cmo / setatt / cmotet / itp / 1 0 0 / 0
+filter / 1 0 0
+rmpoint / compress
+cmo / printatt / cmotet / -xyz- / minmax
+
+connect noadd
+cmo setatt cmotet itetclr 1
+resetpts / itp
+
+cmo addatt cmotet vor_volume vorvol
+cmo addatt cmotet volume tetvol
+cmo printatt cmotet volvor minmax
+cmo printatt cmotet voltet minmax
+
+# color by inside and surface
+cmo setatt cmotet itetclr 2
+interpolate/map/ cmotet itetclr/1,0,0/ cmotet1 itetclr
+interpolate/voronoi/ cmotet imt/1,0,0/ cmo_inout imt
+
+
+dump / gmv / tet_inout.gmv / cmotet
+dump / avs2 / tet_inout.inp / cmotet
+
+
+
+finish
+

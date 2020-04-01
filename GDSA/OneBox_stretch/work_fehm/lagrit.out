@@ -1,0 +1,2518 @@
+ 
+ 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+*               *                                             *                 
+*               *    Program:  LaGriT V3.320   Linux          *                 
+*               *    date_compile: 2019/04/15 Static          *                 
+*               *    Run Time: 2020/Mar 31  17:58:10          *                 
+*               *    Manual:   http://lagrit.lanl.gov         *                 
+*               *                                             *                 
+*               * * * * * * * * * * * * * * * * * * * * * * * *                 
+ 
+                               -----oOo-----                                    
+             LaGriT V3 LA-CC-15-069  https://github.com/lanl/LaGriT             
+  Copyright 2016. Triad National Security, LLC.  All rights reserved. This      
+  program was produced under U.S. Government contract 89233218CNA000001         
+  for Los Alamos National Laboratory (LANL), which is operated by Triad         
+  National Security, LLC for the U.S. Department of Energy/National Nuclear     
+  Security Administration.  All rights in the program are reserved by Triad     
+  National Security, LLC, and the U.S. Department of Energy/National Nuclear    
+  Security Administration. The Government is granted for itself and others      
+  acting on its behalf a nonexclusive, paid-up, irrevocable worldwide license   
+  in this material to reproduce, prepare derivative works, distribute copies    
+  to the public, perform publicly and display publicly, and to permit others to 
+  do so. This software is open source and available under the BSD-3 License.    
+                               -----oOo-----                                    
+ 
+ 
+Output log file: lagrit.out                                                     
+Command log file: lagrit.log                                                    
+ 
+# read vc interior and surface seeds and connect                                
+# pre-process                                                                   
+# awk -f csv2avsucd.awk interior_seed_spheres.csv > seeds_inside.inp            
+# awk -f csv2avsucd.awk Surface_seed_spheres.csv > seeds_surface.inp            
+### connnect inside seeds ####                                                  
+# read avs seeds_inside.inp  cmo_sin                                            
+read avs Voronoi_Seeds_ucd.inp cmo_sin                                          
+geniee                                                                          
+geniee_cmo warning: no elements with faces so no jtet                           
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: cmo_sin                                        
+ 
+  1 Mesh Object name: cmo_sin                                                   
+    number of nodes =          2808        number of elements =         2808    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+cmo/copy/cmo_inout/cmo_sin                                                      
+cmo/select/cmo_sin                                                              
+cmo/printatt/cmo_sin/-all- minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ -def-              0.000000000E+00  0.000000000E+00 0.000000000E+00      2808  
+ scalar                           1                1               0         1  
+ vector                           3                3               0         1  
+ nnodes                        2808             2808               0         1  
+ nedges                           0                0               0         1  
+ nfaces                           0                0               0         1  
+ nelements                     2808             2808               0         1  
+ mbndry                    16000000         16000000               0         1  
+ ndimensions_topo                 1                1               0         1  
+ ndimensions_geom                 3                3               0         1  
+ nodes_per_element                1                1               0         1  
+ edges_per_element                0                0               0         1  
+ faces_per_element                0                0               0         1  
+ isetwd                           0                0               0      2808  
+ ialias                           0                0               0      2808  
+ imt1                             1                2               1      2808  
+ itp1                             0                0               0      2808  
+ icr1                             0                0               0      2808  
+ isn1                             0                0               0      2808  
+ xic               -5.102641910E+00  1.052655570E+02 1.103681989E+02      2808  
+ yic               -4.898699930E+00  1.052674474E+02 1.101661473E+02      2808  
+ zic               -8.277390410E+00  5.808110296E+01 6.635849337E+01      2808  
+ xtetwd                           0                0               0      2808  
+ itetclr                          1                2               1      2808  
+ itettyp                          1                1               0      2808  
+ itetoff                          0             2807            2807      2808  
+ jtetoff                          0                0               0      2808  
+ itet                             1             2808            2807      2808  
+ jtet                            -1               -1               0      2808  
+ epsilon            1.000000004E-15  1.000000004E-15 0.000000000E+00         1  
+ epsilonl           3.763061201E-11  3.763061201E-11 0.000000000E+00         1  
+ epsilona           6.377380621E-09  6.377380621E-09 0.000000000E+00         1  
+ epsilonv           1.791549696E-07  1.791549696E-07 0.000000000E+00         1  
+ ipointi                          1                1               0         1  
+ ipointj                       2808             2808               0         1  
+ idebug                           0                0               0         1  
+ itypconv_sm                      1                1               0         1  
+ maxiter_sm                      25               25               0         1  
+ tolconv_sm         1.000000000E+00  1.000000000E+00 0.000000000E+00         1  
+ nnfreq                           1                1               0         1  
+ ivoronoi                         1                1               0         1  
+ iopt2to2                         2                2               0         1  
+ xmin              -5.102641910E+00 -5.102641910E+00 0.000000000E+00         1  
+ ymin              -4.898699930E+00 -4.898699930E+00 0.000000000E+00         1  
+ zmin              -8.277390410E+00 -8.277390410E+00 0.000000000E+00         1  
+ xmax               1.052655570E+02  1.052655570E+02 0.000000000E+00         1  
+ ymax               1.052674474E+02  1.052674474E+02 0.000000000E+00         1  
+ zmax               5.808110296E+01  5.808110296E+01 0.000000000E+00         1  
+ kdtree_level                     0                0               0         1  
+ max_number_sets                 64               64               0         1  
+ number_of_psets                  0                0               0         1  
+ number_of_eltsets                0                0               0         1  
+ number_of_fsets                  0                0               0         1  
+ 
+pset/poutside/attribute imt/1,0,0/eq 1                                          
+ 
+ THE PSET  poutside  HAS       1258 POINTS                                      
+rmpoint pset,get,poutside                                                       
+ Dudded       1258 points plus parents, plus        1258 elements removed.      
+rmpoint/compress                                                                
+      1258 points removed and          0 elements removed.                      
+RMPOINT: new point count is         1550                                        
+RMPOINT: new element count is       1550                                        
+read avs corner_spheres_pts.inp mo1                                             
+geniee                                                                          
+geniee_cmo warning: no elements with faces so no jtet                           
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: mo1                                            
+ 
+  1 Mesh Object name: cmo_sin                                                   
+    number of nodes =          1550        number of elements =         1550    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  2 Mesh Object name: cmo_inout                                                 
+    number of nodes =          2808        number of elements =         2808    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  3 Mesh Object name: mo1                                                       
+    number of nodes =             8        number of elements =            8    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+read avs edges_spheres_pts.inp mo2                                              
+geniee                                                                          
+geniee_cmo warning: no elements with faces so no jtet                           
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: mo2                                            
+ 
+  1 Mesh Object name: cmo_sin                                                   
+    number of nodes =          1550        number of elements =         1550    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  2 Mesh Object name: cmo_inout                                                 
+    number of nodes =          2808        number of elements =         2808    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  3 Mesh Object name: mo1                                                       
+    number of nodes =             8        number of elements =            8    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  4 Mesh Object name: mo2                                                       
+    number of nodes =            42        number of elements =           42    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+read avs surface_spheres_pts.inp mo3                                            
+geniee                                                                          
+geniee_cmo warning: no elements with faces so no jtet                           
+finish                                                                          
+cmo/status/brief                                                                
+ 
+The current-mesh-object(CMO) is: mo3                                            
+ 
+  1 Mesh Object name: cmo_sin                                                   
+    number of nodes =          1550        number of elements =         1550    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  2 Mesh Object name: cmo_inout                                                 
+    number of nodes =          2808        number of elements =         2808    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  3 Mesh Object name: mo1                                                       
+    number of nodes =             8        number of elements =            8    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  4 Mesh Object name: mo2                                                       
+    number of nodes =            42        number of elements =           42    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                 inactive    
+ 
+  5 Mesh Object name: mo3                                                       
+    number of nodes =           581        number of elements =          581    
+    dimensions geometry =         3        element type =                pnt    
+    dimensions topology =         1        1 nodes      0 faces      0 edges    
+    boundary flag =        16000000        status =                   active    
+ 
+ 
+finish                                                                          
+addmesh/merge/cmo_sph/mo1 mo2                                                   
+addmesh/merge/cmo_sph/cmo_sph/mo3                                               
+cmo/move/-tmp_source_internal-/cmo_sph                                          
+finish                                                                          
+cmo/delete/-tmp_source_internal-/                                               
+     Released Mesh Object: -tmp_source_internal-                                
+finish                                                                          
+cmo/printatt/cmo_sph/imt minmax                                                 
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ imt1                             3                5               2       631  
+ 
+# surface and interior points                                                   
+addmesh/merge/cmo_all/cmo_sph/cmo_sin                                           
+cmo/printatt/cmo_all/imt minmax                                                 
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ imt1                             2                5               3      2181  
+ 
+# interior and exterior points                                                  
+cmo/printatt/cmo_inout/imt minmax                                               
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ imt1                             1                2               1      2808  
+ 
+### connect surface and interior points                                         
+cmo setatt cmo_all imt 1                                                        
+      2181 values reset for attribute imt1                                      
+ 
+cmo/create/cmotet1///tet                                                        
+copypts/cmotet1/cmo_all                                                         
+copypts added nodes          1 to       2181                                    
+cmo/select cmotet1                                                              
+cmo/setatt/cmotet1/imt/1 0 0/1                                                  
+Warning: nelements = 0                                                          
+      2181 values reset for attribute imt1                                      
+ 
+cmo/setatt/cmotet1/itp/1 0 0/0                                                  
+Warning: nelements = 0                                                          
+      2181 values reset for attribute itp1                                      
+ 
+filter/1 0 0                                                                    
+FILTER:Use internal epsilonl value =   0.333066907388E-10                       
+FILTER:Dudding duplicate points:           0                                    
+rmpoint/compress                                                                
+         0 points removed and          0 elements removed.                      
+RMPOINT: new point count is         2181                                        
+RMPOINT: new element count is          0                                        
+cmo/printatt/cmotet1/-xyz-/minmax                                               
+Warning: nelements = 0                                                          
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic                0.000000000E+00  1.000000000E+02 1.000000000E+02      2181  
+ yic                0.000000000E+00  1.000000000E+02 1.000000000E+02      2181  
+ zic                0.000000000E+00  5.000000000E+01 5.000000000E+01      2181  
+ 
+connect noadd                                                                   
+ Coordinates of enclosing tetrahedron are:                                      
+          -0.75000D+02   -0.75000D+02   -0.10000D+03                            
+          -0.75000D+02    0.42500D+03    0.25000D+02                            
+          -0.75000D+02   -0.75000D+02    0.15000D+03                            
+           0.42500D+03    0.50000D+02    0.25000D+02                            
+ 
+ The mesh is now complete!                                                      
+ 
+LaGriT FINISH: connect                                                          
+ 
+cmo setatt cmotet1 itetclr 1                                                    
+     11200 values reset for attribute itetclr                                   
+ 
+resetpts/itp                                                                    
+geniee                                                                          
+finish                                                                          
+cmo addatt cmotet1 vor_volume vorvol                                            
+ADDATT/voronoi_volume: creating new attribute: vorvol                           
+ 
+AMatbld3d_stor: Matrix compress_eps:  0.1000000E-07                             
+AMatbld3d_stor: Local epsilon:  0.1000000E-14                                   
+AMatbld3d_stor: *****Negative Coefficients ******                               
+AMatbld3d_stor: Total Number of Negative Coefficients      1098                 
+AMatbld3d_stor: Number of Significant Negative Coefs      1098                  
+AMatbld3d_stor: Number of 'zero' (< 10e-8 *max) coefs         1                 
+Negative coef at row        1  Column        9 with value  -4.2967730E-01       
+Negative coef at row        1  Column       17 with value  -1.8578723E+00       
+Negative coef at row        1  Column       39 with value  -1.1695281E+00       
+Negative coef at row        1  Column      168 with value  -5.9379662E+00       
+Negative coef at row        1  Column      186 with value  -2.6866886E+00       
+Negative coef at row        1  Column      206 with value  -8.2829850E-01       
+Negative coef at row        1  Column      236 with value  -3.6982132E+00       
+Negative coef at row        1  Column      352 with value  -9.1558282E-02       
+Negative coef at row        1  Column      389 with value  -1.0755575E+00       
+Negative coef at row        1  Column      400 with value  -1.7989767E+00       
+Negative coef at row        1  Column      462 with value  -1.4022544E+00       
+Negative coef at row        1  Column      484 with value  -1.2843289E-01       
+Negative coef at row        2  Column      195 with value  -2.7562915E+00       
+Negative coef at row        2  Column      308 with value  -6.6557745E-02       
+Negative coef at row        2  Column      323 with value  -5.3556022E+00       
+Negative coef at row        2  Column      350 with value  -1.8624369E+00       
+Negative coef at row        2  Column      363 with value  -1.4098360E+00       
+Negative coef at row        2  Column      410 with value  -1.7778076E-02       
+Negative coef at row        2  Column      412 with value  -1.9794773E+00       
+Negative coef at row        2  Column      438 with value  -1.4322463E-01       
+Negative coef at row        2  Column      486 with value  -1.2871415E+00       
+Negative coef at row        2  Column      489 with value  -9.3622235E-02       
+Negative coef at row        2  Column      514 with value  -1.4951479E+00       
+Negative coef at row        2  Column      603 with value  -1.1770486E-02       
+Negative coef at row        3  Column       47 with value  -7.9179177E-01       
+Negative coef at row        3  Column      240 with value  -5.0248710E+00       
+Negative coef at row        3  Column      277 with value  -1.9758932E-01       
+Negative coef at row        3  Column      366 with value  -5.7008296E+00       
+Negative coef at row        3  Column      375 with value  -2.2539666E-01       
+Negative coef at row        3  Column      451 with value  -2.3728391E-01       
+Negative coef at row        3  Column      471 with value  -2.3413894E-01       
+Negative coef at row        3  Column      576 with value  -3.5486215E-02       
+Negative coef at row        3  Column      625 with value  -7.9992062E-01       
+Negative coef at row        4  Column       44 with value  -5.5334044E-02       
+Negative coef at row        4  Column      229 with value  -5.6952612E+00       
+Negative coef at row        4  Column      365 with value  -4.0669714E-01       
+Negative coef at row        4  Column      415 with value  -1.4412115E-01       
+Negative coef at row        4  Column      417 with value  -5.6991808E+00       
+Negative coef at row        4  Column      429 with value  -1.0222889E+00       
+Negative coef at row        4  Column      442 with value  -2.5593772E+00       
+Negative coef at row        4  Column      491 with value  -1.8752888E-01       
+Negative coef at row        4  Column      504 with value  -3.3356532E+00       
+Negative coef at row        4  Column      560 with value  -3.0035110E-01       
+Negative coef at row        4  Column      565 with value  -1.4349488E-01       
+Negative coef at row        4  Column      581 with value  -2.9554339E-02       
+Negative coef at row        5  Column       25 with value  -6.7199372E-01       
+Negative coef at row        5  Column       45 with value  -9.9644323E-02       
+Negative coef at row        5  Column       93 with value  -1.8450989E+00       
+Negative coef at row        5  Column      151 with value  -7.3271345E-01       
+Negative coef at row        5  Column      203 with value  -1.4026979E-01       
+Negative coef at row        5  Column      297 with value  -4.3725443E-01       
+Negative coef at row        5  Column      320 with value  -1.8781155E+00       
+Negative coef at row        5  Column      339 with value  -3.2603067E-01       
+Negative coef at row        5  Column      428 with value  -2.7753849E-01       
+Negative coef at row        5  Column      432 with value  -2.3725910E-01       
+Negative coef at row        5  Column      509 with value  -6.2618879E-01       
+Negative coef at row        6  Column       10 with value  -3.8697351E-01       
+Negative coef at row        6  Column       15 with value  -1.8689313E+00       
+Negative coef at row        6  Column      374 with value  -3.4571953E-02       
+Negative coef at row        6  Column      431 with value  -1.6012556E+00       
+Negative coef at row        6  Column      436 with value  -1.5524279E+00       
+Negative coef at row        6  Column      440 with value  -3.2731104E+00       
+Negative coef at row        6  Column      455 with value  -3.7995933E-01       
+Negative coef at row        6  Column      456 with value  -4.0201967E-01       
+Negative coef at row        6  Column      502 with value  -1.2644871E+00       
+Negative coef at row        7  Column       28 with value  -2.0667939E+00       
+Negative coef at row        7  Column       29 with value  -6.4241012E-01       
+Negative coef at row        7  Column       42 with value  -3.3405584E-01       
+Negative coef at row        7  Column       72 with value  -7.1468086E-01       
+Negative coef at row        7  Column      220 with value  -1.9555965E+00       
+Negative coef at row        7  Column      313 with value  -1.3116100E+00       
+Negative coef at row        7  Column      497 with value  -5.1879789E-01       
+Negative coef at row        7  Column      505 with value  -7.3736250E-01       
+Negative coef at row        7  Column      513 with value  -2.6028775E-01       
+Negative coef at row        8  Column       23 with value  -8.1126827E-01       
+Negative coef at row        8  Column       31 with value  -9.2259669E-01       
+Negative coef at row        8  Column       99 with value  -4.5018159E+00       
+Negative coef at row        8  Column      147 with value  -7.5900677E-01       
+Negative coef at row        8  Column      219 with value  -2.4379635E+00       
+Negative coef at row        8  Column      252 with value  -1.5549409E+00       
+Negative coef at row        8  Column      304 with value  -1.3228155E+00       
+Negative coef at row        8  Column      324 with value  -4.9811791E-01       
+Negative coef at row        8  Column      330 with value  -8.2982563E-01       
+Negative coef at row        8  Column      445 with value  -8.2968121E-02       
+Negative coef at row        8  Column      449 with value  -1.4503338E-01       
+Negative coef at row        8  Column      498 with value  -5.5124843E-02       
+Negative coef at row        8  Column      507 with value  -1.4684466E+00       
+Negative coef at row        9  Column      186 with value  -5.9742857E+00       
+Negative coef at row        9  Column      236 with value  -7.7037363E+00       
+Negative coef at row        9  Column      316 with value  -4.7155530E-01       
+Negative coef at row        9  Column      409 with value  -4.2969356E-01       
+Negative coef at row        9  Column      414 with value  -3.0573474E-02       
+Negative coef at row       10  Column      238 with value  -1.0397483E-01       
+Negative coef at row       10  Column      244 with value  -1.1415783E-02       
+Negative coef at row       10  Column      258 with value  -2.4849539E+00       
+Negative coef at row       10  Column      361 with value  -9.7254544E-01       
+Negative coef at row       10  Column      386 with value  -2.8481332E+00       
+Negative coef at row       10  Column      456 with value  -9.9421093E-01       
+Negative coef at row       10  Column      502 with value  -3.6241701E+00       
+Negative coef at row       11  Column       32 with value  -1.0965492E+00       
+Negative coef at row       11  Column      106 with value  -6.8364792E-01       
+Negative coef at row       11  Column      113 with value  -7.6206644E-01       
+Negative coef at row       11  Column      287 with value  -2.9449380E+00       
+Negative coef at row       11  Column      341 with value  -1.1501926E+00       
+Negative coef at row       11  Column      361 with value  -4.4743381E-01       
+Negative coef at row       11  Column      371 with value  -1.2843634E+00       
+Negative coef at row       11  Column      386 with value  -1.4391723E+00       
+Negative coef at row       11  Column      408 with value  -4.3359593E+00       
+Negative coef at row       11  Column      427 with value  -1.1538107E+00       
+Negative coef at row       11  Column      511 with value  -1.4408815E-01       
+Negative coef at row       12  Column       17 with value  -4.7122843E-01       
+Negative coef at row       12  Column       43 with value  -1.9821417E+00       
+Negative coef at row       12  Column      124 with value  -3.3992126E-01       
+Negative coef at row       12  Column      178 with value  -1.8054381E-01       
+Negative coef at row       12  Column      211 with value  -2.0461433E-01       
+Negative coef at row       12  Column      280 with value  -1.6902211E+00       
+Negative coef at row       12  Column      336 with value  -6.7011776E-01       
+Negative coef at row       12  Column      345 with value  -2.3534165E+00       
+Negative coef at row       12  Column      390 with value  -8.9933820E-01       
+Negative coef at row       12  Column      433 with value  -1.2150590E+00       
+Negative coef at row       12  Column      450 with value  -2.9292136E-01       
+Negative coef at row       13  Column      191 with value  -8.1879536E-01       
+Negative coef at row       13  Column      320 with value  -4.5798377E+00       
+Negative coef at row       13  Column      465 with value  -2.2740503E-01       
+Negative coef at row       13  Column      481 with value  -2.8765395E-01       
+Negative coef at row       13  Column      509 with value  -9.1728804E-01       
+Negative coef at row       14  Column       31 with value  -1.6957211E+00       
+Negative coef at row       14  Column       37 with value  -2.8843673E-01       
+Negative coef at row       14  Column       91 with value  -1.1068897E+00       
+Negative coef at row       14  Column      269 with value  -1.6887255E+00       
+Negative coef at row       14  Column      373 with value  -1.1400512E+00       
+Negative coef at row       14  Column      380 with value  -1.2234308E+00       
+Negative coef at row       14  Column      443 with value  -6.2198712E-01       
+Negative coef at row       14  Column      444 with value  -1.4054205E+00       
+Negative coef at row       15  Column      195 with value  -8.9484656E+00       
+Negative coef at row       15  Column      299 with value  -9.1392549E+00       
+Negative coef at row       15  Column      440 with value  -2.8285183E+00       
+Negative coef at row       15  Column      455 with value  -8.0108082E-01       
+Negative coef at row       15  Column      477 with value  -1.1198777E-01       
+Negative coef at row       15  Column      514 with value  -3.7274632E+00       
+Negative coef at row       16  Column      193 with value  -1.3205395E-01       
+Negative coef at row       16  Column      383 with value  -3.8867040E-01       
+Negative coef at row       16  Column      414 with value  -4.0971091E-01       
+Negative coef at row       17  Column      168 with value  -1.6190865E+01       
+Negative coef at row       17  Column      336 with value  -2.5316852E+00       
+Negative coef at row       17  Column      419 with value  -5.9332153E-02       
+Negative coef at row       17  Column      450 with value  -4.7688761E-01       
+Negative coef at row       17  Column      462 with value  -2.6623977E+00       
+Negative coef at row       18  Column       67 with value  -5.4304181E-01       
+Negative coef at row       18  Column       99 with value  -6.3812657E+00       
+Negative coef at row       18  Column      302 with value  -1.8973534E-01       
+Negative coef at row       18  Column      364 with value  -1.6028784E-01       
+Negative coef at row       18  Column      464 with value  -2.2859041E-01       
+Negative coef at row       18  Column      507 with value  -3.2487512E+00       
+Negative coef at row       19  Column      240 with value  -8.9520827E+00       
+Negative coef at row       19  Column      311 with value  -1.2293728E-01       
+Negative coef at row       19  Column      366 with value  -1.0382404E+01       
+Negative coef at row       19  Column      519 with value  -9.9617369E-01       
+Negative coef at row       19  Column      571 with value  -7.2726602E-02       
+Negative coef at row       19  Column      598 with value  -8.2134046E-01       
+Negative coef at row       20  Column       50 with value  -8.8715337E-01       
+Negative coef at row       20  Column      108 with value  -1.8455452E+00       
+Negative coef at row       20  Column      234 with value  -1.4500796E+00       
+Negative coef at row       20  Column      279 with value  -2.2165011E-01       
+Negative coef at row       20  Column      314 with value  -7.1976993E-01       
+Negative coef at row       20  Column      346 with value  -1.0990591E+00       
+Negative coef at row       20  Column      422 with value  -2.2145881E+00       
+Negative coef at row       20  Column      426 with value  -2.4730054E-01       
+Negative coef at row       21  Column       48 with value  -3.8818944E-03       
+Negative coef at row       21  Column      171 with value  -1.8286646E+00       
+Negative coef at row       21  Column      173 with value  -2.2642993E-01       
+Negative coef at row       21  Column      290 with value  -1.9397674E-01       
+Negative coef at row       21  Column      421 with value  -8.8502360E-02       
+Negative coef at row       21  Column      437 with value  -6.8227187E-01       
+Negative coef at row       21  Column      448 with value  -3.2521650E-02       
+Negative coef at row       21  Column      488 with value  -5.8398291E-01       
+Negative coef at row       22  Column       27 with value  -1.4099668E+00       
+Negative coef at row       22  Column       44 with value  -2.5381352E+00       
+Negative coef at row       22  Column      162 with value  -2.2184878E+00       
+Negative coef at row       22  Column      184 with value  -4.7175361E+00       
+Negative coef at row       22  Column      207 with value  -1.7499246E+00       
+Negative coef at row       22  Column      210 with value  -1.7069772E+00       
+Negative coef at row       22  Column      243 with value  -4.9133487E-01       
+Negative coef at row       22  Column      337 with value  -3.3114976E+00       
+Negative coef at row       22  Column      338 with value  -2.2593045E+00       
+Negative coef at row       22  Column      349 with value  -4.1008579E-01       
+Negative coef at row       23  Column      216 with value  -2.9638577E-02       
+Negative coef at row       23  Column      304 with value  -5.6360580E+00       
+Negative coef at row       23  Column      324 with value  -3.0427060E+00       
+Negative coef at row       23  Column      417 with value  -1.4340577E+01       
+Negative coef at row       23  Column      442 with value  -5.9237673E+00       
+Negative coef at row       23  Column      492 with value  -1.4579054E+00       
+Negative coef at row       24  Column      155 with value  -3.6159737E-02       
+Negative coef at row       24  Column      307 with value  -7.5237129E-01       
+Negative coef at row       24  Column      350 with value  -3.8790177E+00       
+Negative coef at row       24  Column      454 with value  -1.1742175E+00       
+Negative coef at row       24  Column      486 with value  -2.9425317E+00       
+Negative coef at row       25  Column       93 with value  -2.1256184E+00       
+Negative coef at row       25  Column      151 with value  -1.4407930E+00       
+Negative coef at row       25  Column      264 with value  -6.8943415E-02       
+Negative coef at row       25  Column      354 with value  -5.3250775E-01       
+Negative coef at row       25  Column      470 with value  -3.4806302E+00       
+Negative coef at row       26  Column       35 with value  -1.6351983E-01       
+Negative coef at row       26  Column       46 with value  -3.3856515E-01       
+Negative coef at row       26  Column      134 with value  -1.1121448E-01       
+Negative coef at row       26  Column      266 with value  -1.5010145E-01       
+Negative coef at row       26  Column      278 with value  -7.9949706E-01       
+Negative coef at row       26  Column      396 with value  -1.4965629E+00       
+Negative coef at row       26  Column      423 with value  -1.5628753E-01       
+Negative coef at row       26  Column      493 with value  -2.6261757E-01       
+Negative coef at row       27  Column      148 with value  -2.7293474E-02       
+Negative coef at row       27  Column      175 with value  -1.0252904E+00       
+Negative coef at row       27  Column      184 with value  -2.6436350E+00       
+Negative coef at row       27  Column      198 with value  -1.3436021E+00       
+Negative coef at row       27  Column      333 with value  -3.2161129E-01       
+Negative coef at row       27  Column      337 with value  -1.6105418E+00       
+Negative coef at row       27  Column      453 with value  -6.0297142E-02       
+Negative coef at row       27  Column      519 with value  -2.8689082E-01       
+Negative coef at row       28  Column       72 with value  -1.1456884E+01       
+Negative coef at row       28  Column      153 with value  -1.1136789E+00       
+Negative coef at row       28  Column      303 with value  -1.4846565E-01       
+Negative coef at row       28  Column      497 with value  -1.0105743E+00       
+Negative coef at row       29  Column      251 with value  -4.2812379E+00       
+Negative coef at row       29  Column      459 with value  -6.6864988E-01       
+Negative coef at row       29  Column      505 with value  -1.1155922E+00       
+Negative coef at row       30  Column       73 with value  -1.1015647E+00       
+Negative coef at row       30  Column      163 with value  -3.3115564E-01       
+Negative coef at row       30  Column      169 with value  -4.0262618E-01       
+Negative coef at row       30  Column      323 with value  -1.1078392E+01       
+Negative coef at row       30  Column      412 with value  -3.8565449E+00       
+Negative coef at row       30  Column      416 with value  -3.1218484E-01       
+Negative coef at row       30  Column      472 with value  -3.0265330E+00       
+Negative coef at row       30  Column      512 with value  -1.1496852E-01       
+Negative coef at row       31  Column       81 with value  -2.0825293E+00       
+Negative coef at row       31  Column       91 with value  -2.3212850E+00       
+Negative coef at row       31  Column      219 with value  -5.8121960E+00       
+Negative coef at row       31  Column      252 with value  -5.1461226E+00       
+Negative coef at row       31  Column      380 with value  -2.9578422E+00       
+Negative coef at row       31  Column      402 with value  -2.1901607E+00       
+Negative coef at row       32  Column      141 with value  -7.4101601E-02       
+Negative coef at row       32  Column      191 with value  -2.8775138E-01       
+Negative coef at row       32  Column      287 with value  -5.0934835E+00       
+Negative coef at row       32  Column      408 with value  -4.4552069E+00       
+Negative coef at row       32  Column      465 with value  -6.1724749E-02       
+Negative coef at row       32  Column      506 with value  -9.1432070E-02       
+Negative coef at row       32  Column      517 with value  -2.8155913E-01       
+Negative coef at row       33  Column       83 with value  -3.8616052E-01       
+Negative coef at row       33  Column      181 with value  -5.5482035E-02       
+Negative coef at row       33  Column      395 with value  -2.4154396E-01       
+Negative coef at row       33  Column      446 with value  -1.2003432E-01       
+Negative coef at row       33  Column      459 with value  -2.7197228E-01       
+Negative coef at row       33  Column      487 with value  -1.1040750E+00       
+Negative coef at row       34  Column       38 with value  -4.4686921E-03       
+Negative coef at row       34  Column      123 with value  -1.6026744E-01       
+Negative coef at row       34  Column      239 with value  -6.7209998E-01       
+Negative coef at row       34  Column      260 with value  -3.8834841E-01       
+Negative coef at row       34  Column      391 with value  -6.2650328E-01       
+Negative coef at row       34  Column      405 with value  -1.4502354E+00       
+Negative coef at row       34  Column      430 with value  -2.5609822E-01       
+Negative coef at row       34  Column      466 with value  -7.3526695E-02       
+Negative coef at row       34  Column      469 with value  -5.8765544E-01       
+Negative coef at row       35  Column      294 with value  -1.9452462E-01       
+Negative coef at row       35  Column      302 with value  -1.0117729E-01       
+Negative coef at row       35  Column      359 with value  -1.4298693E-02       
+Negative coef at row       35  Column      364 with value  -8.5805432E-02       
+Negative coef at row       35  Column      396 with value  -1.4462544E+00       
+Negative coef at row       35  Column      515 with value  -1.3377889E-04       
+Negative coef at row       36  Column      229 with value  -1.2566964E+01       
+Negative coef at row       36  Column      318 with value  -6.6969867E-01       
+Negative coef at row       36  Column      469 with value  -1.2460512E+00       
+Negative coef at row       36  Column      504 with value  -5.5112282E+00       
+Negative coef at row       37  Column       41 with value  -1.2820633E-01       
+Negative coef at row       37  Column      228 with value  -8.5203045E-01       
+Negative coef at row       37  Column      259 with value  -9.1263430E-01       
+Negative coef at row       37  Column      269 with value  -1.1142204E+00       
+Negative coef at row       37  Column      274 with value  -2.2771998E+00       
+Negative coef at row       37  Column      444 with value  -5.3417494E-01       
+Negative coef at row       37  Column      467 with value  -9.9902150E-01       
+Negative coef at row       37  Column      589 with value  -1.0955235E+00       
+Negative coef at row       38  Column       73 with value  -3.3251409E-01       
+Negative coef at row       38  Column      391 with value  -1.5287439E+00       
+Negative coef at row       38  Column      405 with value  -7.3961466E-01       
+Negative coef at row       38  Column      416 with value  -5.4613660E-01       
+Negative coef at row       39  Column      206 with value  -7.1986170E+00       
+Negative coef at row       39  Column      326 with value  -2.7873400E-01       
+Negative coef at row       39  Column      343 with value  -5.7175787E-01       
+Negative coef at row       39  Column      468 with value  -2.8103639E-01       
+Negative coef at row       39  Column      484 with value  -1.2332251E+00       
+Negative coef at row       40  Column      171 with value  -5.5651132E-01       
+Negative coef at row       40  Column      305 with value  -2.4594693E-01       
+Negative coef at row       40  Column      488 with value  -2.0823236E-01       
+Negative coef at row       41  Column      248 with value  -4.8731369E-01       
+Negative coef at row       41  Column      274 with value  -1.6840449E+00       
+Negative coef at row       41  Column      431 with value  -5.5066126E+00       
+Negative coef at row       41  Column      436 with value  -3.0720551E+00       
+Negative coef at row       41  Column      467 with value  -4.7275840E-02       
+Negative coef at row       42  Column      313 with value  -3.0665355E+00       
+Negative coef at row       42  Column      524 with value  -9.4339903E-01       
+Negative coef at row       42  Column      615 with value  -6.5184498E-02       
+Negative coef at row       43  Column      155 with value  -7.3347740E-01       
+Negative coef at row       43  Column      178 with value  -5.2016104E+00       
+Negative coef at row       43  Column      433 with value  -2.3274547E+00       
+Negative coef at row       43  Column      454 with value  -3.1105183E-01       
+Negative coef at row       44  Column      162 with value  -5.3956366E+00       
+Negative coef at row       44  Column      210 with value  -3.6638001E+00       
+Negative coef at row       44  Column      365 with value  -2.7070254E+00       
+Negative coef at row       44  Column      415 with value  -1.6437228E+00       
+Negative coef at row       45  Column      203 with value  -2.6123021E-01       
+Negative coef at row       45  Column      297 with value  -2.4889296E+00       
+Negative coef at row       45  Column      326 with value  -9.3184378E-01       
+Negative coef at row       46  Column      182 with value  -4.3183839E-01       
+Negative coef at row       46  Column      278 with value  -2.0752210E+00       
+Negative coef at row       46  Column      306 with value  -2.0530461E-01       
+Negative coef at row       46  Column      321 with value  -1.1976023E+00       
+Negative coef at row       46  Column      329 with value  -1.3517996E-01       
+Negative coef at row       46  Column      493 with value  -4.2698666E-01       
+Negative coef at row       46  Column      524 with value  -4.4629529E-02       
+Negative coef at row       46  Column      615 with value  -2.2010917E-01       
+Negative coef at row       47  Column      153 with value  -2.7793947E+00       
+Negative coef at row       47  Column      303 with value  -2.5971705E-01       
+Negative coef at row       47  Column      356 with value  -6.4561717E+00       
+Negative coef at row       47  Column      451 with value  -6.7886905E-01       
+Negative coef at row       47  Column      625 with value  -1.8666054E+00       
+Negative coef at row       48  Column      277 with value  -1.4754369E+00       
+Negative coef at row       48  Column      413 with value  -7.4069380E-01       
+Negative coef at row       48  Column      437 with value  -5.9879359E-01       
+Negative coef at row       48  Column      448 with value  -3.6666349E-01       
+Negative coef at row       48  Column      471 with value  -5.9103650E-01       
+Negative coef at row       49  Column      264 with value  -2.3919925E-01       
+Negative coef at row       49  Column      279 with value  -1.0572075E+00       
+Negative coef at row       49  Column      422 with value  -1.0766439E+00       
+Negative coef at row       49  Column      501 with value  -1.3653196E-01       
+Negative coef at row       50  Column       83 with value  -6.4851580E-01       
+Negative coef at row       50  Column      181 with value  -2.2780188E+00       
+Negative coef at row       50  Column      234 with value  -1.8630039E+00       
+Negative coef at row       50  Column      273 with value  -2.1102597E+00       
+Negative coef at row       50  Column      346 with value  -7.6498847E-01       
+Negative coef at row       51  Column      391 with value  -1.2314922E+00       
+Negative coef at row       51  Column      466 with value  -1.9080267E-01       
+Negative coef at row       52  Column      303 with value  -4.5795418E-01       
+Negative coef at row       52  Column      348 with value  -1.6521017E-02       
+Negative coef at row       52  Column      397 with value  -7.7182996E-02       
+Negative coef at row       52  Column      451 with value  -1.9038184E-01       
+Negative coef at row       53  Column       65 with value  -3.1718931E-01       
+Negative coef at row       53  Column      228 with value  -3.5810204E-01       
+Negative coef at row       53  Column      249 with value  -1.7785713E+00       
+Negative coef at row       53  Column      292 with value  -1.1567459E-01       
+Negative coef at row       53  Column      467 with value  -2.9256675E+00       
+Negative coef at row       54  Column       68 with value  -1.1959362E+00       
+Negative coef at row       54  Column      126 with value  -1.6384781E+00       
+Negative coef at row       54  Column      163 with value  -9.1149349E-01       
+Negative coef at row       54  Column      222 with value  -4.1787960E-01       
+Negative coef at row       54  Column      376 with value  -1.0464566E+00       
+Negative coef at row       54  Column      394 with value  -7.5611898E-01       
+Negative coef at row       54  Column      512 with value  -3.6813253E-01       
+Negative coef at row       54  Column      547 with value  -7.0679786E-02       
+Negative coef at row       55  Column      217 with value  -7.6667254E-01       
+Negative coef at row       55  Column      227 with value  -3.8917704E-01       
+Negative coef at row       55  Column      335 with value  -1.1114896E+00       
+Negative coef at row       55  Column      433 with value  -4.5313781E-01       
+Negative coef at row       55  Column      495 with value  -6.8222405E-01       
+Negative coef at row       55  Column      582 with value  -5.5756356E-02       
+Negative coef at row       56  Column      190 with value  -7.9734943E-02       
+Negative coef at row       56  Column      215 with value  -1.9509572E-02       
+Negative coef at row       56  Column      295 with value  -3.8284573E-02       
+Negative coef at row       56  Column      397 with value  -3.0695547E-01       
+Negative coef at row       57  Column      105 with value  -1.5167383E+00       
+Negative coef at row       57  Column      325 with value  -2.1536252E-01       
+Negative coef at row       57  Column      381 with value  -1.2878086E+00       
+Negative coef at row       57  Column      460 with value  -1.6439588E-01       
+Negative coef at row       57  Column      529 with value  -1.2066402E+00       
+Negative coef at row       57  Column      540 with value  -3.6278232E-01       
+Negative coef at row       58  Column       94 with value  -2.1937828E-01       
+Negative coef at row       58  Column      143 with value  -1.9174803E+00       
+Negative coef at row       58  Column      331 with value  -3.0726797E-01       
+Negative coef at row       58  Column      333 with value  -7.9202445E-01       
+Negative coef at row       58  Column      382 with value  -5.1475066E-01       
+Negative coef at row       58  Column      531 with value  -2.9470768E-01       
+Negative coef at row       59  Column      110 with value  -5.4195745E-01       
+Negative coef at row       59  Column      111 with value  -2.4493740E-01       
+Negative coef at row       59  Column      260 with value  -4.4572018E-01       
+Negative coef at row       59  Column      318 with value  -1.2825871E+00       
+Negative coef at row       60  Column      185 with value  -3.5408558E-01       
+Negative coef at row       60  Column      231 with value  -4.1466839E-01       
+Negative coef at row       60  Column      296 with value  -9.4850078E-01       
+Negative coef at row       60  Column      322 with value  -6.4569314E-01       
+Negative coef at row       60  Column      351 with value  -1.2611643E+00       
+Negative coef at row       60  Column      357 with value  -6.9251919E-01       
+Negative coef at row       60  Column      390 with value  -6.7165439E-01       
+Negative coef at row       60  Column      474 with value  -6.4767438E-01       
+Negative coef at row       61  Column      172 with value  -2.0612477E-01       
+Negative coef at row       61  Column      317 with value  -4.3597469E-01       
+Negative coef at row       61  Column      354 with value  -1.5272014E-01       
+Negative coef at row       61  Column      476 with value  -5.7694701E-01       
+Negative coef at row       62  Column      197 with value  -1.4482965E+00       
+Negative coef at row       62  Column      256 with value  -8.9436338E-01       
+Negative coef at row       62  Column      424 with value  -2.2336485E-01       
+Negative coef at row       62  Column      494 with value  -2.2311756E-01       
+Negative coef at row       63  Column      224 with value  -3.2274120E-01       
+Negative coef at row       63  Column      319 with value  -4.2561523E-01       
+Negative coef at row       63  Column      452 with value  -4.2627896E-01       
+Negative coef at row       63  Column      480 with value  -1.2165411E+00       
+Negative coef at row       63  Column      545 with value  -6.4593538E-01       
+Negative coef at row       63  Column      549 with value  -1.0936922E+00       
+Negative coef at row       64  Column      344 with value  -4.0498807E-02       
+Negative coef at row       64  Column      491 with value  -2.3563609E-01       
+Negative coef at row       65  Column      292 with value  -2.4078461E-01       
+Negative coef at row       66  Column      595 with value  -3.4126622E-01       
+Negative coef at row       67  Column      194 with value  -1.4957210E+00       
+Negative coef at row       67  Column      302 with value  -1.8001521E+00       
+Negative coef at row       68  Column      160 with value  -1.2007631E-01       
+Negative coef at row       68  Column      163 with value  -7.3585612E-01       
+Negative coef at row       68  Column      376 with value  -1.4592961E-01       
+Negative coef at row       68  Column      416 with value  -2.6269972E-01       
+Negative coef at row       69  Column      256 with value  -1.0815126E+00       
+Negative coef at row       69  Column      536 with value  -6.0350782E-01       
+Negative coef at row       69  Column      564 with value  -7.6540361E-01       
+Negative coef at row       71  Column      161 with value  -3.7756898E-01       
+Negative coef at row       71  Column      388 with value  -3.7735340E-01       
+Negative coef at row       72  Column      153 with value  -2.5263181E+00       
+Negative coef at row       72  Column      220 with value  -1.3638579E+01       
+Negative coef at row       73  Column      169 with value  -2.1173229E+00       
+Negative coef at row       73  Column      405 with value  -5.2782417E-01       
+Negative coef at row       74  Column      124 with value  -6.9243680E-02       
+Negative coef at row       74  Column      286 with value  -6.6044953E-02       
+Negative coef at row       74  Column      419 with value  -1.4575751E-01       
+Negative coef at row       75  Column      125 with value  -1.7151014E-01       
+Negative coef at row       75  Column      199 with value  -5.8189493E-01       
+Negative coef at row       75  Column      257 with value  -1.0304136E-01       
+Negative coef at row       75  Column      398 with value  -2.6700644E-01       
+Negative coef at row       75  Column      447 with value  -7.5354820E-02       
+Negative coef at row       75  Column      550 with value  -4.3498630E-01       
+Negative coef at row       76  Column      250 with value  -9.3103606E-02       
+Negative coef at row       76  Column      339 with value  -1.0313477E-02       
+Negative coef at row       77  Column      134 with value  -2.1245086E-01       
+Negative coef at row       77  Column      149 with value  -1.7494418E-01       
+Negative coef at row       77  Column      174 with value  -3.4213748E-01       
+Negative coef at row       77  Column      550 with value  -1.0166281E-01       
+Negative coef at row       77  Column      608 with value  -5.7824886E-01       
+Negative coef at row       78  Column      237 with value  -1.4464260E-01       
+Negative coef at row       78  Column      266 with value  -1.1330838E+00       
+Negative coef at row       79  Column      233 with value  -5.1832733E-01       
+Negative coef at row       79  Column      367 with value  -4.5009139E-01       
+Negative coef at row       79  Column      500 with value  -6.7393813E-01       
+Negative coef at row       79  Column      591 with value  -1.2197673E-01       
+Negative coef at row       80  Column      220 with value  -3.7812965E-01       
+Negative coef at row       80  Column      313 with value  -4.1354059E-01       
+Negative coef at row       80  Column      524 with value  -8.4262924E-02       
+Negative coef at row       81  Column      252 with value  -1.4609329E+00       
+Negative coef at row       81  Column      315 with value  -2.1913273E+00       
+Negative coef at row       81  Column      380 with value  -4.7222176E+00       
+Negative coef at row       82  Column      392 with value  -6.8844425E-02       
+Negative coef at row       82  Column      488 with value  -3.5001581E-01       
+Negative coef at row       83  Column      273 with value  -2.6591678E-01       
+Negative coef at row       83  Column      395 with value  -6.5970271E-01       
+Negative coef at row       85  Column      172 with value  -1.0410572E-01       
+Negative coef at row       85  Column      191 with value  -4.1733386E-01       
+Negative coef at row       85  Column      340 with value  -4.8855626E-01       
+Negative coef at row       85  Column      481 with value  -3.6525309E-01       
+Negative coef at row       85  Column      551 with value  -2.2179112E-01       
+Negative coef at row       86  Column      102 with value  -3.4821830E-01       
+Negative coef at row       86  Column      144 with value  -1.0043682E-01       
+Negative coef at row       86  Column      196 with value  -2.9740735E-02       
+Negative coef at row       86  Column      307 with value  -1.7463265E-01       
+Negative coef at row       86  Column      410 with value  -7.6653181E-02       
+Negative coef at row       86  Column      438 with value  -2.4702666E-01       
+Negative coef at row       87  Column      269 with value  -3.8566150E-01       
+Negative coef at row       88  Column      170 with value  -3.2102739E-01       
+Negative coef at row       88  Column      189 with value  -4.2227740E-01       
+Negative coef at row       88  Column      261 with value  -1.5161364E+00       
+Negative coef at row       88  Column      370 with value  -4.5443892E-01       
+Negative coef at row       88  Column      487 with value  -4.0023891E-01       
+Negative coef at row       89  Column      164 with value  -8.8462443E-01       
+Negative coef at row       89  Column      296 with value  -4.2991211E-01       
+Negative coef at row       89  Column      404 with value  -8.1227803E-01       
+Negative coef at row       89  Column      428 with value  -1.5456847E-01       
+Negative coef at row       89  Column      435 with value  -7.0761097E-02       
+Negative coef at row       89  Column      474 with value  -4.1833852E-01       
+Negative coef at row       90  Column      131 with value  -4.4315789E-01       
+Negative coef at row       90  Column      316 with value  -4.5107086E-01       
+Negative coef at row       90  Column      409 with value  -1.7644323E-01       
+Negative coef at row       90  Column      525 with value  -6.1156286E-01       
+Negative coef at row       91  Column      257 with value  -2.8655807E-01       
+Negative coef at row       91  Column      373 with value  -3.1222564E+00       
+Negative coef at row       91  Column      402 with value  -3.9983148E+00       
+Negative coef at row       92  Column      485 with value  -6.7614145E-02       
+Negative coef at row       93  Column      339 with value  -5.0244678E+00       
+Negative coef at row       93  Column      470 with value  -7.8261650E+00       
+Negative coef at row       94  Column      143 with value  -1.3232195E+00       
+Negative coef at row       94  Column      553 with value  -3.8436440E-01       
+Negative coef at row       94  Column      558 with value  -1.2834901E-01       
+Negative coef at row       95  Column      110 with value  -1.3565271E+00       
+Negative coef at row       95  Column      127 with value  -6.1588272E-02       
+Negative coef at row       95  Column      378 with value  -2.2421206E-01       
+Negative coef at row       95  Column      382 with value  -4.1434702E-01       
+Negative coef at row       95  Column      520 with value  -9.8141102E-01       
+Negative coef at row       95  Column      531 with value  -2.6127062E-01       
+Negative coef at row       95  Column      540 with value  -4.0379186E-01       
+Negative coef at row       96  Column      351 with value  -1.1779169E-01       
+Negative coef at row       97  Column      432 with value  -1.4026328E-02       
+Negative coef at row       97  Column      481 with value  -1.3271951E-01       
+Negative coef at row       97  Column      509 with value  -5.1395698E-01       
+Negative coef at row       98  Column      549 with value  -1.1568642E-01       
+Negative coef at row       99  Column      147 with value  -6.5558788E+00       
+Negative coef at row      100  Column      158 with value  -4.4880731E-01       
+Negative coef at row      100  Column      327 with value  -6.4395663E-01       
+Negative coef at row      100  Column      482 with value  -3.5872585E-01       
+Negative coef at row      101  Column      246 with value  -2.2582331E-01       
+Negative coef at row      101  Column      291 with value  -3.3597300E-01       
+Negative coef at row      101  Column      523 with value  -6.0311104E-02       
+Negative coef at row      101  Column      562 with value  -3.6270856E-01       
+Negative coef at row      102  Column      307 with value  -5.1403160E-01       
+Negative coef at row      102  Column      454 with value  -6.4749362E-01       
+Negative coef at row      103  Column      490 with value  -1.5795575E-01       
+Negative coef at row      104  Column      161 with value  -2.9392739E-01       
+Negative coef at row      104  Column      237 with value  -5.2055601E-01       
+Negative coef at row      104  Column      266 with value  -1.0136910E+00       
+Negative coef at row      105  Column      381 with value  -1.1066798E+00       
+Negative coef at row      106  Column      113 with value  -1.5862600E+00       
+Negative coef at row      106  Column      114 with value  -6.3395315E-01       
+Negative coef at row      106  Column      188 with value  -1.8364940E+00       
+Negative coef at row      106  Column      217 with value  -3.2785904E-02       
+Negative coef at row      106  Column      427 with value  -2.1067775E+00       
+Negative coef at row      107  Column      270 with value  -3.2241720E-01       
+Negative coef at row      107  Column      332 with value  -8.3807170E-01       
+Negative coef at row      107  Column      408 with value  -2.3243075E-01       
+Negative coef at row      108  Column      214 with value  -3.5191837E+00       
+Negative coef at row      108  Column      346 with value  -2.4121069E-01       
+Negative coef at row      108  Column      422 with value  -1.2541957E+00       
+Negative coef at row      109  Column      213 with value  -4.8474671E-01       
+Negative coef at row      109  Column      542 with value  -1.0268300E-02       
+Negative coef at row      110  Column      260 with value  -6.2175873E-03       
+Negative coef at row      110  Column      520 with value  -1.0298908E+00       
+Negative coef at row      111  Column      268 with value  -2.5763063E-01       
+Negative coef at row      111  Column      318 with value  -1.4965481E+00       
+Negative coef at row      111  Column      429 with value  -8.5901071E-02       
+Negative coef at row      111  Column      520 with value  -6.6532254E-01       
+Negative coef at row      112  Column      159 with value  -4.0113297E-01       
+Negative coef at row      112  Column      228 with value  -7.9329160E-01       
+Negative coef at row      112  Column      418 with value  -3.7820996E-01       
+Negative coef at row      113  Column      188 with value  -2.8878168E+00       
+Negative coef at row      113  Column      386 with value  -2.1522653E+00       
+Negative coef at row      114  Column      231 with value  -4.8845064E-01       
+Negative coef at row      114  Column      427 with value  -4.6715538E-01       
+Negative coef at row      115  Column      380 with value  -1.5309809E-02       
+Negative coef at row      116  Column      200 with value  -8.0560897E-01       
+Negative coef at row      116  Column      516 with value  -8.6606157E-03       
+Negative coef at row      117  Column      213 with value  -1.8097216E+00       
+Negative coef at row      117  Column      245 with value  -2.2772965E-01       
+Negative coef at row      117  Column      379 with value  -1.3450669E-01       
+Negative coef at row      117  Column      463 with value  -1.0339082E+00       
+Negative coef at row      117  Column      529 with value  -4.0870024E-01       
+Negative coef at row      118  Column      377 with value  -1.1768507E-02       
+Negative coef at row      118  Column      519 with value  -3.6077454E-01       
+Negative coef at row      118  Column      598 with value  -6.8006397E-01       
+Negative coef at row      119  Column      122 with value  -8.0451163E-01       
+Negative coef at row      119  Column      324 with value  -1.4220218E+00       
+Negative coef at row      119  Column      344 with value  -2.8702568E-01       
+Negative coef at row      119  Column      449 with value  -4.8586790E-01       
+Negative coef at row      119  Column      492 with value  -1.0251126E+00       
+Negative coef at row      120  Column      189 with value  -3.5548783E-02       
+Negative coef at row      120  Column      346 with value  -2.3350434E-02       
+Negative coef at row      121  Column      418 with value  -3.9168735E-01       
+Negative coef at row      121  Column      457 with value  -6.0974554E-01       
+Negative coef at row      121  Column      538 with value  -3.3149458E-01       
+Negative coef at row      122  Column      344 with value  -1.1731454E-01       
+Negative coef at row      122  Column      449 with value  -4.6046982E-01       
+Negative coef at row      123  Column      218 with value  -2.3777800E-01       
+Negative coef at row      123  Column      239 with value  -1.2590765E+00       
+Negative coef at row      123  Column      405 with value  -2.7732486E+00       
+Negative coef at row      124  Column      345 with value  -2.9061761E-01       
+Negative coef at row      124  Column      355 with value  -2.0129015E-01       
+Negative coef at row      124  Column      450 with value  -8.6078370E-01       
+Negative coef at row      125  Column      583 with value  -5.6308270E-01       
+Negative coef at row      126  Column      259 with value  -3.1411665E-02       
+Negative coef at row      126  Column      353 with value  -1.1424611E+00       
+Negative coef at row      126  Column      372 with value  -7.6655310E-01       
+Negative coef at row      126  Column      376 with value  -7.4334258E-01       
+Negative coef at row      126  Column      394 with value  -1.1820764E+00       
+Negative coef at row      127  Column      268 with value  -2.2338217E-01       
+Negative coef at row      127  Column      378 with value  -2.1484445E-01       
+Negative coef at row      128  Column      327 with value  -4.0472303E-02       
+Negative coef at row      128  Column      599 with value  -2.5744142E-01       
+Negative coef at row      130  Column      137 with value  -1.7717367E-02       
+Negative coef at row      130  Column      365 with value  -2.1288197E+00       
+Negative coef at row      131  Column      177 with value  -1.8256606E-01       
+Negative coef at row      131  Column      212 with value  -7.4581173E-01       
+Negative coef at row      131  Column      409 with value  -3.9701380E-01       
+Negative coef at row      131  Column      525 with value  -2.0112669E-01       
+Negative coef at row      132  Column      199 with value  -5.8329341E-01       
+Negative coef at row      132  Column      342 with value  -1.8058287E-01       
+Negative coef at row      132  Column      364 with value  -6.9558402E-01       
+Negative coef at row      132  Column      464 with value  -5.0572116E-01       
+Negative coef at row      133  Column      187 with value  -9.9833788E-01       
+Negative coef at row      133  Column      208 with value  -1.6222732E-01       
+Negative coef at row      133  Column      371 with value  -2.7470374E-01       
+Negative coef at row      134  Column      149 with value  -1.0042103E-01       
+Negative coef at row      134  Column      396 with value  -3.6041559E-01       
+Negative coef at row      134  Column      423 with value  -6.5115521E-01       
+Negative coef at row      135  Column      223 with value  -4.2669121E-02       
+Negative coef at row      135  Column      370 with value  -1.0003917E+00       
+Negative coef at row      135  Column      494 with value  -8.7427757E-02       
+Negative coef at row      135  Column      503 with value  -9.5920702E-02       
+Negative coef at row      135  Column      559 with value  -3.3895377E-01       
+Negative coef at row      136  Column      209 with value  -9.8139530E-02       
+Negative coef at row      136  Column      334 with value  -4.7704577E-01       
+Negative coef at row      136  Column      344 with value  -7.7408114E-02       
+Negative coef at row      136  Column      441 with value  -3.1133512E-01       
+Negative coef at row      137  Column      216 with value  -2.6311155E-01       
+Negative coef at row      137  Column      230 with value  -5.8620972E-01       
+Negative coef at row      139  Column      501 with value  -4.0543433E-02       
+Negative coef at row      140  Column      312 with value  -1.8572465E-01       
+Negative coef at row      140  Column      372 with value  -2.3799221E-01       
+Negative coef at row      140  Column      455 with value  -7.1965358E-01       
+Negative coef at row      141  Column      231 with value  -2.5290936E-02       
+Negative coef at row      141  Column      287 with value  -4.2968424E-01       
+Negative coef at row      141  Column      506 with value  -1.8455743E-01       
+Negative coef at row      142  Column      270 with value  -8.2615129E-01       
+Negative coef at row      142  Column      340 with value  -7.9479338E-01       
+Negative coef at row      142  Column      593 with value  -3.7791097E-01       
+Negative coef at row      143  Column      333 with value  -1.4977635E+00       
+Negative coef at row      143  Column      519 with value  -1.3015745E-01       
+Negative coef at row      143  Column      558 with value  -5.0691542E-01       
+Negative coef at row      144  Column      176 with value  -3.7905297E-01       
+Negative coef at row      144  Column      495 with value  -7.3428221E-02       
+Negative coef at row      144  Column      582 with value  -4.1655513E-01       
+Negative coef at row      145  Column      255 with value  -1.8941281E-01       
+Negative coef at row      146  Column      256 with value  -1.2577471E-01       
+Negative coef at row      147  Column      219 with value  -1.2859992E+00       
+Negative coef at row      147  Column      283 with value  -1.8139217E+00       
+Negative coef at row      148  Column      311 with value  -1.9963038E-01       
+Negative coef at row      150  Column      282 with value  -9.1462579E-01       
+Negative coef at row      150  Column      430 with value  -3.7497450E-01       
+Negative coef at row      150  Column      466 with value  -3.1429847E-01       
+Negative coef at row      151  Column      317 with value  -9.1866567E-02       
+Negative coef at row      151  Column      354 with value  -1.2033297E+00       
+Negative coef at row      151  Column      432 with value  -2.5725432E+00       
+Negative coef at row      152  Column      201 with value  -5.6250258E-01       
+Negative coef at row      152  Column      236 with value  -7.0664195E-01       
+Negative coef at row      152  Column      289 with value  -4.9264406E-01       
+Negative coef at row      152  Column      389 with value  -6.6992944E-01       
+Negative coef at row      153  Column      356 with value  -4.5903020E+00       
+Negative coef at row      154  Column      236 with value  -1.1769608E+00       
+Negative coef at row      154  Column      480 with value  -9.6038920E-02       
+Negative coef at row      155  Column      178 with value  -1.6620309E-02       
+Negative coef at row      155  Column      245 with value  -1.0698532E+00       
+Negative coef at row      155  Column      379 with value  -2.7436980E-01       
+Negative coef at row      155  Column      463 with value  -9.7237056E-01       
+Negative coef at row      156  Column      247 with value  -2.5211436E-01       
+Negative coef at row      156  Column      347 with value  -4.9769007E-01       
+Negative coef at row      157  Column      370 with value  -3.6176263E-03       
+Negative coef at row      157  Column      513 with value  -2.8270300E+00       
+Negative coef at row      158  Column      276 with value  -8.3240077E-01       
+Negative coef at row      158  Column      281 with value  -2.6798378E-01       
+Negative coef at row      158  Column      327 with value  -3.3367322E-01       
+Negative coef at row      158  Column      360 with value  -3.9033284E-01       
+Negative coef at row      158  Column      384 with value  -7.0939568E-01       
+Negative coef at row      158  Column      556 with value  -3.0842104E-01       
+Negative coef at row      159  Column      228 with value  -8.2127535E-01       
+Negative coef at row      159  Column      443 with value  -1.7844745E-01       
+Negative coef at row      159  Column      444 with value  -5.7759837E-01       
+Negative coef at row      160  Column      235 with value  -1.0995954E-01       
+Negative coef at row      160  Column      259 with value  -4.0437096E+00       
+Negative coef at row      160  Column      589 with value  -2.2700844E+00       
+Negative coef at row      161  Column      266 with value  -1.2486784E+00       
+Negative coef at row      161  Column      388 with value  -3.0169838E-02       
+Negative coef at row      161  Column      586 with value  -1.8210234E-02       
+Negative coef at row      161  Column      616 with value  -3.8473237E-01       
+Negative coef at row      162  Column      338 with value  -6.3322200E+00       
+Negative coef at row      162  Column      365 with value  -1.7857057E+00       
+Negative coef at row      163  Column      416 with value  -1.1496744E+00       
+Negative coef at row      164  Column      404 with value  -7.3331374E-01       
+Negative coef at row      164  Column      474 with value  -3.1366985E-01       
+Negative coef at row      165  Column      215 with value  -2.2229007E-01       
+Negative coef at row      165  Column      273 with value  -3.0590420E-01       
+Negative coef at row      165  Column      298 with value  -2.1392683E-02       
+Negative coef at row      165  Column      392 with value  -4.4266764E-02       
+Negative coef at row      166  Column      417 with value  -4.0663338E-02       
+Negative coef at row      166  Column      491 with value  -2.6831499E-01       
+Negative coef at row      168  Column      336 with value  -1.0027389E+00       
+Negative coef at row      168  Column      400 with value  -1.2370637E+01       
+Negative coef at row      169  Column      472 with value  -2.1456412E+00       
+Negative coef at row      170  Column      487 with value  -2.0138658E-01       
+Negative coef at row      171  Column      173 with value  -2.3755001E+00       
+Negative coef at row      172  Column      317 with value  -7.9102711E-01       
+Negative coef at row      172  Column      481 with value  -4.2487999E-03       
+Negative coef at row      172  Column      597 with value  -3.9407316E-01       
+Negative coef at row      173  Column      437 with value  -9.0218026E-01       
+Negative coef at row      174  Column      294 with value  -7.2427745E-01       
+Negative coef at row      174  Column      364 with value  -4.4588850E-02       
+Negative coef at row      174  Column      550 with value  -4.4484273E-01       
+Negative coef at row      174  Column      608 with value  -6.2567686E-01       
+Negative coef at row      175  Column      337 with value  -4.9135242E+00       
+Negative coef at row      176  Column      267 with value  -9.0396667E-02       
+Negative coef at row      176  Column      401 with value  -5.6364299E-01       
+Negative coef at row      176  Column      568 with value  -2.8462255E-02       
+Negative coef at row      176  Column      578 with value  -2.5308258E-02       
+Negative coef at row      177  Column      414 with value  -8.0520706E-01       
+Negative coef at row      178  Column      345 with value  -7.4414359E+00       
+Negative coef at row      178  Column      463 with value  -1.9679613E+00       
+Negative coef at row      180  Column      277 with value  -6.8743097E-01       
+Negative coef at row      180  Column      385 with value  -5.4201063E-01       
+Negative coef at row      180  Column      413 with value  -3.4945344E-01       
+Negative coef at row      181  Column      261 with value  -2.7857852E+00       
+Negative coef at row      181  Column      346 with value  -1.9543842E+00       
+Negative coef at row      181  Column      487 with value  -1.1560160E-01       
+Negative coef at row      181  Column      590 with value  -1.3394438E-01       
+Negative coef at row      182  Column      329 with value  -1.0282447E+00       
+Negative coef at row      182  Column      393 with value  -1.3534491E-01       
+Negative coef at row      183  Column      538 with value  -1.4531874E-01       
+Negative coef at row      183  Column      552 with value  -2.4714789E-01       
+Negative coef at row      183  Column      628 with value  -2.2619186E-01       
+Negative coef at row      184  Column      198 with value  -6.0950957E+00       
+Negative coef at row      184  Column      243 with value  -1.3016361E+00       
+Negative coef at row      184  Column      367 with value  -1.6678338E-01       
+Negative coef at row      184  Column      561 with value  -8.0863733E-02       
+Negative coef at row      185  Column      296 with value  -4.0880421E-01       
+Negative coef at row      186  Column      316 with value  -1.5854939E+00       
+Negative coef at row      186  Column      352 with value  -6.3564292E+00       
+Negative coef at row      187  Column      208 with value  -1.4125406E-01       
+Negative coef at row      187  Column      341 with value  -1.9856639E+00       
+Negative coef at row      187  Column      371 with value  -2.1955872E+00       
+Negative coef at row      188  Column      368 with value  -2.3633818E-01       
+Negative coef at row      189  Column      261 with value  -1.3768644E+00       
+Negative coef at row      190  Column      215 with value  -4.0449522E-01       
+Negative coef at row      190  Column      293 with value  -2.1018173E-01       
+Negative coef at row      190  Column      392 with value  -1.5435382E-01       
+Negative coef at row      190  Column      397 with value  -2.2440132E-01       
+Negative coef at row      191  Column      332 with value  -1.4589973E-01       
+Negative coef at row      191  Column      481 with value  -7.7349000E-01       
+Negative coef at row      192  Column      225 with value  -2.5425759E-02       
+Negative coef at row      192  Column      243 with value  -9.3662448E-01       
+Negative coef at row      192  Column      338 with value  -1.8292302E-01       
+Negative coef at row      193  Column      383 with value  -1.7992790E+00       
+Negative coef at row      194  Column      302 with value  -1.2104612E+00       
+Negative coef at row      195  Column      312 with value  -1.0839288E-01       
+Negative coef at row      195  Column      363 with value  -1.5623547E+01       
+Negative coef at row      196  Column      358 with value  -4.7813541E-02       
+Negative coef at row      196  Column      606 with value  -6.7530928E-02       
+Negative coef at row      197  Column      256 with value  -9.5789297E-01       
+Negative coef at row      199  Column      364 with value  -2.7284390E-01       
+Negative coef at row      199  Column      398 with value  -6.7130991E-01       
+Negative coef at row      200  Column      284 with value  -6.3189393E-03       
+Negative coef at row      200  Column      285 with value  -3.7263455E-01       
+Negative coef at row      200  Column      323 with value  -1.9545727E+00       
+Negative coef at row      200  Column      362 with value  -3.8754621E-01       
+Negative coef at row      200  Column      486 with value  -4.5094446E+00       
+Negative coef at row      200  Column      566 with value  -5.0196197E-01       
+Negative coef at row      201  Column      289 with value  -1.5297072E+00       
+Negative coef at row      201  Column      389 with value  -8.8110677E-01       
+Negative coef at row      201  Column      419 with value  -1.0335792E+00       
+Negative coef at row      201  Column      462 with value  -1.3246892E+00       
+Negative coef at row      202  Column      504 with value  -2.9254036E-01       
+Negative coef at row      204  Column      293 with value  -2.2011460E-01       
+Negative coef at row      204  Column      421 with value  -3.5995593E-01       
+Negative coef at row      204  Column      448 with value  -5.4910730E-01       
+Negative coef at row      204  Column      471 with value  -4.0434581E-01       
+Negative coef at row      205  Column      513 with value  -2.4552225E-01       
+Negative coef at row      206  Column      328 with value  -7.4973490E+00       
+Negative coef at row      206  Column      352 with value  -1.9901789E+00       
+Negative coef at row      206  Column      411 with value  -3.2724731E-02       
+Negative coef at row      206  Column      468 with value  -1.2855579E+00       
+Negative coef at row      207  Column      210 with value  -5.3174182E+00       
+Negative coef at row      207  Column      349 with value  -2.5679376E+00       
+Negative coef at row      208  Column      629 with value  -4.2748871E-01       
+Negative coef at row      209  Column      441 with value  -4.1965031E-01       
+Negative coef at row      210  Column      415 with value  -1.2249367E+00       
+Negative coef at row      210  Column      611 with value  -1.2018546E-01       
+Negative coef at row      211  Column      280 with value  -6.6289027E-01       
+Negative coef at row      211  Column      335 with value  -2.0695575E-02       
+Negative coef at row      211  Column      390 with value  -5.6406803E-01       
+Negative coef at row      212  Column      300 with value  -7.1256530E-02       
+Negative coef at row      212  Column      525 with value  -2.9408755E-01       
+Negative coef at row      213  Column      463 with value  -7.3879852E-01       
+Negative coef at row      213  Column      529 with value  -1.1787174E+00       
+Negative coef at row      213  Column      554 with value  -3.5051576E-01       
+Negative coef at row      214  Column      221 with value  -6.9579351E-01       
+Negative coef at row      214  Column      422 with value  -4.0463866E+00       
+Negative coef at row      214  Column      476 with value  -6.9318794E-01       
+Negative coef at row      215  Column      251 with value  -1.9853971E-02       
+Negative coef at row      215  Column      459 with value  -3.2498589E-02       
+Negative coef at row      216  Column      230 with value  -5.0988567E-03       
+Negative coef at row      216  Column      304 with value  -4.1923117E-01       
+Negative coef at row      216  Column      526 with value  -1.3831802E-01       
+Negative coef at row      217  Column      227 with value  -6.0727292E-01       
+Negative coef at row      218  Column      253 with value  -5.7015454E-01       
+Negative coef at row      218  Column      325 with value  -9.2725986E-01       
+Negative coef at row      219  Column      257 with value  -1.7493875E-01       
+Negative coef at row      219  Column      283 with value  -1.4868853E+00       
+Negative coef at row      219  Column      402 with value  -2.2027746E+00       
+Negative coef at row      220  Column      281 with value  -1.1241159E-01       
+Negative coef at row      220  Column      313 with value  -4.9598947E+00       
+Negative coef at row      221  Column      406 with value  -7.1058104E-01       
+Negative coef at row      221  Column      476 with value  -7.9354051E-01       
+Negative coef at row      221  Column      564 with value  -1.9678947E-02       
+Negative coef at row      222  Column      308 with value  -2.0786288E-01       
+Negative coef at row      222  Column      489 with value  -3.0282396E-01       
+Negative coef at row      222  Column      512 with value  -2.9349571E-02       
+Negative coef at row      222  Column      547 with value  -5.4288708E-02       
+Negative coef at row      223  Column      278 with value  -3.0348757E-01       
+Negative coef at row      223  Column      321 with value  -2.5762789E-01       
+Negative coef at row      223  Column      607 with value  -1.2260815E-01       
+Negative coef at row      224  Column      319 with value  -1.0434663E+00       
+Negative coef at row      224  Column      383 with value  -1.4631537E-01       
+Negative coef at row      225  Column      621 with value  -8.4134074E-03       
+Negative coef at row      227  Column      231 with value  -4.2610448E-01       
+Negative coef at row      227  Column      322 with value  -1.2162176E+00       
+Negative coef at row      227  Column      335 with value  -1.3414746E+00       
+Negative coef at row      228  Column      249 with value  -1.8645608E+00       
+Negative coef at row      228  Column      418 with value  -8.6038625E-01       
+Negative coef at row      228  Column      444 with value  -8.8409271E-01       
+Negative coef at row      228  Column      467 with value  -6.5121186E-01       
+Negative coef at row      229  Column      318 with value  -8.9929151E-01       
+Negative coef at row      229  Column      429 with value  -1.1223284E+01       
+Negative coef at row      230  Column      442 with value  -1.1579355E+00       
+Negative coef at row      230  Column      526 with value  -3.7299967E-01       
+Negative coef at row      230  Column      560 with value  -1.5406698E+00       
+Negative coef at row      231  Column      322 with value  -1.5333171E+00       
+Negative coef at row      232  Column      255 with value  -1.4660526E-02       
+Negative coef at row      232  Column      314 with value  -2.3031970E-01       
+Negative coef at row      232  Column      407 with value  -2.0615714E-01       
+Negative coef at row      232  Column      510 with value  -7.2016844E-01       
+Negative coef at row      233  Column      302 with value  -2.8230010E-01       
+Negative coef at row      233  Column      359 with value  -7.7695753E-02       
+Negative coef at row      233  Column      500 with value  -2.3246757E-01       
+Negative coef at row      233  Column      621 with value  -7.7954382E-02       
+Negative coef at row      234  Column      273 with value  -4.1415730E+00       
+Negative coef at row      234  Column      314 with value  -1.1595171E+00       
+Negative coef at row      235  Column      391 with value  -3.1778799E-01       
+Negative coef at row      236  Column      389 with value  -8.8193389E+00       
+Negative coef at row      236  Column      521 with value  -1.2526449E-02       
+Negative coef at row      237  Column      266 with value  -4.3297281E-02       
+Negative coef at row      238  Column      275 with value  -1.2359341E+00       
+Negative coef at row      238  Column      361 with value  -2.6413726E-01       
+Negative coef at row      238  Column      552 with value  -3.9321250E-01       
+Negative coef at row      241  Column      391 with value  -9.7332967E-02       
+Negative coef at row      242  Column      374 with value  -9.0970714E-01       
+Negative coef at row      242  Column      456 with value  -2.7900597E-01       
+Negative coef at row      243  Column      338 with value  -9.0710611E-01       
+Negative coef at row      244  Column      258 with value  -1.2951823E+00       
+Negative coef at row      244  Column      386 with value  -1.1040481E+00       
+Negative coef at row      244  Column      614 with value  -2.9006013E-01       
+Negative coef at row      245  Column      463 with value  -1.0290002E+00       
+Negative coef at row      246  Column      291 with value  -4.9360848E-01       
+Negative coef at row      247  Column      347 with value  -2.4890404E-01       
+Negative coef at row      247  Column      385 with value  -3.2250450E-01       
+Negative coef at row      247  Column      530 with value  -2.9310549E-01       
+Negative coef at row      247  Column      609 with value  -9.6247771E-02       
+Negative coef at row      248  Column      274 with value  -1.6757303E-01       
+Negative coef at row      248  Column      431 with value  -1.4504833E+00       
+Negative coef at row      250  Column      339 with value  -2.3706751E-01       
+Negative coef at row      250  Column      522 with value  -2.5351052E-01       
+Negative coef at row      251  Column      459 with value  -1.5354845E+00       
+Negative coef at row      251  Column      505 with value  -5.4090386E+00       
+Negative coef at row      252  Column      315 with value  -2.4510815E+00       
+Negative coef at row      252  Column      445 with value  -4.5429449E+00       
+Negative coef at row      253  Column      325 with value  -7.7478669E-01       
+Negative coef at row      253  Column      548 with value  -2.1923301E-01       
+Negative coef at row      254  Column      341 with value  -2.2678410E-01       
+Negative coef at row      254  Column      434 with value  -3.9303685E-01       
+Negative coef at row      254  Column      538 with value  -2.2836910E-01       
+Negative coef at row      254  Column      628 with value  -4.8932851E-01       
+Negative coef at row      255  Column      298 with value  -6.1222444E-02       
+Negative coef at row      256  Column      536 with value  -7.1664503E-01       
+Negative coef at row      256  Column      626 with value  -4.6792233E-01       
+Negative coef at row      257  Column      402 with value  -8.5314387E-01       
+Negative coef at row      258  Column      502 with value  -4.0122386E+00       
+Negative coef at row      259  Column      274 with value  -5.7108667E+00       
+Negative coef at row      259  Column      589 with value  -1.7796469E-01       
+Negative coef at row      260  Column      469 with value  -3.7985489E-01       
+Negative coef at row      261  Column      487 with value  -2.2972777E+00       
+Negative coef at row      261  Column      590 with value  -6.3675595E-01       
+Negative coef at row      263  Column      269 with value  -8.4512114E-02       
+Negative coef at row      263  Column      282 with value  -1.0004940E-01       
+Negative coef at row      264  Column      354 with value  -1.5110226E-01       
+Negative coef at row      265  Column      305 with value  -7.0724338E-01       
+Negative coef at row      266  Column      515 with value  -6.9221311E-01       
+Negative coef at row      266  Column      616 with value  -1.8029893E+00       
+Negative coef at row      268  Column      581 with value  -1.6563498E-01       
+Negative coef at row      269  Column      574 with value  -8.0132931E-01       
+Negative coef at row      270  Column      332 with value  -5.0809580E-01       
+Negative coef at row      270  Column      340 with value  -1.2952207E+00       
+Negative coef at row      272  Column      375 with value  -3.5365302E-01       
+Negative coef at row      272  Column      451 with value  -6.3676994E-01       
+Negative coef at row      275  Column      361 with value  -5.2447868E-01       
+Negative coef at row      276  Column      384 with value  -8.5092146E-01       
+Negative coef at row      277  Column      385 with value  -7.8956959E-01       
+Negative coef at row      277  Column      413 with value  -4.1183117E-01       
+Negative coef at row      277  Column      609 with value  -2.0648602E-01       
+Negative coef at row      278  Column      321 with value  -3.4128175E+00       
+Negative coef at row      279  Column      426 with value  -5.8348952E-01       
+Negative coef at row      279  Column      501 with value  -7.3952420E-03       
+Negative coef at row      280  Column      433 with value  -6.5056769E+00       
+Negative coef at row      281  Column      393 with value  -4.8805209E-02       
+Negative coef at row      282  Column      466 with value  -6.6923772E-01       
+Negative coef at row      282  Column      479 with value  -4.2251145E-01       
+Negative coef at row      284  Column      285 with value  -2.5595508E-02       
+Negative coef at row      284  Column      472 with value  -8.4148566E-02       
+Negative coef at row      284  Column      566 with value  -4.7210192E-01       
+Negative coef at row      286  Column      545 with value  -9.4347115E-02       
+Negative coef at row      286  Column      554 with value  -2.2831829E-02       
+Negative coef at row      287  Column      427 with value  -5.2556126E+00       
+Negative coef at row      289  Column      419 with value  -6.3970318E-01       
+Negative coef at row      289  Column      480 with value  -7.9923477E-01       
+Negative coef at row      290  Column      392 with value  -6.2879032E-01       
+Negative coef at row      290  Column      421 with value  -8.4069246E-01       
+Negative coef at row      290  Column      488 with value  -4.3563595E-01       
+Negative coef at row      292  Column      538 with value  -1.0773668E-01       
+Negative coef at row      293  Column      421 with value  -1.9646112E-01       
+Negative coef at row      294  Column      364 with value  -3.4731503E-01       
+Negative coef at row      295  Column      497 with value  -2.1342836E-01       
+Negative coef at row      296  Column      435 with value  -1.4486129E-01       
+Negative coef at row      296  Column      474 with value  -1.2110279E+00       
+Negative coef at row      297  Column      326 with value  -1.6199484E+00       
+Negative coef at row      297  Column      428 with value  -2.5376240E+00       
+Negative coef at row      299  Column      401 with value  -1.1529819E-01       
+Negative coef at row      299  Column      440 with value  -1.8380975E+01       
+Negative coef at row      300  Column      407 with value  -4.4879965E-01       
+Negative coef at row      301  Column      353 with value  -5.0426037E-02       
+Negative coef at row      301  Column      369 with value  -9.9226738E-02       
+Negative coef at row      303  Column      451 with value  -1.1806442E+00       
+Negative coef at row      304  Column      330 with value  -6.6503513E+00       
+Negative coef at row      306  Column      321 with value  -5.8196607E-01       
+Negative coef at row      306  Column      615 with value  -3.1344283E-01       
+Negative coef at row      307  Column      350 with value  -1.1916029E-01       
+Negative coef at row      307  Column      438 with value  -2.1217021E-01       
+Negative coef at row      307  Column      454 with value  -1.6411373E+00       
+Negative coef at row      308  Column      489 with value  -2.5825388E+00       
+Negative coef at row      312  Column      353 with value  -3.1112254E-01       
+Negative coef at row      313  Column      524 with value  -1.8287247E+00       
+Negative coef at row      314  Column      483 with value  -1.5219596E-01       
+Negative coef at row      316  Column      352 with value  -7.7875196E-02       
+Negative coef at row      316  Column      409 with value  -4.7223137E-01       
+Negative coef at row      317  Column      354 with value  -5.6943810E-02       
+Negative coef at row      318  Column      429 with value  -2.7687911E-01       
+Negative coef at row      318  Column      469 with value  -3.1620125E+00       
+Negative coef at row      319  Column      480 with value  -1.1280515E-01       
+Negative coef at row      320  Column      428 with value  -2.0864839E+00       
+Negative coef at row      320  Column      465 with value  -2.7393520E-01       
+Negative coef at row      322  Column      335 with value  -7.6895243E-01       
+Negative coef at row      322  Column      390 with value  -9.2190882E-01       
+Negative coef at row      323  Column      472 with value  -8.5342610E+00       
+Negative coef at row      323  Column      486 with value  -9.6226830E-01       
+Negative coef at row      324  Column      492 with value  -2.3774356E-01       
+Negative coef at row      325  Column      555 with value  -4.8425753E-01       
+Negative coef at row      326  Column      343 with value  -1.4479827E+00       
+Negative coef at row      327  Column      482 with value  -3.9522514E-01       
+Negative coef at row      328  Column      352 with value  -5.4164622E+00       
+Negative coef at row      330  Column      498 with value  -7.9443505E-01       
+Negative coef at row      331  Column      333 with value  -1.1074978E-01       
+Negative coef at row      331  Column      337 with value  -2.5514892E-01       
+Negative coef at row      331  Column      349 with value  -2.9706430E-01       
+Negative coef at row      331  Column      575 with value  -8.9629683E-02       
+Negative coef at row      332  Column      340 with value  -1.2040476E+00       
+Negative coef at row      333  Column      519 with value  -2.2626163E+00       
+Negative coef at row      334  Column      479 with value  -2.9670041E-01       
+Negative coef at row      335  Column      433 with value  -1.6482842E-01       
+Negative coef at row      336  Column      351 with value  -1.5161520E+00       
+Negative coef at row      336  Column      390 with value  -2.8509073E+00       
+Negative coef at row      337  Column      349 with value  -1.9754076E-01       
+Negative coef at row      339  Column      522 with value  -4.1527752E-01       
+Negative coef at row      339  Column      534 with value  -5.4776194E-01       
+Negative coef at row      340  Column      551 with value  -6.4425426E-01       
+Negative coef at row      341  Column      371 with value  -2.1019865E+00       
+Negative coef at row      341  Column      434 with value  -1.0265535E+00       
+Negative coef at row      341  Column      511 with value  -1.7885334E+00       
+Negative coef at row      342  Column      464 with value  -2.2918744E-01       
+Negative coef at row      347  Column      571 with value  -3.2268772E-01       
+Negative coef at row      349  Column      378 with value  -2.5128296E-01       
+Negative coef at row      350  Column      438 with value  -2.2999080E+00       
+Negative coef at row      351  Column      357 with value  -1.2471966E+00       
+Negative coef at row      351  Column      390 with value  -1.7975273E+00       
+Negative coef at row      353  Column      369 with value  -6.6587353E-01       
+Negative coef at row      353  Column      372 with value  -9.4701597E-01       
+Negative coef at row      353  Column      394 with value  -1.2434328E+00       
+Negative coef at row      354  Column      476 with value  -5.5128010E-02       
+Negative coef at row      356  Column      384 with value  -2.4030147E-01       
+Negative coef at row      356  Column      625 with value  -6.6814506E+00       
+Negative coef at row      358  Column      477 with value  -8.0488533E-01       
+Negative coef at row      358  Column      514 with value  -1.0587808E+00       
+Negative coef at row      362  Column      486 with value  -6.3097653E-01       
+Negative coef at row      362  Column      516 with value  -5.1714102E-01       
+Negative coef at row      363  Column      369 with value  -2.4522624E-02       
+Negative coef at row      364  Column      464 with value  -3.6799768E-01       
+Negative coef at row      365  Column      518 with value  -1.2451039E-01       
+Negative coef at row      365  Column      560 with value  -2.4866387E+00       
+Negative coef at row      367  Column      561 with value  -1.9061585E-01       
+Negative coef at row      367  Column      591 with value  -5.5896370E-01       
+Negative coef at row      368  Column      386 with value  -4.2526172E-02       
+Negative coef at row      370  Column      494 with value  -2.3264571E-01       
+Negative coef at row      371  Column      408 with value  -3.0756818E+00       
+Negative coef at row      372  Column      570 with value  -3.7481582E-01       
+Negative coef at row      373  Column      443 with value  -2.7037348E-01       
+Negative coef at row      374  Column      436 with value  -8.5866038E-01       
+Negative coef at row      374  Column      456 with value  -2.8156420E-01       
+Negative coef at row      374  Column      544 with value  -8.9750941E-02       
+Negative coef at row      374  Column      601 with value  -6.8167029E-02       
+Negative coef at row      375  Column      397 with value  -1.2806480E-02       
+Negative coef at row      375  Column      451 with value  -1.3087127E+00       
+Negative coef at row      375  Column      471 with value  -1.5564381E+00       
+Negative coef at row      379  Column      516 with value  -5.3182646E-02       
+Negative coef at row      381  Column      529 with value  -9.9747569E-01       
+Negative coef at row      381  Column      542 with value  -9.3173510E-02       
+Negative coef at row      382  Column      531 with value  -8.2311405E-01       
+Negative coef at row      384  Column      625 with value  -1.8017188E-02       
+Negative coef at row      385  Column      530 with value  -5.0684951E-01       
+Negative coef at row      387  Column      490 with value  -7.8181249E-02       
+Negative coef at row      388  Column      393 with value  -3.5477906E-02       
+Negative coef at row      388  Column      493 with value  -7.7735748E-02       
+Negative coef at row      389  Column      462 with value  -3.8332802E+00       
+Negative coef at row      391  Column      416 with value  -6.0448332E-01       
+Negative coef at row      391  Column      466 with value  -1.9175580E+00       
+Negative coef at row      392  Column      488 with value  -2.2520097E-01       
+Negative coef at row      392  Column      612 with value  -3.7751706E-01       
+Negative coef at row      395  Column      459 with value  -1.0783945E+00       
+Negative coef at row      401  Column      440 with value  -1.3987246E-01       
+Negative coef at row      401  Column      477 with value  -2.9413892E-02       
+Negative coef at row      404  Column      428 with value  -5.0588245E-01       
+Negative coef at row      407  Column      510 with value  -3.9700576E-01       
+Negative coef at row      408  Column      517 with value  -1.4918820E+00       
+Negative coef at row      410  Column      438 with value  -8.8192933E-01       
+Negative coef at row      413  Column      437 with value  -2.0835110E+00       
+Negative coef at row      414  Column      499 with value  -1.6179468E+00       
+Negative coef at row      417  Column      491 with value  -2.7814012E+00       
+Negative coef at row      417  Column      492 with value  -4.4155521E+00       
+Negative coef at row      419  Column      450 with value  -1.3152937E+00       
+Negative coef at row      424  Column      494 with value  -3.2733135E-01       
+Negative coef at row      425  Column      584 with value  -6.7807668E-02       
+Negative coef at row      428  Column      435 with value  -8.8426351E-02       
+Negative coef at row      429  Column      581 with value  -7.0416034E-01       
+Negative coef at row      430  Column      466 with value  -1.1974759E+00       
+Negative coef at row      432  Column      509 with value  -7.5697651E-01       
+Negative coef at row      434  Column      511 with value  -4.8229814E-01       
+Negative coef at row      434  Column      628 with value  -1.5733779E-01       
+Negative coef at row      440  Column      502 with value  -3.5868379E+00       
+Negative coef at row      441  Column      565 with value  -8.0950386E-02       
+Negative coef at row      442  Column      560 with value  -9.1119039E-01       
+Negative coef at row      443  Column      444 with value  -3.3882007E+00       
+Negative coef at row      443  Column      533 with value  -7.1371246E-03       
+Negative coef at row      445  Column      449 with value  -2.6732577E+00       
+Negative coef at row      446  Column      487 with value  -8.1867569E-01       
+Negative coef at row      446  Column      513 with value  -5.4649994E-01       
+Negative coef at row      448  Column      471 with value  -1.8864336E+00       
+Negative coef at row      452  Column      545 with value  -8.2472323E-02       
+Negative coef at row      455  Column      618 with value  -6.3833298E-01       
+Negative coef at row      456  Column      594 with value  -4.9650665E-02       
+Negative coef at row      457  Column      538 with value  -9.9587250E-01       
+Negative coef at row      458  Column      504 with value  -6.9589138E-01       
+Negative coef at row      460  Column      540 with value  -4.9823087E-02       
+Negative coef at row      465  Column      506 with value  -1.4302402E+00       
+Negative coef at row      467  Column      601 with value  -6.0949206E-03       
+Negative coef at row      470  Column      501 with value  -6.5358530E-01       
+Negative coef at row      475  Column      631 with value  -1.4346671E-02       
+Negative coef at row      477  Column      514 with value  -1.5251167E-01       
+Negative coef at row      479  Column      572 with value  -1.7481818E-01       
+Negative coef at row      480  Column      545 with value  -5.8633701E-01       
+Negative coef at row      482  Column      596 with value  -2.7755660E-01       
+Negative coef at row      485  Column      584 with value  -8.6806383E-02       
+Negative coef at row      486  Column      516 with value  -1.4966148E-01       
+Negative coef at row      488  Column      595 with value  -6.8285109E-01       
+Negative coef at row      490  Column      569 with value  -2.4970438E-02       
+Negative coef at row      491  Column      565 with value  -1.6776339E+00       
+Negative coef at row      493  Column      616 with value  -5.9534556E-01       
+Negative coef at row      495  Column      582 with value  -4.1982760E-01       
+Negative coef at row      496  Column      501 with value  -4.5337043E-02       
+Negative coef at row      496  Column      579 with value  -1.7491377E-01       
+Negative coef at row      497  Column      505 with value  -1.9916978E+00       
+Negative coef at row      497  Column      588 with value  -3.6600933E-02       
+Negative coef at row      499  Column      595 with value  -5.5433887E-01       
+Negative coef at row      500  Column      591 with value  -4.6092655E-01       
+Negative coef at row      504  Column      565 with value  -2.1283371E+00       
+Negative coef at row      512  Column      604 with value  -3.6044348E-01       
+Negative coef at row      513  Column      613 with value  -1.2620006E+00       
+Negative coef at row      514  Column      606 with value  -5.2274467E-01       
+Negative coef at row      515  Column      602 with value  -1.3787431E-01       
+Negative coef at row      519  Column      523 with value  -3.0709911E-02       
+Negative coef at row      519  Column      598 with value  -2.2091383E+00       
+Negative coef at row      527  Column      580 with value  -4.7649009E-02       
+Negative coef at row      531  Column      540 with value  -7.5411908E-02       
+Negative coef at row      532  Column      593 with value  -3.4369099E-02       
+Negative coef at row      532  Column      629 with value  -3.4832413E-01       
+Negative coef at row      536  Column      564 with value  -1.0076588E+00       
+Negative coef at row      538  Column      628 with value  -3.0436351E-01       
+Negative coef at row      541  Column      564 with value  -4.5207985E-01       
+Negative coef at row      541  Column      593 with value  -8.0131427E-01       
+Negative coef at row      541  Column      597 with value  -6.7435812E-03       
+Negative coef at row      542  Column      549 with value  -2.5038771E-01       
+Negative coef at row      547  Column      603 with value  -2.8810537E-02       
+Negative coef at row      550  Column      583 with value  -3.7120139E-01       
+Negative coef at row      552  Column      594 with value  -5.8064602E-01       
+Negative coef at row      558  Column      624 with value  -3.6705199E-02       
+Negative coef at row      565  Column      610 with value  -8.2048194E-03       
+Negative coef at row      571  Column      598 with value  -3.8693010E-01       
+Negative coef at row      571  Column      605 with value  -2.0118981E-03       
+Negative coef at row      576  Column      625 with value  -8.5185241E-01       
+Negative coef at row      578  Column      614 with value  -2.1372880E-01       
+Negative coef at row      580  Column      584 with value  -1.5812397E-01       
+Negative coef at row      586  Column      622 with value  -1.4819781E-02       
+cmo/addatt/cmotet1/ccoef/VDOUBLE/scalar/nnodes/linear/permanent/afgx/0.0/       
+finish                                                                          
+cmo/addatt/cmotet1/ij_ccoef/VINT/scalar/nnodes/linear/permanent/afgx/0.0/       
+finish                                                                          
+AMatbld3d_stor: npoints =     2181  ncoefs =      30145                         
+AMatbld3d_stor: Number of unique coefs =     16163                              
+AMatbld3d_stor: Maximum num. connections to a node =         36                 
+AMatbld3d_stor: Volume min =  -8.7106700E+02                                    
+AMatbld3d_stor: Volume max =   4.6042453E+03                                    
+AMatbld3d_stor: Total Volume:   5.0000008E+05                                   
+AMatbld3d_stor: abs(Aij/xij) min =   0.0000000E+00                              
+AMatbld3d_stor: abs(Aij/xij) max =   1.1808174E+04                              
+AMatbld3d_stor: (Aij/xij) max =   1.8380975E+01                                 
+AMatbld3d_stor: (Aij/xij) min =  -1.1808174E+04                                 
+AMatbld3d_stor Matrix coefficient values stored as scalar area/distance         
+AMatbld3d_stor Matrix compression used for graph, not coefficient values        
+cmotet1 attribute with voronoi volumes created with name vorvol                 
+ 
+*** SPARSE COEFFICIENT MATRIX _gstor SUCCESSFUL ***                             
+ 
+3D Matrix Coefficient file written with name -notset-                           
+ 
+cmo addatt cmotet1 volume tetvol                                                
+ADDATT/volume: creating new attribute: tetvol                                   
+cmo printatt cmotet1 volvor minmax                                              
+ cannot attribute volvor in cmotet1                                             
+cmo printatt cmotet1 voltet minmax                                              
+ cannot attribute voltet in cmotet1                                             
+dump/gmv/tet_all_seeds.gmv/cmotet1                                              
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+dump/avs2/tet_all_seeds.inp/cmotet1                                             
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+### connnect all seeds, no surface points ####                                  
+cmo select cmo_inout                                                            
+cmo setatt cmo_inout imt 2                                                      
+      2808 values reset for attribute imt1                                      
+ 
+cmo/create/cmotet///tet                                                         
+copypts/cmotet/cmo_inout                                                        
+copypts added nodes          1 to       2808                                    
+cmo/delete/cmotmp                                                               
+Mesh Object release skipped, it does not exist: cmotmp                          
+cmo/select cmotet                                                               
+cmo/setatt/cmotet/imt/1 0 0/1                                                   
+Warning: nelements = 0                                                          
+      2808 values reset for attribute imt1                                      
+ 
+cmo/setatt/cmotet/itp/1 0 0/0                                                   
+Warning: nelements = 0                                                          
+      2808 values reset for attribute itp1                                      
+ 
+filter/1 0 0                                                                    
+FILTER:Use internal epsilonl value =   0.376306120141E-10                       
+FILTER:Dudding duplicate points:           0                                    
+rmpoint/compress                                                                
+         0 points removed and          0 elements removed.                      
+RMPOINT: new point count is         2808                                        
+RMPOINT: new element count is          0                                        
+cmo/printatt/cmotet/-xyz-/minmax                                                
+Warning: nelements = 0                                                          
+ATTRIBUTE NAME              MIN               MAX         DIFFERENCE    LENGTH  
+ xic               -5.102641910E+00  1.052655570E+02 1.103681989E+02      2808  
+ yic               -4.898699930E+00  1.052674474E+02 1.101661473E+02      2808  
+ zic               -8.277390410E+00  5.808110296E+01 6.635849337E+01      2808  
+ 
+connect noadd                                                                   
+ Coordinates of enclosing tetrahedron are:                                      
+          -0.87879D+02   -0.87523D+02   -0.14099D+03                            
+          -0.87879D+02    0.46331D+03    0.24902D+02                            
+          -0.87879D+02   -0.87523D+02    0.19080D+03                            
+           0.46396D+03    0.50184D+02    0.24902D+02                            
+Circumsphere problem for         22 points at step   1                          
+Circumsphere problem for          6 points at step   1                          
+Circumsphere problem for          2 points at step   1                          
+Circumsphere problem for          2 points at step   1                          
+ 
+ There are         4 points that failed step          1                         
+         981       263       377      2448                                      
+ 
+ At step   1          0 Points failed volume ratio test                         
+ 
+                      2 points failed min volume test.                          
+ 
+Circumsphere problems for          2 points                                     
+ 
+ There are         1 points that failed step          2                         
+        2448                                                                    
+ 
+ At step   2          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          3                         
+        2448                                                                    
+ 
+ At step   3          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          4                         
+        2448                                                                    
+ 
+ At step   4          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          5                         
+        2448                                                                    
+ 
+ At step   5          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+         1 points are being marked because they could not be connected.         
+       2448         1  -0.2887732E+01  0.7425062E+02  0.8388582E+01             
+ 
+ There are         1 points that failed step          1                         
+        2448                                                                    
+ 
+ At step   1          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          2                         
+        2448                                                                    
+ 
+ At step   2          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          3                         
+        2448                                                                    
+ 
+ At step   3          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          4                         
+        2448                                                                    
+ 
+ At step   4          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+ There are         1 points that failed step          5                         
+        2448                                                                    
+ 
+ At step   5          0 Points failed volume ratio test                         
+ 
+                      1 points failed min volume test.                          
+ 
+         1 points are being marked because they could not be connected.         
+       2448         1  -0.2887732E+01  0.7425062E+02  0.8388582E+01             
+ 
+ Dudding         1 points that have no associated tetrahedra.                   
+ -0.2887732E+01  0.7425062E+02  0.8388582E+01       2448         1              
+ -0.2887732E+01  0.7425062E+02  0.8388582E+01       2448         1              
+ 
+ The mesh is complete but could not include all points.                         
+ Number of points that could not be connected:          1                       
+ 
+LaGriT FINISH: connect                                                          
+ 
+cmo setatt cmotet itetclr 1                                                     
+     18336 values reset for attribute itetclr                                   
+ 
+resetpts/itp                                                                    
+geniee                                                                          
+finish                                                                          
+cmo addatt cmotet vor_volume vorvol                                             
+ADDATT/voronoi_volume: creating new attribute: vorvol                           
+ 
+AMatbld3d_stor: Matrix compress_eps:  0.1000000E-07                             
+AMatbld3d_stor: Local epsilon:  0.1000000E-14                                   
+AMatbld3d_stor: *****Negative Coefficients ******                               
+AMatbld3d_stor: Total Number of Negative Coefficients       805                 
+AMatbld3d_stor: Number of Significant Negative Coefs       803                  
+AMatbld3d_stor: Number of 'zero' (< 10e-8 *max) coefs         6                 
+Negative coef at row     1260  Column     1263 with value  -7.0232513E+01       
+Negative coef at row     1260  Column     1374 with value  -5.1184560E+00       
+Negative coef at row     1260  Column     1491 with value  -3.4019380E+01       
+Negative coef at row     1260  Column     1647 with value  -3.9207386E+01       
+Negative coef at row     1260  Column     1865 with value  -1.6121731E+01       
+Negative coef at row     1263  Column     1374 with value  -6.2500294E+00       
+Negative coef at row     1263  Column     2421 with value  -1.1762863E+01       
+Negative coef at row     1263  Column     2455 with value  -1.5753473E+02       
+Negative coef at row     1274  Column     2185 with value  -1.7824266E+02       
+Negative coef at row     1274  Column     2278 with value  -4.6056257E+01       
+Negative coef at row     1274  Column     2468 with value  -3.2172332E+01       
+Negative coef at row     1274  Column     2486 with value  -3.2805476E+01       
+Negative coef at row     1304  Column     1599 with value  -1.8971357E+01       
+Negative coef at row     1304  Column     1617 with value  -6.2899545E+00       
+Negative coef at row     1304  Column     1625 with value  -2.9449639E+01       
+Negative coef at row     1304  Column     1658 with value  -5.7153874E+01       
+Negative coef at row     1304  Column     1695 with value  -5.6837104E+01       
+Negative coef at row     1321  Column     1601 with value  -4.1367139E+02       
+Negative coef at row     1321  Column     1966 with value  -8.6067932E+01       
+Negative coef at row     1321  Column     2237 with value  -3.3259912E+02       
+Negative coef at row     1330  Column     1554 with value  -1.7734691E+01       
+Negative coef at row     1330  Column     1677 with value  -2.6260038E+01       
+Negative coef at row     1330  Column     1788 with value  -6.2972947E+01       
+Negative coef at row     1330  Column     1826 with value  -1.2297718E+01       
+Negative coef at row     1330  Column     2223 with value  -4.3822803E+01       
+Negative coef at row     1361  Column     1363 with value  -2.5199845E+00       
+Negative coef at row     1361  Column     1462 with value  -6.9769523E+01       
+Negative coef at row     1361  Column     2132 with value  -1.0057503E+03       
+Negative coef at row     1361  Column     2502 with value  -9.5361893E+00       
+Negative coef at row     1363  Column     1929 with value  -1.5051320E+01       
+Negative coef at row     1363  Column     2502 with value  -2.7507764E+01       
+Negative coef at row     1374  Column     1867 with value  -3.3477286E+01       
+Negative coef at row     1374  Column     1869 with value  -1.3097448E+01       
+Negative coef at row     1374  Column     1880 with value  -3.1005226E+01       
+Negative coef at row     1374  Column     2161 with value  -1.4455083E+01       
+Negative coef at row     1374  Column     2304 with value  -1.7378798E+01       
+Negative coef at row     1374  Column     2421 with value  -9.6360080E+00       
+Negative coef at row     1377  Column     1379 with value  -2.1413835E+01       
+Negative coef at row     1377  Column     1674 with value  -1.1905617E+02       
+Negative coef at row     1377  Column     1677 with value  -1.0676302E+01       
+Negative coef at row     1377  Column     1766 with value  -9.5223647E+01       
+Negative coef at row     1379  Column     1677 with value  -1.1737318E+01       
+Negative coef at row     1379  Column     1741 with value  -1.1130206E+02       
+Negative coef at row     1379  Column     1766 with value  -1.0697947E+00       
+Negative coef at row     1379  Column     1788 with value  -1.6591150E+01       
+Negative coef at row     1379  Column     2058 with value  -1.9987527E+01       
+Negative coef at row     1395  Column     1570 with value  -2.3114628E+00       
+Negative coef at row     1395  Column     1596 with value  -1.1171163E+00       
+Negative coef at row     1395  Column     1722 with value  -2.3954792E+01       
+Negative coef at row     1395  Column     1953 with value  -1.6905719E+01       
+Negative coef at row     1395  Column     2099 with value  -3.4082212E+01       
+Negative coef at row     1395  Column     2420 with value  -3.8224393E+01       
+Negative coef at row     1395  Column     2499 with value  -3.5976553E+00       
+Negative coef at row     1398  Column     1401 with value  -4.7976264E+01       
+Negative coef at row     1398  Column     1833 with value  -1.9397669E+01       
+Negative coef at row     1398  Column     1835 with value  -2.0860982E+00       
+Negative coef at row     1398  Column     2098 with value  -1.2738498E+01       
+Negative coef at row     1398  Column     2099 with value  -8.9933141E+01       
+Negative coef at row     1398  Column     2246 with value  -6.2609602E+01       
+Negative coef at row     1401  Column     1835 with value  -5.9426275E+00       
+Negative coef at row     1401  Column     2098 with value  -9.7589568E+01       
+Negative coef at row     1401  Column     2336 with value  -1.2900076E+00       
+Negative coef at row     1401  Column     2500 with value  -9.2707425E+00       
+Negative coef at row     1402  Column     1896 with value  -3.0412479E+02       
+Negative coef at row     1402  Column     2347 with value  -3.2312720E+02       
+Negative coef at row     1402  Column     2428 with value  -4.7931937E+02       
+Negative coef at row     1411  Column     1559 with value  -2.0918947E+01       
+Negative coef at row     1411  Column     1622 with value  -2.8190468E+01       
+Negative coef at row     1411  Column     1696 with value  -3.2396114E+01       
+Negative coef at row     1411  Column     1997 with value  -2.8792571E+01       
+Negative coef at row     1411  Column     2111 with value  -3.9778388E+00       
+Negative coef at row     1411  Column     2146 with value  -1.5748322E+01       
+Negative coef at row     1411  Column     2473 with value  -1.6146829E+01       
+Negative coef at row     1411  Column     2483 with value  -3.2346488E+01       
+Negative coef at row     1411  Column     2513 with value  -2.3080739E+01       
+Negative coef at row     1414  Column     1420 with value  -7.9818515E+01       
+Negative coef at row     1414  Column     1701 with value  -2.6907959E+00       
+Negative coef at row     1414  Column     1703 with value  -3.8984413E+01       
+Negative coef at row     1414  Column     1806 with value  -9.4237933E+01       
+Negative coef at row     1414  Column     1919 with value  -3.0377415E+01       
+Negative coef at row     1414  Column     2220 with value  -1.5345472E+01       
+Negative coef at row     1420  Column     2093 with value  -2.5790342E+02       
+Negative coef at row     1420  Column     2220 with value  -5.1439178E+02       
+Negative coef at row     1421  Column     1426 with value  -7.0923750E+01       
+Negative coef at row     1421  Column     1531 with value  -1.7900030E+01       
+Negative coef at row     1421  Column     2037 with value  -3.4967495E+01       
+Negative coef at row     1421  Column     2075 with value  -6.7053290E+01       
+Negative coef at row     1426  Column     1510 with value  -6.5883532E+01       
+Negative coef at row     1426  Column     2037 with value  -1.9812354E+01       
+Negative coef at row     1426  Column     2075 with value  -4.3351257E+01       
+Negative coef at row     1426  Column     2355 with value  -6.0182580E-02       
+Negative coef at row     1426  Column     2488 with value  -4.4762842E+01       
+Negative coef at row     1457  Column     1462 with value  -4.2133636E+01       
+Negative coef at row     1457  Column     1797 with value  -7.1703157E+01       
+Negative coef at row     1457  Column     2038 with value  -4.6371493E+01       
+Negative coef at row     1457  Column     2140 with value  -1.7781177E+01       
+Negative coef at row     1457  Column     2498 with value  -5.0431177E+01       
+Negative coef at row     1462  Column     2140 with value  -3.4862727E+01       
+Negative coef at row     1462  Column     2498 with value  -3.0543673E+01       
+Negative coef at row     1462  Column     2502 with value  -5.0837325E+01       
+Negative coef at row     1468  Column     2140 with value  -1.5450115E+02       
+Negative coef at row     1468  Column     2142 with value  -1.0473289E+02       
+Negative coef at row     1468  Column     2190 with value  -6.3608353E+01       
+Negative coef at row     1468  Column     2255 with value  -2.6268176E+00       
+Negative coef at row     1468  Column     2377 with value  -2.9172635E+01       
+Negative coef at row     1468  Column     2470 with value  -9.8148785E+00       
+Negative coef at row     1468  Column     2478 with value  -4.5464356E+01       
+Negative coef at row     1469  Column     2237 with value  -1.1316373E+02       
+Negative coef at row     1469  Column     2290 with value  -2.8964275E+01       
+Negative coef at row     1469  Column     2496 with value  -1.2727717E+02       
+Negative coef at row     1476  Column     1482 with value  -2.1087536E+01       
+Negative coef at row     1476  Column     1554 with value  -1.1329677E+01       
+Negative coef at row     1476  Column     1788 with value  -3.4488564E+01       
+Negative coef at row     1476  Column     1988 with value  -2.9591142E+01       
+Negative coef at row     1482  Column     1554 with value  -2.2893234E+00       
+Negative coef at row     1482  Column     1989 with value  -6.9702674E+01       
+Negative coef at row     1482  Column     2506 with value  -2.5274440E+01       
+Negative coef at row     1491  Column     1492 with value  -4.5631879E+01       
+Negative coef at row     1491  Column     1647 with value  -2.9460424E+01       
+Negative coef at row     1491  Column     1689 with value  -1.3586950E+02       
+Negative coef at row     1491  Column     1865 with value  -9.3953245E+00       
+Negative coef at row     1491  Column     2234 with value  -5.5091401E+00       
+Negative coef at row     1491  Column     2413 with value  -1.4686385E+02       
+Negative coef at row     1492  Column     2234 with value  -3.8871032E+00       
+Negative coef at row     1492  Column     2235 with value  -1.5234088E+01       
+Negative coef at row     1492  Column     2413 with value  -1.0305352E+01       
+Negative coef at row     1497  Column     1701 with value  -6.5490537E+00       
+Negative coef at row     1497  Column     1752 with value  -7.7879059E+01       
+Negative coef at row     1497  Column     1816 with value  -7.7185561E+01       
+Negative coef at row     1497  Column     1851 with value  -5.4506811E+01       
+Negative coef at row     1497  Column     1982 with value  -1.3461955E+02       
+Negative coef at row     1497  Column     2215 with value  -2.4035836E+01       
+Negative coef at row     1497  Column     2470 with value  -3.3319789E+01       
+Negative coef at row     1497  Column     2508 with value  -1.0320717E+01       
+Negative coef at row     1510  Column     1729 with value  -1.7626095E+02       
+Negative coef at row     1510  Column     1970 with value  -8.9488994E+01       
+Negative coef at row     1510  Column     2075 with value  -2.2026467E+01       
+Negative coef at row     1510  Column     2355 with value  -1.0005325E+02       
+Negative coef at row     1510  Column     2433 with value  -8.1357768E+01       
+Negative coef at row     1520  Column     1521 with value  -2.0895059E+02       
+Negative coef at row     1520  Column     2093 with value  -1.4098919E+02       
+Negative coef at row     1520  Column     2097 with value  -3.6740098E+01       
+Negative coef at row     1520  Column     2220 with value  -3.1583718E+02       
+Negative coef at row     1520  Column     2468 with value  -1.5516514E+02       
+Negative coef at row     1521  Column     2097 with value  -3.6105190E+02       
+Negative coef at row     1521  Column     2468 with value  -2.5336430E+02       
+Negative coef at row     1523  Column     1525 with value  -2.1862873E+01       
+Negative coef at row     1523  Column     1907 with value  -1.7241693E+01       
+Negative coef at row     1523  Column     2111 with value  -5.8867794E+01       
+Negative coef at row     1523  Column     2414 with value  -4.0743531E+01       
+Negative coef at row     1525  Column     1537 with value  -1.3592490E+02       
+Negative coef at row     1525  Column     1907 with value  -6.0879912E+01       
+Negative coef at row     1525  Column     1913 with value  -4.1404747E+01       
+Negative coef at row     1525  Column     1944 with value  -5.1293298E+01       
+Negative coef at row     1529  Column     1531 with value  -6.0559920E+01       
+Negative coef at row     1529  Column     1534 with value  -1.8257015E+02       
+Negative coef at row     1529  Column     2037 with value  -1.3677644E+01       
+Negative coef at row     1529  Column     2503 with value  -1.3422166E+01       
+Negative coef at row     1531  Column     2037 with value  -6.2096187E+01       
+Negative coef at row     1531  Column     2503 with value  -2.4183000E+01       
+Negative coef at row     1534  Column     1826 with value  -9.2966179E+00       
+Negative coef at row     1534  Column     2037 with value  -5.2310265E+01       
+Negative coef at row     1534  Column     2503 with value  -8.1564930E-01       
+Negative coef at row     1537  Column     1539 with value  -3.2098508E+02       
+Negative coef at row     1537  Column     1598 with value  -1.3942669E+02       
+Negative coef at row     1537  Column     1792 with value  -5.6155192E+01       
+Negative coef at row     1537  Column     2414 with value  -4.2458108E+01       
+Negative coef at row     1539  Column     1792 with value  -6.6068901E+01       
+Negative coef at row     1539  Column     1944 with value  -1.5761931E+02       
+Negative coef at row     1540  Column     1597 with value  -8.3185712E+01       
+Negative coef at row     1540  Column     1710 with value  -1.3475310E+02       
+Negative coef at row     1540  Column     1923 with value  -9.8200207E+01       
+Negative coef at row     1540  Column     2056 with value  -1.2616015E+02       
+Negative coef at row     1548  Column     1550 with value  -7.5936418E+01       
+Negative coef at row     1548  Column     2237 with value  -1.1681968E+02       
+Negative coef at row     1548  Column     2386 with value  -7.0897805E+01       
+Negative coef at row     1548  Column     2424 with value  -3.9901573E+01       
+Negative coef at row     1550  Column     1553 with value  -2.0314351E+02       
+Negative coef at row     1550  Column     1894 with value  -3.5881004E+01       
+Negative coef at row     1550  Column     2424 with value  -2.6692142E+01       
+Negative coef at row     1553  Column     1894 with value  -7.6064207E+01       
+Negative coef at row     1553  Column     2370 with value  -2.8179966E+00       
+Negative coef at row     1553  Column     2386 with value  -1.3815497E+02       
+Negative coef at row     1554  Column     1557 with value  -4.4401754E-02       
+Negative coef at row     1554  Column     1788 with value  -1.0091204E+01       
+Negative coef at row     1554  Column     1826 with value  -1.0371846E+01       
+Negative coef at row     1554  Column     2506 with value  -2.4415001E+00       
+Negative coef at row     1557  Column     1826 with value  -1.8057251E+01       
+Negative coef at row     1557  Column     2506 with value  -2.1515028E+01       
+Negative coef at row     1558  Column     2111 with value  -7.7763862E+01       
+Negative coef at row     1558  Column     2414 with value  -1.2626037E+02       
+Negative coef at row     1559  Column     1617 with value  -3.8591374E+01       
+Negative coef at row     1559  Column     1622 with value  -7.8195344E+01       
+Negative coef at row     1559  Column     2111 with value  -2.4142997E+01       
+Negative coef at row     1566  Column     1807 with value  -1.6884940E+02       
+Negative coef at row     1566  Column     2093 with value  -4.4837143E+00       
+Negative coef at row     1566  Column     2097 with value  -6.5361025E-01       
+Negative coef at row     1566  Column     2400 with value  -2.3072294E+02       
+Negative coef at row     1566  Column     2505 with value  -3.1627879E+01       
+Negative coef at row     1570  Column     1722 with value  -2.5512481E+01       
+Negative coef at row     1570  Column     1812 with value  -6.3658452E+00       
+Negative coef at row     1570  Column     2099 with value  -5.7971751E+01       
+Negative coef at row     1570  Column     2246 with value  -5.4461593E+01       
+Negative coef at row     1570  Column     2331 with value  -4.6195859E+01       
+Negative coef at row     1570  Column     2416 with value  -2.1505767E+00       
+Negative coef at row     1581  Column     1583 with value  -7.5497097E+01       
+Negative coef at row     1581  Column     1890 with value  -2.9933655E+01       
+Negative coef at row     1581  Column     1979 with value  -5.6449006E+01       
+Negative coef at row     1581  Column     2011 with value  -6.2953344E+01       
+Negative coef at row     1583  Column     1890 with value  -2.8269268E+03       
+Negative coef at row     1583  Column     2011 with value  -8.1950629E+02       
+Negative coef at row     1589  Column     1590 with value  -9.2289843E+01       
+Negative coef at row     1589  Column     2004 with value  -1.5532484E+02       
+Negative coef at row     1589  Column     2086 with value  -4.6071715E+01       
+Negative coef at row     1589  Column     2089 with value  -1.6441644E+01       
+Negative coef at row     1589  Column     2115 with value  -8.2165871E+00       
+Negative coef at row     1589  Column     2310 with value  -8.3383775E+00       
+Negative coef at row     1589  Column     2316 with value  -5.9819235E+01       
+Negative coef at row     1589  Column     2360 with value  -1.1645373E+03       
+Negative coef at row     1590  Column     2115 with value  -2.2532683E+01       
+Negative coef at row     1590  Column     2137 with value  -7.6232693E+01       
+Negative coef at row     1595  Column     1596 with value  -3.6299067E+01       
+Negative coef at row     1595  Column     1722 with value  -1.1912254E+01       
+Negative coef at row     1595  Column     1992 with value  -1.9085830E+00       
+Negative coef at row     1595  Column     2017 with value  -8.6880097E+01       
+Negative coef at row     1595  Column     2137 with value  -5.3897606E+01       
+Negative coef at row     1595  Column     2393 with value  -1.1267947E+02       
+Negative coef at row     1596  Column     1722 with value  -1.0766399E+01       
+Negative coef at row     1596  Column     2420 with value  -3.7733410E+01       
+Negative coef at row     1596  Column     2511 with value  -3.3404368E+01       
+Negative coef at row     1597  Column     1598 with value  -6.8544763E+01       
+Negative coef at row     1597  Column     1599 with value  -2.9176656E+01       
+Negative coef at row     1597  Column     1625 with value  -8.3672475E+01       
+Negative coef at row     1597  Column     1629 with value  -2.6640695E+01       
+Negative coef at row     1598  Column     1599 with value  -6.9194576E+01       
+Negative coef at row     1598  Column     1923 with value  -1.0430804E+02       
+Negative coef at row     1599  Column     1617 with value  -3.8557562E+00       
+Negative coef at row     1599  Column     1625 with value  -1.2642395E+01       
+Negative coef at row     1599  Column     2414 with value  -3.1622451E+01       
+Negative coef at row     1601  Column     1605 with value  -5.7923136E+01       
+Negative coef at row     1601  Column     1637 with value  -2.4650692E+01       
+Negative coef at row     1601  Column     1781 with value  -1.0395994E+01       
+Negative coef at row     1601  Column     1979 with value  -2.4822668E+01       
+Negative coef at row     1601  Column     2069 with value  -7.3118846E+01       
+Negative coef at row     1601  Column     2266 with value  -9.9593417E+01       
+Negative coef at row     1601  Column     2267 with value  -2.8712905E+01       
+Negative coef at row     1605  Column     1979 with value  -1.0075370E+02       
+Negative coef at row     1605  Column     2069 with value  -3.9100230E+01       
+Negative coef at row     1607  Column     1608 with value  -1.1033602E+01       
+Negative coef at row     1607  Column     1741 with value  -1.4209056E+01       
+Negative coef at row     1607  Column     1788 with value  -5.6158766E+00       
+Negative coef at row     1607  Column     1988 with value  -1.8991109E+01       
+Negative coef at row     1607  Column     2366 with value  -6.6887945E+00       
+Negative coef at row     1608  Column     1972 with value  -2.7004915E+01       
+Negative coef at row     1608  Column     1976 with value  -1.8413950E+01       
+Negative coef at row     1608  Column     2366 with value  -1.9545334E+00       
+Negative coef at row     1608  Column     2430 with value  -4.2597170E+01       
+Negative coef at row     1614  Column     1677 with value  -6.7945151E+01       
+Negative coef at row     1614  Column     1948 with value  -1.2297491E+02       
+Negative coef at row     1614  Column     2377 with value  -1.3292558E+02       
+Negative coef at row     1614  Column     2449 with value  -8.4219747E+01       
+Negative coef at row     1617  Column     1622 with value  -2.1934947E+01       
+Negative coef at row     1617  Column     1658 with value  -4.1396528E+00       
+Negative coef at row     1617  Column     2077 with value  -6.3424628E+00       
+Negative coef at row     1622  Column     1696 with value  -4.0686005E+01       
+Negative coef at row     1622  Column     2077 with value  -1.1963725E+01       
+Negative coef at row     1624  Column     1625 with value  -1.7239946E+02       
+Negative coef at row     1624  Column     1629 with value  -5.2670670E+01       
+Negative coef at row     1624  Column     2155 with value  -2.1830490E+02       
+Negative coef at row     1625  Column     1695 with value  -5.3607619E+01       
+Negative coef at row     1629  Column     1710 with value  -8.7010527E+01       
+Negative coef at row     1629  Column     2155 with value  -1.9271144E+01       
+Negative coef at row     1629  Column     2441 with value  -1.2876670E+02       
+Negative coef at row     1629  Column     2489 with value  -1.0124998E+02       
+Negative coef at row     1635  Column     1636 with value  -7.0282353E+00       
+Negative coef at row     1635  Column     1766 with value  -3.2037918E+01       
+Negative coef at row     1635  Column     2185 with value  -5.6654509E+01       
+Negative coef at row     1635  Column     2220 with value  -1.2583463E+02       
+Negative coef at row     1635  Column     2468 with value  -3.5782393E+01       
+Negative coef at row     1636  Column     2185 with value  -3.6288133E+01       
+Negative coef at row     1637  Column     1979 with value  -5.8183355E+01       
+Negative coef at row     1637  Column     2209 with value  -1.0227199E+02       
+Negative coef at row     1637  Column     2267 with value  -4.5609688E+00       
+Negative coef at row     1637  Column     2418 with value  -1.1009476E+02       
+Negative coef at row     1647  Column     1689 with value  -2.2629899E+01       
+Negative coef at row     1647  Column     1821 with value  -6.8326620E+01       
+Negative coef at row     1647  Column     2455 with value  -2.1927838E+01       
+Negative coef at row     1651  Column     1844 with value  -2.2968905E+01       
+Negative coef at row     1651  Column     1896 with value  -2.4832722E+01       
+Negative coef at row     1651  Column     2262 with value  -5.8168663E+01       
+Negative coef at row     1651  Column     2347 with value  -3.7214412E+01       
+Negative coef at row     1651  Column     2497 with value  -1.3977608E+01       
+Negative coef at row     1658  Column     1933 with value  -1.9782990E+01       
+Negative coef at row     1658  Column     2077 with value  -5.0603773E+00       
+Negative coef at row     1658  Column     2198 with value  -1.1224062E+02       
+Negative coef at row     1658  Column     2262 with value  -6.3296101E+01       
+Negative coef at row     1666  Column     1791 with value  -2.2556294E+02       
+Negative coef at row     1666  Column     1792 with value  -1.0980929E+02       
+Negative coef at row     1666  Column     1944 with value  -1.0223534E+02       
+Negative coef at row     1666  Column     2417 with value  -1.6196013E+02       
+Negative coef at row     1670  Column     1689 with value  -7.3312589E+01       
+Negative coef at row     1670  Column     1755 with value  -3.7821285E+02       
+Negative coef at row     1670  Column     2349 with value  -5.2441893E+01       
+Negative coef at row     1670  Column     2444 with value  -9.8449513E+01       
+Negative coef at row     1674  Column     1677 with value  -3.0610582E+01       
+Negative coef at row     1674  Column     1982 with value  -7.5698547E+01       
+Negative coef at row     1677  Column     1788 with value  -1.3770644E+01       
+Negative coef at row     1677  Column     1982 with value  -7.3838101E+00       
+Negative coef at row     1677  Column     2223 with value  -2.1780265E+01       
+Negative coef at row     1683  Column     1765 with value  -8.0652514E+01       
+Negative coef at row     1683  Column     1766 with value  -9.5566173E+00       
+Negative coef at row     1683  Column     1954 with value  -2.3733976E+01       
+Negative coef at row     1683  Column     2185 with value  -4.6809237E+01       
+Negative coef at row     1683  Column     2203 with value  -3.0745700E+01       
+Negative coef at row     1683  Column     2493 with value  -2.1932212E+02       
+Negative coef at row     1689  Column     1821 with value  -6.7865316E+01       
+Negative coef at row     1689  Column     2349 with value  -2.0109323E+02       
+Negative coef at row     1693  Column     1695 with value  -3.0909731E+02       
+Negative coef at row     1693  Column     2155 with value  -2.4925095E+01       
+Negative coef at row     1693  Column     2428 with value  -8.7056186E+01       
+Negative coef at row     1695  Column     1896 with value  -9.3652706E+01       
+Negative coef at row     1695  Column     2198 with value  -2.4525548E+01       
+Negative coef at row     1696  Column     1697 with value  -8.5938116E+00       
+Negative coef at row     1696  Column     2077 with value  -7.4528967E+00       
+Negative coef at row     1697  Column     2473 with value  -1.9078673E+01       
+Negative coef at row     1701  Column     1766 with value  -3.4991525E+01       
+Negative coef at row     1701  Column     1816 with value  -9.9059631E+01       
+Negative coef at row     1701  Column     1919 with value  -3.4800458E+00       
+Negative coef at row     1701  Column     1982 with value  -5.1603931E+01       
+Negative coef at row     1703  Column     1766 with value  -1.6740955E+01       
+Negative coef at row     1703  Column     2220 with value  -7.1040536E+01       
+Negative coef at row     1710  Column     2056 with value  -1.0918398E+01       
+Negative coef at row     1710  Column     2441 with value  -1.4113847E+01       
+Negative coef at row     1722  Column     1812 with value  -6.6092783E+01       
+Negative coef at row     1725  Column     1996 with value  -1.5694149E+00       
+Negative coef at row     1725  Column     2089 with value  -2.1331457E+01       
+Negative coef at row     1725  Column     2115 with value  -6.0236370E+01       
+Negative coef at row     1725  Column     2401 with value  -4.6935874E+01       
+Negative coef at row     1725  Column     2466 with value  -3.1911005E+01       
+Negative coef at row     1729  Column     1929 with value  -5.0376317E+01       
+Negative coef at row     1729  Column     2502 with value  -1.9483296E+02       
+Negative coef at row     1741  Column     1788 with value  -9.6379344E+00       
+Negative coef at row     1741  Column     1976 with value  -6.9480932E+01       
+Negative coef at row     1744  Column     1816 with value  -7.0242534E+01       
+Negative coef at row     1744  Column     2251 with value  -1.9318697E+02       
+Negative coef at row     1744  Column     2423 with value  -1.1395915E+02       
+Negative coef at row     1752  Column     1816 with value  -2.1512887E+02       
+Negative coef at row     1752  Column     1851 with value  -4.2658736E+01       
+Negative coef at row     1752  Column     2481 with value  -1.5025456E+02       
+Negative coef at row     1755  Column     1821 with value  -2.3529718E+02       
+Negative coef at row     1755  Column     2062 with value  -1.4274186E+02       
+Negative coef at row     1765  Column     1766 with value  -3.4886098E+01       
+Negative coef at row     1765  Column     2185 with value  -2.8427617E+01       
+Negative coef at row     1766  Column     1982 with value  -4.5006270E+01       
+Negative coef at row     1766  Column     2058 with value  -4.0324440E+01       
+Negative coef at row     1771  Column     2075 with value  -6.5773026E+01       
+Negative coef at row     1771  Column     2503 with value  -4.6932599E+01       
+Negative coef at row     1773  Column     1867 with value  -3.6253515E+01       
+Negative coef at row     1773  Column     2304 with value  -1.7326239E+01       
+Negative coef at row     1773  Column     2334 with value  -9.6067979E+00       
+Negative coef at row     1773  Column     2456 with value  -6.9797060E+01       
+Negative coef at row     1773  Column     2476 with value  -2.7324122E+01       
+Negative coef at row     1781  Column     1966 with value  -1.0451538E+02       
+Negative coef at row     1781  Column     1967 with value  -7.1691067E+02       
+Negative coef at row     1781  Column     2266 with value  -1.2629487E+02       
+Negative coef at row     1781  Column     2267 with value  -1.8809151E+02       
+Negative coef at row     1788  Column     1988 with value  -1.6718334E+01       
+Negative coef at row     1791  Column     1792 with value  -1.1241444E+02       
+Negative coef at row     1791  Column     1923 with value  -1.5328084E+02       
+Negative coef at row     1791  Column     2159 with value  -2.0226295E+02       
+Negative coef at row     1797  Column     2038 with value  -6.5649391E+01       
+Negative coef at row     1797  Column     2140 with value  -1.1667836E+02       
+Negative coef at row     1797  Column     2190 with value  -8.9577073E+01       
+Negative coef at row     1797  Column     2287 with value  -4.3574079E+01       
+Negative coef at row     1806  Column     1807 with value  -1.7521535E+02       
+Negative coef at row     1806  Column     2093 with value  -1.5783889E+02       
+Negative coef at row     1806  Column     2400 with value  -8.6835484E+01       
+Negative coef at row     1812  Column     2017 with value  -6.4132630E+01       
+Negative coef at row     1812  Column     2331 with value  -4.2587429E+01       
+Negative coef at row     1816  Column     1919 with value  -7.7117779E+01       
+Negative coef at row     1816  Column     2251 with value  -1.9134012E+02       
+Negative coef at row     1816  Column     2423 with value  -3.3072854E+01       
+Negative coef at row     1821  Column     2062 with value  -3.5769463E+01       
+Negative coef at row     1821  Column     2455 with value  -7.1777684E+01       
+Negative coef at row     1826  Column     2387 with value  -1.5534299E+02       
+Negative coef at row     1826  Column     2506 with value  -3.8710560E+00       
+Negative coef at row     1833  Column     1835 with value  -2.7406793E+01       
+Negative coef at row     1833  Column     2246 with value  -4.2040933E+00       
+Negative coef at row     1833  Column     2416 with value  -9.2755999E+00       
+Negative coef at row     1835  Column     2313 with value  -1.6706471E+00       
+Negative coef at row     1835  Column     2389 with value  -9.0688679E+01       
+Negative coef at row     1844  Column     1933 with value  -4.9378222E+01       
+Negative coef at row     1844  Column     1935 with value  -4.8290483E+01       
+Negative coef at row     1844  Column     1936 with value  -2.1834620E+01       
+Negative coef at row     1844  Column     2257 with value  -9.1090371E+00       
+Negative coef at row     1844  Column     2262 with value  -1.3094655E+01       
+Negative coef at row     1844  Column     2385 with value  -1.1440426E+01       
+Negative coef at row     1844  Column     2497 with value  -2.0154782E+01       
+Negative coef at row     1851  Column     2481 with value  -8.6441507E+01       
+Negative coef at row     1851  Column     2508 with value  -8.8218250E+01       
+Negative coef at row     1865  Column     2234 with value  -1.8671978E+01       
+Negative coef at row     1866  Column     1867 with value  -1.6417539E+01       
+Negative coef at row     1866  Column     2235 with value  -6.4323790E-01       
+Negative coef at row     1866  Column     2241 with value  -1.9868656E+01       
+Negative coef at row     1867  Column     1869 with value  -1.4260285E+01       
+Negative coef at row     1867  Column     2212 with value  -1.6627242E+02       
+Negative coef at row     1867  Column     2304 with value  -4.3692902E+01       
+Negative coef at row     1880  Column     1881 with value  -1.4963430E+01       
+Negative coef at row     1880  Column     2304 with value  -8.0499439E+01       
+Negative coef at row     1880  Column     2439 with value  -2.0070167E+01       
+Negative coef at row     1881  Column     2161 with value  -3.9512408E+01       
+Negative coef at row     1881  Column     2421 with value  -1.0686983E+02       
+Negative coef at row     1881  Column     2439 with value  -9.0077170E+01       
+Negative coef at row     1890  Column     1891 with value  -7.4201062E+02       
+Negative coef at row     1890  Column     1979 with value  -6.9109054E-01       
+Negative coef at row     1890  Column     2069 with value  -8.7792853E+01       
+Negative coef at row     1890  Column     2384 with value  -6.5972570E+01       
+Negative coef at row     1890  Column     2385 with value  -1.4023561E+02       
+Negative coef at row     1891  Column     2070 with value  -3.5560618E+02       
+Negative coef at row     1891  Column     2256 with value  -8.4243003E+01       
+Negative coef at row     1894  Column     2370 with value  -1.0111177E-01       
+Negative coef at row     1894  Column     2424 with value  -2.4558888E+01       
+Negative coef at row     1894  Column     2483 with value  -1.1560793E+01       
+Negative coef at row     1894  Column     2496 with value  -1.8297818E+00       
+Negative coef at row     1896  Column     2198 with value  -3.2894311E+01       
+Negative coef at row     1896  Column     2262 with value  -3.7836708E+01       
+Negative coef at row     1896  Column     2347 with value  -9.2135489E+01       
+Negative coef at row     1896  Column     2428 with value  -1.5027369E+02       
+Negative coef at row     1907  Column     1908 with value  -1.4675868E+01       
+Negative coef at row     1907  Column     1913 with value  -5.1468578E+01       
+Negative coef at row     1907  Column     2415 with value  -5.9904528E+01       
+Negative coef at row     1908  Column     1913 with value  -4.6934145E+01       
+Negative coef at row     1908  Column     2415 with value  -1.7955981E+00       
+Negative coef at row     1908  Column     2463 with value  -7.2214439E+01       
+Negative coef at row     1908  Column     2498 with value  -3.2856539E+00       
+Negative coef at row     1913  Column     1944 with value  -9.7703874E+01       
+Negative coef at row     1913  Column     2249 with value  -2.3889733E+01       
+Negative coef at row     1919  Column     2400 with value  -1.3235161E+02       
+Negative coef at row     1923  Column     2056 with value  -2.9780555E+02       
+Negative coef at row     1923  Column     2159 with value  -2.5283632E+01       
+Negative coef at row     1923  Column     2372 with value  -4.0136475E+02       
+Negative coef at row     1923  Column     2442 with value  -1.3942877E+02       
+Negative coef at row     1929  Column     2075 with value  -1.0645796E+02       
+Negative coef at row     1929  Column     2132 with value  -1.1560488E+02       
+Negative coef at row     1929  Column     2141 with value  -1.5539852E+02       
+Negative coef at row     1933  Column     2077 with value  -2.0220343E+01       
+Negative coef at row     1933  Column     2262 with value  -4.8586945E+01       
+Negative coef at row     1933  Column     2376 with value  -9.8774119E+01       
+Negative coef at row     1935  Column     1936 with value  -3.7594900E+01       
+Negative coef at row     1935  Column     2376 with value  -1.3424059E+02       
+Negative coef at row     1935  Column     2473 with value  -2.0783215E-01       
+Negative coef at row     1936  Column     2257 with value  -5.1690414E+00       
+Negative coef at row     1936  Column     2473 with value  -5.4624848E-01       
+Negative coef at row     1944  Column     2247 with value  -7.6310600E+00       
+Negative coef at row     1944  Column     2249 with value  -1.5677140E+01       
+Negative coef at row     1944  Column     2417 with value  -3.2795783E+01       
+Negative coef at row     1948  Column     1982 with value  -3.7875436E+01       
+Negative coef at row     1948  Column     2215 with value  -6.4020820E+01       
+Negative coef at row     1953  Column     2099 with value  -2.7440156E+01       
+Negative coef at row     1953  Column     2335 with value  -2.9408473E+01       
+Negative coef at row     1953  Column     2336 with value  -3.2153635E+00       
+Negative coef at row     1953  Column     2481 with value  -2.7194638E+01       
+Negative coef at row     1953  Column     2499 with value  -6.2907286E+01       
+Negative coef at row     1954  Column     2185 with value  -3.4576552E+01       
+Negative coef at row     1954  Column     2203 with value  -5.0084577E+01       
+Negative coef at row     1954  Column     2278 with value  -1.9489424E+02       
+Negative coef at row     1954  Column     2477 with value  -5.6841929E+01       
+Negative coef at row     1964  Column     1965 with value  -7.1997596E+01       
+Negative coef at row     1964  Column     1996 with value  -4.4057156E+02       
+Negative coef at row     1964  Column     2018 with value  -1.6474143E+02       
+Negative coef at row     1965  Column     2018 with value  -1.7942158E+01       
+Negative coef at row     1965  Column     2066 with value  -4.8049974E+01       
+Negative coef at row     1965  Column     2331 with value  -3.4496349E+01       
+Negative coef at row     1965  Column     2372 with value  -1.8808236E+01       
+Negative coef at row     1965  Column     2401 with value  -1.4586581E+02       
+Negative coef at row     1966  Column     1967 with value  -6.2708370E+01       
+Negative coef at row     1966  Column     2237 with value  -2.2743047E+01       
+Negative coef at row     1966  Column     2460 with value  -1.3287074E+02       
+Negative coef at row     1967  Column     2485 with value  -2.2051901E+02       
+Negative coef at row     1970  Column     1971 with value  -4.8346486E+01       
+Negative coef at row     1970  Column     2051 with value  -4.9935547E+00       
+Negative coef at row     1970  Column     2355 with value  -6.1158114E+01       
+Negative coef at row     1970  Column     2433 with value  -1.2258728E+02       
+Negative coef at row     1971  Column     2051 with value  -5.3056796E-01       
+Negative coef at row     1971  Column     2146 with value  -1.0965238E+01       
+Negative coef at row     1971  Column     2433 with value  -5.3307673E+01       
+Negative coef at row     1972  Column     1976 with value  -2.4107691E+01       
+Negative coef at row     1972  Column     2203 with value  -1.1720838E+02       
+Negative coef at row     1972  Column     2396 with value  -8.2855342E+01       
+Negative coef at row     1972  Column     2430 with value  -1.0341530E+01       
+Negative coef at row     1972  Column     2493 with value  -9.3835730E+00       
+Negative coef at row     1976  Column     2058 with value  -3.3143673E+00       
+Negative coef at row     1976  Column     2493 with value  -1.6617910E+01       
+Negative coef at row     1979  Column     2011 with value  -4.8769260E+01       
+Negative coef at row     1979  Column     2209 with value  -4.6272613E+02       
+Negative coef at row     1979  Column     2231 with value  -1.5463643E+01       
+Negative coef at row     1988  Column     1989 with value  -5.5967387E+01       
+Negative coef at row     1989  Column     2366 with value  -8.2804973E-01       
+Negative coef at row     1989  Column     2430 with value  -1.7239149E+02       
+Negative coef at row     1989  Column     2506 with value  -1.2655153E+02       
+Negative coef at row     1992  Column     1996 with value  -1.1463832E+02       
+Negative coef at row     1992  Column     2017 with value  -4.8473046E+01       
+Negative coef at row     1992  Column     2115 with value  -7.4515345E+01       
+Negative coef at row     1992  Column     2137 with value  -3.2511116E+01       
+Negative coef at row     1996  Column     2401 with value  -2.3581728E+02       
+Negative coef at row     1997  Column     2111 with value  -1.5500128E+02       
+Negative coef at row     1997  Column     2513 with value  -2.0672433E+02       
+Negative coef at row     2004  Column     2137 with value  -1.3149569E+02       
+Negative coef at row     2004  Column     2310 with value  -9.6435359E+01       
+Negative coef at row     2008  Column     2009 with value  -1.1806474E+01       
+Negative coef at row     2008  Column     2334 with value  -2.1505827E+01       
+Negative coef at row     2008  Column     2399 with value  -4.9661185E+00       
+Negative coef at row     2009  Column     2334 with value  -3.0817220E+01       
+Negative coef at row     2009  Column     2399 with value  -1.1707953E+01       
+Negative coef at row     2009  Column     2439 with value  -1.2961758E+00       
+Negative coef at row     2009  Column     2476 with value  -8.6177233E-01       
+Negative coef at row     2009  Column     2510 with value  -1.1982479E+01       
+Negative coef at row     2011  Column     2231 with value  -5.2776070E+01       
+Negative coef at row     2011  Column     2298 with value  -1.6644087E+01       
+Negative coef at row     2011  Column     2384 with value  -6.2500345E+01       
+Negative coef at row     2011  Column     2434 with value  -3.6353741E+01       
+Negative coef at row     2017  Column     2018 with value  -8.4866362E+01       
+Negative coef at row     2018  Column     2331 with value  -6.6334736E-01       
+Negative coef at row     2028  Column     2062 with value  -9.3679577E+01       
+Negative coef at row     2028  Column     2444 with value  -1.8857007E+02       
+Negative coef at row     2028  Column     2504 with value  -2.1454286E+01       
+Negative coef at row     2037  Column     2294 with value  -8.4527459E+00       
+Negative coef at row     2037  Column     2488 with value  -2.6043018E+01       
+Negative coef at row     2038  Column     2240 with value  -1.8019945E+02       
+Negative coef at row     2038  Column     2287 with value  -7.4372252E+01       
+Negative coef at row     2038  Column     2474 with value  -4.0276840E+01       
+Negative coef at row     2038  Column     2491 with value  -6.5272908E+01       
+Negative coef at row     2051  Column     2355 with value  -1.0198639E+02       
+Negative coef at row     2051  Column     2488 with value  -3.5482873E+01       
+Negative coef at row     2051  Column     2496 with value  -8.8512846E+00       
+Negative coef at row     2056  Column     2441 with value  -5.8877781E+02       
+Negative coef at row     2058  Column     2493 with value  -4.7126558E+01       
+Negative coef at row     2062  Column     2455 with value  -2.8945804E+01       
+Negative coef at row     2062  Column     2504 with value  -8.1412973E+00       
+Negative coef at row     2066  Column     2372 with value  -1.2080486E+02       
+Negative coef at row     2066  Column     2401 with value  -1.3222460E+02       
+Negative coef at row     2066  Column     2442 with value  -1.9528343E+02       
+Negative coef at row     2069  Column     2070 with value  -6.3757923E+01       
+Negative coef at row     2069  Column     2071 with value  -2.3615335E+02       
+Negative coef at row     2070  Column     2256 with value  -7.3958463E+01       
+Negative coef at row     2070  Column     2386 with value  -1.6111321E+00       
+Negative coef at row     2071  Column     2237 with value  -1.2553452E+02       
+Negative coef at row     2071  Column     2386 with value  -2.7634056E+01       
+Negative coef at row     2075  Column     2300 with value  -2.0239700E+02       
+Negative coef at row     2077  Column     2376 with value  -2.1337081E+01       
+Negative coef at row     2086  Column     2089 with value  -4.1109259E+01       
+Negative coef at row     2086  Column     2316 with value  -7.6526256E+01       
+Negative coef at row     2089  Column     2316 with value  -7.2794346E-01       
+Negative coef at row     2089  Column     2466 with value  -1.9080535E+01       
+Negative coef at row     2093  Column     2097 with value  -8.6990593E+01       
+Negative coef at row     2097  Column     2195 with value  -6.4279586E+01       
+Negative coef at row     2097  Column     2468 with value  -1.1891673E+01       
+Negative coef at row     2098  Column     2099 with value  -5.4375704E+00       
+Negative coef at row     2098  Column     2335 with value  -3.8124748E+00       
+Negative coef at row     2098  Column     2336 with value  -7.6016936E+00       
+Negative coef at row     2099  Column     2335 with value  -3.1488435E+00       
+Negative coef at row     2111  Column     2415 with value  -1.0144756E+02       
+Negative coef at row     2123  Column     2126 with value  -7.4275160E+01       
+Negative coef at row     2123  Column     2441 with value  -2.0958024E+02       
+Negative coef at row     2123  Column     2442 with value  -2.0263762E+00       
+Negative coef at row     2123  Column     2489 with value  -1.0076079E+02       
+Negative coef at row     2126  Column     2442 with value  -2.7983831E-01       
+Negative coef at row     2126  Column     2489 with value  -4.6126959E+02       
+Negative coef at row     2126  Column     2504 with value  -1.2565420E+02       
+Negative coef at row     2132  Column     2140 with value  -4.8125762E+02       
+Negative coef at row     2140  Column     2141 with value  -2.0570645E+02       
+Negative coef at row     2140  Column     2142 with value  -5.6339378E+01       
+Negative coef at row     2141  Column     2300 with value  -1.1116745E+02       
+Negative coef at row     2141  Column     2337 with value  -4.5926035E+01       
+Negative coef at row     2141  Column     2338 with value  -4.6522198E+01       
+Negative coef at row     2142  Column     2255 with value  -5.3552808E+01       
+Negative coef at row     2142  Column     2338 with value  -2.3782710E+01       
+Negative coef at row     2146  Column     2483 with value  -5.8985049E+01       
+Negative coef at row     2146  Column     2513 with value  -8.2286263E+01       
+Negative coef at row     2155  Column     2428 with value  -2.9831947E+01       
+Negative coef at row     2155  Column     2489 with value  -7.4694912E+01       
+Negative coef at row     2159  Column     2247 with value  -2.2218825E+00       
+Negative coef at row     2159  Column     2249 with value  -2.9612337E+00       
+Negative coef at row     2159  Column     2372 with value  -1.0544074E+01       
+Negative coef at row     2159  Column     2405 with value  -4.2199034E+01       
+Negative coef at row     2159  Column     2417 with value  -1.8351740E+02       
+Negative coef at row     2161  Column     2421 with value  -1.1455860E+01       
+Negative coef at row     2164  Column     2278 with value  -4.2864329E+01       
+Negative coef at row     2164  Column     2462 with value  -1.2520933E+02       
+Negative coef at row     2164  Column     2477 with value  -7.2803857E+01       
+Negative coef at row     2189  Column     2191 with value  -2.0259751E+01       
+Negative coef at row     2189  Column     2478 with value  -6.4450772E-01       
+Negative coef at row     2189  Column     2500 with value  -6.6681487E+00       
+Negative coef at row     2189  Column     2508 with value  -3.5492992E-02       
+Negative coef at row     2190  Column     2287 with value  -2.5967009E+01       
+Negative coef at row     2190  Column     2478 with value  -4.5550642E+01       
+Negative coef at row     2191  Column     2478 with value  -1.0555877E+01       
+Negative coef at row     2191  Column     2508 with value  -8.7725172E+00       
+Negative coef at row     2193  Column     2195 with value  -8.5408111E+01       
+Negative coef at row     2193  Column     2349 with value  -1.6927820E+02       
+Negative coef at row     2193  Column     2413 with value  -1.4139780E+02       
+Negative coef at row     2195  Column     2235 with value  -1.1291818E+01       
+Negative coef at row     2195  Column     2349 with value  -5.3694538E+01       
+Negative coef at row     2195  Column     2350 with value  -1.9552394E+00       
+Negative coef at row     2195  Column     2413 with value  -1.0247474E+02       
+Negative coef at row     2195  Column     2468 with value  -7.8658393E+00       
+Negative coef at row     2198  Column     2262 with value  -4.0422965E+01       
+Negative coef at row     2203  Column     2477 with value  -1.7644511E+01       
+Negative coef at row     2203  Column     2493 with value  -1.9743748E+01       
+Negative coef at row     2208  Column     2209 with value  -4.9212813E+03       
+Negative coef at row     2208  Column     2210 with value  -4.9735262E+01       
+Negative coef at row     2208  Column     2231 with value  -9.8877465E+01       
+Negative coef at row     2208  Column     2418 with value  -4.0643287E+01       
+Negative coef at row     2210  Column     2211 with value  -1.5002592E+02       
+Negative coef at row     2210  Column     2230 with value  -5.6594646E+00       
+Negative coef at row     2210  Column     2297 with value  -1.9618279E+00       
+Negative coef at row     2210  Column     2418 with value  -1.7999742E+01       
+Negative coef at row     2210  Column     2477 with value  -1.0114066E-01       
+Negative coef at row     2211  Column     2418 with value  -1.2917902E+01       
+Negative coef at row     2211  Column     2477 with value  -9.1424258E+00       
+Negative coef at row     2212  Column     2241 with value  -1.2421357E+02       
+Negative coef at row     2212  Column     2456 with value  -1.7025195E+02       
+Negative coef at row     2215  Column     2377 with value  -2.6100017E+02       
+Negative coef at row     2215  Column     2470 with value  -1.5680380E+02       
+Negative coef at row     2220  Column     2468 with value  -3.8910074E+01       
+Negative coef at row     2223  Column     2387 with value  -3.1757819E+02       
+Negative coef at row     2223  Column     2449 with value  -2.1737309E+02       
+Negative coef at row     2230  Column     2231 with value  -1.9593039E+01       
+Negative coef at row     2230  Column     2297 with value  -5.9278804E+01       
+Negative coef at row     2231  Column     2298 with value  -1.6602312E+01       
+Negative coef at row     2235  Column     2241 with value  -1.8291502E+02       
+Negative coef at row     2235  Column     2413 with value  -5.6543635E+01       
+Negative coef at row     2235  Column     2468 with value  -2.0531056E+01       
+Negative coef at row     2235  Column     2486 with value  -6.0666466E+01       
+Negative coef at row     2237  Column     2290 with value  -9.6610860E+00       
+Negative coef at row     2237  Column     2343 with value  -7.1529002E+00       
+Negative coef at row     2237  Column     2386 with value  -2.1084339E+01       
+Negative coef at row     2237  Column     2424 with value  -8.7119024E+01       
+Negative coef at row     2240  Column     2474 with value  -1.3423469E+02       
+Negative coef at row     2240  Column     2491 with value  -1.7167748E+01       
+Negative coef at row     2241  Column     2456 with value  -4.4856774E+00       
+Negative coef at row     2241  Column     2457 with value  -3.9765760E+02       
+Negative coef at row     2246  Column     2416 with value  -7.6654360E+01       
+Negative coef at row     2247  Column     2249 with value  -3.8857829E+00       
+Negative coef at row     2249  Column     2463 with value  -1.1398449E+02       
+Negative coef at row     2249  Column     2491 with value  -8.2252470E+00       
+Negative coef at row     2251  Column     2423 with value  -2.8751509E+02       
+Negative coef at row     2251  Column     2481 with value  -6.5519803E+02       
+Negative coef at row     2252  Column     2323 with value  -7.3040832E+02       
+Negative coef at row     2252  Column     2423 with value  -3.8613356E+02       
+Negative coef at row     2252  Column     2499 with value  -3.4730301E+00       
+Negative coef at row     2255  Column     2338 with value  -1.4009066E+02       
+Negative coef at row     2255  Column     2377 with value  -9.8647548E+00       
+Negative coef at row     2255  Column     2449 with value  -2.9607540E+00       
+Negative coef at row     2255  Column     2503 with value  -1.4853573E+02       
+Negative coef at row     2256  Column     2257 with value  -1.4569049E+05       
+Negative coef at row     2256  Column     2385 with value  -6.1607403E+00       
+Negative coef at row     2256  Column     2386 with value  -2.6745853E+01       
+Negative coef at row     2257  Column     2370 with value  -5.6589972E+01       
+Negative coef at row     2266  Column     2267 with value  -8.3630169E+01       
+Negative coef at row     2267  Column     2268 with value  -1.5698886E+02       
+Negative coef at row     2267  Column     2418 with value  -2.5364348E-01       
+Negative coef at row     2268  Column     2418 with value  -2.7459830E-01       
+Negative coef at row     2268  Column     2431 with value  -1.3825328E+01       
+Negative coef at row     2268  Column     2485 with value  -7.4039828E+01       
+Negative coef at row     2268  Column     2506 with value  -3.0567911E-01       
+Negative coef at row     2278  Column     2462 with value  -3.3653056E+01       
+Negative coef at row     2278  Column     2486 with value  -2.0165803E+01       
+Negative coef at row     2286  Column     2287 with value  -2.8805414E-03       
+Negative coef at row     2286  Column     2500 with value  -1.5829842E+01       
+Negative coef at row     2287  Column     2474 with value  -7.0187019E+01       
+Negative coef at row     2287  Column     2500 with value  -2.5071119E+01       
+Negative coef at row     2290  Column     2291 with value  -1.1752895E+01       
+Negative coef at row     2290  Column     2294 with value  -2.4262103E+01       
+Negative coef at row     2290  Column     2343 with value  -1.8205627E+01       
+Negative coef at row     2291  Column     2343 with value  -2.7452480E+01       
+Negative coef at row     2294  Column     2343 with value  -1.0821791E+00       
+Negative coef at row     2294  Column     2344 with value  -3.3418561E+00       
+Negative coef at row     2294  Column     2488 with value  -5.7754623E+00       
+Negative coef at row     2294  Column     2496 with value  -4.3475455E+01       
+Negative coef at row     2297  Column     2298 with value  -8.1507263E+00       
+Negative coef at row     2297  Column     2299 with value  -9.6984745E+01       
+Negative coef at row     2297  Column     2476 with value  -5.2151070E-02       
+Negative coef at row     2298  Column     2434 with value  -5.7519225E+00       
+Negative coef at row     2298  Column     2510 with value  -1.3520061E+01       
+Negative coef at row     2299  Column     2476 with value  -9.8089605E+00       
+Negative coef at row     2299  Column     2510 with value  -1.9288400E-01       
+Negative coef at row     2300  Column     2337 with value  -9.1780980E+01       
+Negative coef at row     2300  Column     2338 with value  -6.9283720E+01       
+Negative coef at row     2300  Column     2503 with value  -9.4263046E+01       
+Negative coef at row     2304  Column     2326 with value  -1.7953091E+01       
+Negative coef at row     2304  Column     2334 with value  -1.3862919E+01       
+Negative coef at row     2304  Column     2399 with value  -1.1226811E+01       
+Negative coef at row     2310  Column     2360 with value  -4.5265972E+01       
+Negative coef at row     2310  Column     2393 with value  -1.4264554E+02       
+Negative coef at row     2310  Column     2505 with value  -7.6435634E+01       
+Negative coef at row     2310  Column     2511 with value  -4.9579766E+01       
+Negative coef at row     2313  Column     2474 with value  -2.8414571E+02       
+Negative coef at row     2313  Column     2500 with value  -2.0031311E+02       
+Negative coef at row     2316  Column     2350 with value  -9.0219897E+00       
+Negative coef at row     2316  Column     2361 with value  -9.3220199E+01       
+Negative coef at row     2316  Column     2466 with value  -8.3508573E-01       
+Negative coef at row     2316  Column     2505 with value  -3.4547778E+00       
+Negative coef at row     2323  Column     2423 with value  -3.1131785E+02       
+Negative coef at row     2323  Column     2481 with value  -2.1919369E+03       
+Negative coef at row     2323  Column     2499 with value  -3.0791479E+01       
+Negative coef at row     2326  Column     2399 with value  -8.0175382E+00       
+Negative coef at row     2326  Column     2439 with value  -3.6513030E+01       
+Negative coef at row     2331  Column     2405 with value  -1.4124776E+02       
+Negative coef at row     2331  Column     2416 with value  -6.8721916E+01       
+Negative coef at row     2334  Column     2399 with value  -1.1094664E+01       
+Negative coef at row     2334  Column     2476 with value  -1.7402437E+01       
+Negative coef at row     2336  Column     2481 with value  -8.4544248E+00       
+Negative coef at row     2343  Column     2344 with value  -8.1461455E+00       
+Negative coef at row     2343  Column     2460 with value  -1.0197176E+02       
+Negative coef at row     2344  Column     2460 with value  -3.4161607E+01       
+Negative coef at row     2344  Column     2485 with value  -5.6740783E+01       
+Negative coef at row     2344  Column     2506 with value  -2.1862050E+01       
+Negative coef at row     2346  Column     2347 with value  -3.6375690E+02       
+Negative coef at row     2346  Column     2348 with value  -1.9838287E+02       
+Negative coef at row     2346  Column     2428 with value  -2.3695796E+02       
+Negative coef at row     2347  Column     2348 with value  -8.5181599E+00       
+Negative coef at row     2347  Column     2497 with value  -7.7486786E+01       
+Negative coef at row     2348  Column     2428 with value  -1.6569633E+01       
+Negative coef at row     2348  Column     2439 with value  -2.6720301E+01       
+Negative coef at row     2348  Column     2497 with value  -7.5973785E-01       
+Negative coef at row     2349  Column     2350 with value  -8.8264394E+01       
+Negative coef at row     2350  Column     2443 with value  -3.3034566E+01       
+Negative coef at row     2350  Column     2444 with value  -1.2825574E+01       
+Negative coef at row     2350  Column     2445 with value  -2.7534338E-01       
+Negative coef at row     2355  Column     2488 with value  -2.3813607E+01       
+Negative coef at row     2360  Column     2361 with value  -1.7226342E+03       
+Negative coef at row     2361  Column     2505 with value  -9.3937815E+01       
+Negative coef at row     2370  Column     2386 with value  -1.2178307E+01       
+Negative coef at row     2370  Column     2473 with value  -3.8825921E+00       
+Negative coef at row     2372  Column     2405 with value  -1.1235519E+00       
+Negative coef at row     2372  Column     2442 with value  -4.9810999E+01       
+Negative coef at row     2376  Column     2473 with value  -1.5391118E+00       
+Negative coef at row     2377  Column     2449 with value  -1.0738918E+00       
+Negative coef at row     2377  Column     2470 with value  -3.6432188E+01       
+Negative coef at row     2384  Column     2385 with value  -1.1604064E+02       
+Negative coef at row     2384  Column     2434 with value  -7.4137138E+01       
+Negative coef at row     2385  Column     2434 with value  -4.1704184E+00       
+Negative coef at row     2385  Column     2497 with value  -1.0396862E+01       
+Negative coef at row     2385  Column     2510 with value  -2.0466971E+00       
+Negative coef at row     2387  Column     2449 with value  -2.0824777E+00       
+Negative coef at row     2387  Column     2503 with value  -1.7609358E+00       
+Negative coef at row     2389  Column     2405 with value  -4.3055251E-01       
+Negative coef at row     2389  Column     2416 with value  -5.6409565E+01       
+Negative coef at row     2389  Column     2474 with value  -9.0220931E+00       
+Negative coef at row     2393  Column     2511 with value  -1.0934670E+02       
+Negative coef at row     2396  Column     2418 with value  -4.2813813E+00       
+Negative coef at row     2396  Column     2431 with value  -2.4584521E+01       
+Negative coef at row     2396  Column     2477 with value  -6.2620664E+01       
+Negative coef at row     2399  Column     2439 with value  -1.3086159E+00       
+Negative coef at row     2400  Column     2423 with value  -1.7167209E+02       
+Negative coef at row     2401  Column     2442 with value  -8.2683235E+00       
+Negative coef at row     2401  Column     2466 with value  -1.1483949E+00       
+Negative coef at row     2405  Column     2416 with value  -1.3272179E+02       
+Negative coef at row     2415  Column     2502 with value  -2.8327654E+00       
+Negative coef at row     2415  Column     2513 with value  -4.1334497E+01       
+Negative coef at row     2420  Column     2499 with value  -5.3204852E+01       
+Negative coef at row     2420  Column     2511 with value  -3.6545379E+01       
+Negative coef at row     2421  Column     2439 with value  -3.6237192E+02       
+Negative coef at row     2421  Column     2455 with value  -1.9251073E+02       
+Negative coef at row     2421  Column     2504 with value  -1.6287541E+02       
+Negative coef at row     2423  Column     2505 with value  -2.1746446E+00       
+Negative coef at row     2423  Column     2511 with value  -1.6447187E+01       
+Negative coef at row     2424  Column     2496 with value  -1.6443472E+02       
+Negative coef at row     2428  Column     2439 with value  -1.3144268E+02       
+Negative coef at row     2428  Column     2489 with value  -2.4461410E+02       
+Negative coef at row     2428  Column     2504 with value  -1.1301614E+02       
+Negative coef at row     2430  Column     2431 with value  -2.6896009E+02       
+Negative coef at row     2431  Column     2506 with value  -3.5622970E+01       
+Negative coef at row     2433  Column     2502 with value  -1.0005719E+02       
+Negative coef at row     2433  Column     2513 with value  -2.2949044E+00       
+Negative coef at row     2434  Column     2510 with value  -2.5286058E+01       
+Negative coef at row     2441  Column     2442 with value  -5.3667837E+02       
+Negative coef at row     2443  Column     2444 with value  -5.2950361E+01       
+Negative coef at row     2444  Column     2445 with value  -1.4608752E+01       
+Negative coef at row     2444  Column     2504 with value  -4.0196562E+00       
+Negative coef at row     2445  Column     2466 with value  -1.3516784E+01       
+Negative coef at row     2445  Column     2504 with value  -2.8442695E-01       
+Negative coef at row     2455  Column     2504 with value  -2.8734287E+02       
+Negative coef at row     2456  Column     2457 with value  -8.2402917E+01       
+Negative coef at row     2456  Column     2476 with value  -3.0843257E-01       
+Negative coef at row     2457  Column     2462 with value  -8.4805401E+01       
+Negative coef at row     2457  Column     2476 with value  -9.5134086E-01       
+Negative coef at row     2460  Column     2485 with value  -1.8424307E+02       
+Negative coef at row     2462  Column     2477 with value  -5.3635820E+00       
+Negative coef at row     2462  Column     2486 with value  -1.6802276E+02       
+Negative coef at row     2463  Column     2472 with value  -2.8424021E+00       
+Negative coef at row     2468  Column     2486 with value  -1.5576913E+01       
+Negative coef at row     2470  Column     2478 with value  -2.2035767E+00       
+Negative coef at row     2470  Column     2508 with value  -8.0885784E+01       
+Negative coef at row     2472  Column     2491 with value  -1.9964954E+02       
+Negative coef at row     2472  Column     2498 with value  -1.1743203E+02       
+Negative coef at row     2473  Column     2483 with value  -1.7062083E+01       
+Negative coef at row     2474  Column     2491 with value  -6.1545556E+00       
+Negative coef at row     2481  Column     2508 with value  -3.9975119E+00       
+Negative coef at row     2488  Column     2496 with value  -6.5041672E+00       
+Negative coef at row     2498  Column     2502 with value  -9.8159029E+00       
+Negative coef at row     2499  Column     2511 with value  -8.6906385E-01       
+cmo/addatt/cmotet/ccoef/VDOUBLE/scalar/nnodes/linear/permanent/afgx/0.0/        
+finish                                                                          
+cmo/addatt/cmotet/ij_ccoef/VINT/scalar/nnodes/linear/permanent/afgx/0.0/        
+finish                                                                          
+AMatbld3d_stor: npoints =     2808  ncoefs =      31120                         
+AMatbld3d_stor: Number of unique coefs =     16964                              
+AMatbld3d_stor: Maximum num. connections to a node =         32                 
+AMatbld3d_stor: Volume min =  -8.7679206E+04                                    
+AMatbld3d_stor: Volume max =   9.3554431E+04                                    
+AMatbld3d_stor: Total Volume:   5.9913104E+05                                   
+AMatbld3d_stor: abs(Aij/xij) min =   0.0000000E+00                              
+AMatbld3d_stor: abs(Aij/xij) max =   1.4569049E+05                              
+AMatbld3d_stor: (Aij/xij) max =   1.4569049E+05                                 
+AMatbld3d_stor: (Aij/xij) min =  -1.5650065E+04                                 
+AMatbld3d_stor Matrix coefficient values stored as scalar area/distance         
+AMatbld3d_stor Matrix compression used for graph, not coefficient values        
+cmotet attribute with voronoi volumes created with name vorvol                  
+ 
+*** SPARSE COEFFICIENT MATRIX _gstor SUCCESSFUL ***                             
+ 
+3D Matrix Coefficient file written with name -notset-                           
+ 
+cmo addatt cmotet volume tetvol                                                 
+ADDATT/volume: creating new attribute: tetvol                                   
+cmo printatt cmotet volvor minmax                                               
+ cannot attribute volvor in cmotet                                              
+cmo printatt cmotet voltet minmax                                               
+ cannot attribute voltet in cmotet                                              
+# color by inside and surface                                                   
+cmo setatt cmotet itetclr 2                                                     
+     18336 values reset for attribute itetclr                                   
+ 
+interpolate/map/cmotet itetclr/1,0,0/cmotet1 itetclr                            
+elements in indexed set  =      18336                                           
+ 
+INTRP METHOD:        map   FUNCTION:       user                                 
+      TIEBREAKER:     maxtie   FLAG:      plus1  0.200000000000E+01             
+ 
+cmo select cmotet1                                                              
+finish                                                                          
+cmo kdtree build                                                                
+cmo/addatt//v2/INT/scalar/scalar/constant/temporary//2.0                        
+finish                                                                          
+cmo/addatt//linkt/VINT/v2/nelements//temporary/x/0.0                            
+finish                                                                          
+cmo/addatt//v12/INT/scalar/scalar/constant/temporary//12.0                      
+finish                                                                          
+cmo/addatt//sbox/VDOUBLE/v12/nelements/linear/temporary/x/0.0                   
+finish                                                                          
+finish                                                                          
+cmo setatt cmotet1 idebug/0                                                     
+         1 values reset for attribute idebug                                    
+ 
+finish                                                                          
+ 
+Build kdtree done - assign the enclosing element for each.                      
+ 
+ 
+     Sink point   Elems Searched  Elements Found  Percent Done                  
+ 
+            918              606            606        5 %                      
+           1835             1202           1202       10 %                      
+           2752             1818           1818       15 %                      
+           3669             2389           2389       20 %                      
+           4586             2975           2975       25 %                      
+           5503             3517           3517       30 %                      
+           6420             4075           4075       35 %                      
+           7337             4665           4665       40 %                      
+           8254             5298           5298       45 %                      
+           9171             5902           5902       50 %                      
+          10088             6495           6495       55 %                      
+          11005             7062           7062       60 %                      
+          11922             7602           7602       65 %                      
+          12839             8134           8134       70 %                      
+          13756             8602           8602       75 %                      
+          14673             9105           9105       80 %                      
+          15590             9608           9608       85 %                      
+          16507            10237          10237       90 %                      
+          17424            10828          10828       95 %                      
+          18336            11415          11415       100%                      
+ 
+Total Source Elements:                   11200                                  
+Total Sink   Centroids:                  18336                                  
+ 
+WARNING: Sink points not inside source grid:                     6921           
+Outside sink points flagged with value:                          2.00           
+ 
+interpolate/map done.                                                           
+ 
+cmo select cmotet                                                               
+finish                                                                          
+cmo kdtree release                                                              
+cmo/DELATT/cmotet1/sbox                                                         
+finish                                                                          
+cmo/DELATT/cmotet1/v12                                                          
+finish                                                                          
+cmo/DELATT/cmotet1/linkt                                                        
+finish                                                                          
+cmo/DELATT/cmotet1/v2                                                           
+finish                                                                          
+finish                                                                          
+interpolate/voronoi/cmotet imt/1,0,0/cmo_inout imt                              
+nodes in indexed point set  =       2807                                        
+ 
+INTRP METHOD:    voronoi   FUNCTION:        max                                 
+      TIEBREAKER:     maxtie   FLAG:      plus1  0.300000000000E+01             
+ 
+ 
+Build kdtree0 done - assign nearest node for each.                              
+ 
+ 
+     Sink point   Points Searched   Points Found  Percent Done                  
+ 
+            703              703            703       25 %                      
+           1405             1405           1405       50 %                      
+           2107             2107           2107       75 %                      
+           2807             2807           2807       100%                      
+ 
+Total Source Nodes:                    2808                                     
+Total Sink   Nodes:                    2808                                     
+ 
+Indexed sink points:            2807 Total unchanged:               1           
+ 
+ 
+interpolate/voronoi done.                                                       
+ 
+cmo select cmotet                                                               
+finish                                                                          
+cmo kdtree release                                                              
+finish                                                                          
+dump/gmv/tet_inout.gmv/cmotet                                                   
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+dump/avs2/tet_inout.inp/cmotet                                                  
+cmo/modatt/-def-/-def-/ioflag/x                                                 
+finish                                                                          
+finish                                                                          
+LaGriT successfully completed                                                   
