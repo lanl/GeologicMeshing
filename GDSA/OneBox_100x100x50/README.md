@@ -20,7 +20,7 @@ Vorocrust Mesh clipped:
 
 Connect into Tets Inside voronoi and surface seeds, vs all voronoi seeds:
 
-<img width="300" src="tet_inseeds_surfpts.png"> <img width="300" src="tet_seeds_inout.png">
+<img width="300" src="images/tet_inseeds_surfpts.png"> <img width="300" src="images/tet_seeds_inout.png">
 
 
 Files:
