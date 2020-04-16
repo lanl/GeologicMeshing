@@ -25,6 +25,7 @@ Connect into Tets Inside voronoi and surface seeds, vs all voronoi seeds:
 
 Files:
 
+```
 VC (vorocrust input and output files):
 -rw-r--r--@ 1 tamiller  staff  1221810 Mar 19 11:08 Vmesh_001.ply
 -rw-r--r--@ 1 tamiller  staff   343933 Mar 19 11:08 Voronoi_Seeds.csv
@@ -48,5 +49,5 @@ pflotran_tara (vorocrust input files):
 -rw-r--r--  1 tamiller  staff    5490 Mar 30 11:19 README.txt
 -rw-r--r--@ 1 tamiller  staff    4919 Mar 30 09:59 load_voro_mesh_100x100x50.py
 -rw-r--r--@ 1 tamiller  staff     127 Mar 19 11:08 vc.in
-
+```
 
